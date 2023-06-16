@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+
+header {
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 75px;
+	color: white;
+	display: flex;
+	position: fixed;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center; /* 가운데 정렬 추가 */
+	background-color: white;
+}
+
+header ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	text-align: center; /* 가운데 정렬 추가 */
+	font-size: 20px;
+}
+
+header li {
+	display: inline-block;
+	margin-right: 40px;
+	font-size: 20px;
+}
+
+
+header li a {
+	text-decoration: none;
+	color: #000000;
+	font-size: 20px;
+}
+
+header li img {
+	max-width: 40%;
+	height: auto;
+	float: left;
+}
+.inli{
+	display: block;
+}
+
+nav {width:960px; margin:0 auto;}
+nav > ul > li {float:left; line-height:50px; margin-right:40px; position: relative;}
+nav > ul > li ul{ width:100%; opacity:0; position: absolute;flex-direction: column; transition:0.3s 0.2s; }
+nav > ul > li ul li{white-space:nowrap; }
+
+nav > ul > li:hover ul{opacity:1; }
