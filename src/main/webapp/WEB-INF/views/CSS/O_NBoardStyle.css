@@ -1,0 +1,239 @@
+@charset "utf-8";
+
+a {
+	color: #477A7B;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+input[type="text"] {
+	font-size: 17px;
+	height: 35px;
+	width: 955px;
+	padding-left: 10px;
+}
+
+textarea {
+	font-size: 17px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+textarea::placeholder {
+	font-size: 17px;
+}
+
+#board-search .search-window {
+	padding: 15px 0;
+	background-color: #f9f7f9;
+}
+
+#board-search .search-window .search-wrap {
+	position: relative;
+	margin: 0 auto;
+	width: 80%;
+	max-width: 650px;
+	display: flex;
+ 	align-items: center;
+}
+
+#board-search .search-wrap select {
+  height: 40px;
+  width: 120px;
+  font-size: 16px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input {
+	height: 40px;
+	width: 100%;
+	font-size: 17px;
+	padding: 7px 14px;
+	border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input:focus {
+	border-color: #333;
+	outline: 0;
+	border-width: 1px;
+}
+
+#board-search .search-window .search-wrap .btn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 108px;
+	padding: 0;
+	font-size: 16px;
+}
+
+.board-table {
+	font-size: 17px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-button {
+	font-size: 17px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+
+.board-table .th-num {
+	width: 50px;
+	text-align: center;
+}
+
+.board-table .th-wnum { /* 글쓰기 시 제목 너비 */
+	width: 100px;
+	text-align: center;
+}
+.board-table .th-id { /* 글쓰기 시 제목 너비 */
+	width: 120px;
+	text-align: center;
+	margin-right: 20px;
+}
+.board-table .non { /* 글쓰기 시 제목 너비 */
+	text-align: center;
+}
+
+.board-table .th-title {
+	width: 200px;
+	text-align: center;
+}
+
+.board-table .th-date {
+	width: 50px;
+}
+
+.board-table .th-writer {
+	width: 50px;
+}
+
+.board-table .th-left {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: left;
+}
+
+.board-table .th-right {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}
+
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.board-table tbody th p {
+	display: none;
+}
+
+
+
+.btn-dark {
+	background: #555;
+	color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+	background: #373737;
+	border-color: #373737;
+	color: #fff;
+}
+
+.btn-dark {
+	background: #555;
+	color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+	background: #373737;
+	border-color: #373737;
+	color: #fff;
+}
+/* reset */
+* {
+	list-style: none;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
+
+.custom-submit-button {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 17px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.custom-submit-button:hover {
+	background-color: #477A7B;
+}
+
+.custom-submit-button:active {
+	background-color: #577C7C;
+}
+
+
+

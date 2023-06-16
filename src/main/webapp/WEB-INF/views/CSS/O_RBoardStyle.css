@@ -1,0 +1,22 @@
+@charset "EUC-KR";
+
+.review-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr); 
+	gap: 1%; 
+	text-align : center;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.img-left {
+	display: inline-block;
+	text-align: left;
+}
+
+.comment input[type="text"] {
+	font-size: 17px;
+	height: 35px;
+	width: 850px;
+	padding-left: 10px;
+}

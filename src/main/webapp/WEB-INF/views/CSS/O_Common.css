@@ -1,0 +1,181 @@
+@charset "utf-8";
+
+.top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    color: #477A7B;
+    border: 2px solid #477A7B;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.container {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.page-title {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.page-title h3 { 
+	font-size: 40px;
+	color: #477A7B;
+	font-weight: 800;
+}
+
+.page-title h4 {
+	font-size: 30px;
+	color: #477A7B;
+	font-weight: 800;
+}
+
+.page-title a {
+	display: inline-block;
+	padding: 8px 12px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: white;
+	color: #477A7B;
+	border-radius: 40%;
+	cursor: pointer;
+}
+
+.page-title .selected a {
+	display: inline-block;
+	padding: 8px 12px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #477A7B;
+	color: white;
+	border-radius: 40%;
+	cursor: pointer;
+}
+
+.page-title a:hover {
+  background-color: #477A7B;
+  color: white;
+}
+
+.notice-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 17px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: red;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+}
+
+.list-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 17px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #477A7B;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+}
+
+.list-button a {
+	color: white;
+}
+.update-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 17px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #407A7B;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+}
+
+.update-button a {
+	color: white;
+}
+
+.delete-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 17px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #477A13;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+}
+
+.delete-button a {
+	color: white;
+}
+
+.re-button {
+	display: inline-block;
+	padding: 2px 15px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #477A7B;
+	color: white;
+	border-radius: 80%;
+	cursor: pointer;
+	border: none;
+}
+
+.comment-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #808080;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+	margin-right: 3px;
+	margin-left: 3px;
+}
+.cancel-button {
+	display: inline-block;
+	padding: 6px 10px;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #A9A9A9;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+	margin-right: 3px;
+	margin-left: 3px;
+}
