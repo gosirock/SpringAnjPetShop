@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.T_cartDao">
+
+
+<select id="plistDao" resultType="com.springlec.base.model.T_productDto">
+		SELECT c.seq, p.pthumbnail, c.count, c.userid, c.pid, p.pname, p.pprice
+        FROM user u, cart c, product p
+        WHERE u.userid = c.userid AND p.pid = c.pid <!-- AND u.userid = #{userId} -->
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper> 	<!-- BDaoImpl과 연결 -->

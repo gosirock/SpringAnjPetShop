@@ -234,8 +234,8 @@
 	
 
 	</main>
-	<c:forEach items="${list}" var="dto">
-		<form id="form_${dto.pid}" action="T_cart.do?pid=${dto.pid}"
+	<c:forEach items="${plist}" var="dto">
+		<form id="form_${dto.pid}" action="T_cart?pid=${dto.pid}"
 			method="post">
 			<table style="border-top: 2px solid #E8E8E8;">
 				<tr>
