@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Container Styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Notice Styles */
+        .notice {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .notice h2 {
+            margin-top: 0;
+        }
+        
+        .notice .info {
+            margin-bottom: 10px;
+        }
+        
+        .notice .content {
+            white-space: pre-wrap;
+        }
+        
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        
+        th {
+            background-color: #f9f9f9;
+        }

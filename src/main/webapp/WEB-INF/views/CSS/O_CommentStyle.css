@@ -1,0 +1,105 @@
+@charset "utf-8";
+.comment-table {
+	font-size: 17px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+
+.comment-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.comment-table a:hover {
+	text-decoration: underline;
+}
+
+.comment-table th {
+	text-align: center;
+}
+
+.comment-table .th-num {
+	width: 50px;
+	text-align: center;
+}
+
+.comment-table .th-wnum { /* 글쓰기 시 제목 너비 */
+	width: 100px;
+	text-align: center;
+}
+.comment-table .th-id { /* 글쓰기 시 제목 너비 */
+	width: 120px;
+	text-align: center;
+	margin-right: 20px;
+}
+.comment-table .non { /* 글쓰기 시 제목 너비 */
+	text-align: center;
+}
+
+.comment-table .th-title {
+	width: 200px;
+	text-align: center;
+}
+
+.comment-table .th-date {
+	width: 50px;
+}
+
+.comment-table .th-writer {
+	width: 50px;
+}
+
+.comment-table .th-left {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: left;
+}
+
+.comment-table .th-right {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+.comment-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.comment-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}
+
+.comment-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.comment-table tbody th p {
+	display: none;
+}
+
+.comment-button {
+	display: inline-block;
+	padding: 3px 5px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #477A7B;
+	color: white;
+	border-radius: 3px;
+	cursor: pointer;
+	border: none;
+}
+
+.comment-table input[type="text"] {
+    width: 1000px; /* 원하는 길이로 조정하세요 */
+}

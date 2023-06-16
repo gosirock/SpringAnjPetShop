@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+a {
+	color: #477A7B;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.qna select {
+  height: 40px;
+  width: 100px;
+  font-size: 12px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+
+.longSelect select {
+  height: 40px;
+  width: 1000px;
+  font-size: 16px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+
+.qna input[type="text"] {
+	font-size: 17px;
+	height: 35px;
+	width: 950px;
+	padding-left: 10px;
+}
+
+section.notice {
+	padding: 80px 0;
+}
+
+.board-table {
+	font-size: 17px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-button {
+	font-size: 17px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+.board-table td {
+	text-align: center;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+	padding-left: 20px;
+}
+
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.board-table tbody th p {
+	display: none;
+}
+
+/* reset */
+* {
+	list-style: none;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.container {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
+
+
+.tr-background {
+	background-color: #f9f7f9;
+}
+
+#table_detail tr:hover {
+	background-color: #F2F2F2;
+}
+
+#table_detail .hidden_row {
+	display: none;
+}
+
+.toggle-icon {
+	font-size: 20px;
+}
+
+.toggle-icon-wrapper {
+	margin-right: 15px;
+	float: right;
+}
+
+
+.left-tap {
+	margin-left: 30px;
+}
+
+.custom-padding {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.custom-padding[data-padding="20"] {
+    padding-left: 20px;
+}
+
+.custom-padding[data-padding="60"] {
+    padding-left: 60px;
+}
