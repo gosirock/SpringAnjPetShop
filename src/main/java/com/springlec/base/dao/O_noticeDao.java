@@ -7,6 +7,7 @@ import com.springlec.base.model.O_noticeDto;
 
 public interface O_noticeDao {
 
+	// 공지사항
 	public List<O_noticeDto> getNoticeList(String queryName, String queryContent, int startNum, int itemPerPage) throws Exception;
 	public int getNoticeCount(String queryName, String queryContent) throws Exception;
 	public O_noticeDto getNoticeDetail(int nSeq) throws Exception;

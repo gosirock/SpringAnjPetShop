@@ -19,24 +19,6 @@
 <script src="JS/O_ScrollTop.js"></script>
 
 <script type="text/javascript">
-	function writeCheck(){
-		const form = document.writeFAQ
-		const n_title = form.n_title.value
-		const n_content = form.n_content.value
-		
-		if(n_title == ""){
-			alert("제목을 입력해 주세요.")
-			return
-		}
-		if(n_content == ""){
-			alert("내용을 입력해 주세요.")
-			return
-		}
-		form.action = "O_WriteFAQ.do";
-		document.productinfo.submit();
-	}
-</script>
-<script type="text/javascript">
 	$(document).ready(function() {
 		$(".hidden_row").hide(); // 페이지 로드 시 숨겨진 행 숨기기
 		$(".toggle-icon").text("+"); // 초기에 토글 아이콘 "+"로 표시
@@ -83,25 +65,7 @@
 		);
 	});
 </script>
-<!-- <script type="text/javascript">
-	function setTitleAndContent(SelectedSeq){
-		var FAQList = ${FAQList};
-		var seq = SelectedSeq;
-		const selectedDto = FAQList.find(dto => dto.seq === seq);
-		
-		const n_title = selectedDto.n_title;
-		const n_content = selectedDto.n_content;
-		
-		var n_titleInput = document.getElementById("n_title");
-	    var n_contentTextarea = document.getElementById("n_content");
-	    
-	    n_titleInput.removeAttribute("readonly");
-		n_titleInput.value = n_title;
-		n_contentTextarea.removeAttribute("readonly");
-		n_contentTextarea.value = n_content;
-		
-	}
-</script> -->
+
 </head>
 <body>
 <!------------------------- /header ---------------------------------->
@@ -122,17 +86,17 @@
 								</li>
 								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="#">COMMUNITY</a>
+										<a href="O_review">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="#">NOTICE</a>
+										<a href="O_notice">NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
 								<li class="main-nav04"><a href="cart.do">CART</a></li>        
@@ -163,10 +127,10 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_Notice.do">NOTICE</a> 
-			<span class="selected"><a href="O_FAQ.do">FAQ</a></span>
-			<a href="O_QNA.do">Q&A</a> 
-			<a href="O_Review.do">REVIEW</a> 
+			<a href="O_notice">NOTICE</a> 
+			<span class="selected"><a href="O_faq">FAQ</a></span>
+			<a href="O_qna">Q&A</a> 
+			<a href="O_review">REVIEW</a> 
 		<br><br>
 	</div>
 	

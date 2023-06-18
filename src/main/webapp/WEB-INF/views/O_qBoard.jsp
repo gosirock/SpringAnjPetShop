@@ -66,17 +66,17 @@ function loginCheck(){
 								</li>
 								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="cart.do">COMMUNITY</a>
+										<a href="O_notice">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="#">NOTICE</a>
+										<a href="O_notice">NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
 								<li class="main-nav04"><a href="#">CART</a></li>        
@@ -105,10 +105,10 @@ function loginCheck(){
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_Notice.do">NOTICE</a>
-			<a href="O_FAQ.do">FAQ</a> 
-			<span class="selected"><a href="O_QNA.do">Q&A</a></span>
-			<a href="O_Review.do">REVIEW</a> 
+			<a href="O_notice">NOTICE</a>
+			<a href="O_faq">FAQ</a> 
+			<span class="selected"><a href="O_qna">Q&A</a></span>
+			<a href="O_review">REVIEW</a> 
 		<br><br>
 	</div>
 
@@ -119,7 +119,7 @@ function loginCheck(){
 	<div id="board-search">
 		<div class="container">
 			<div class="search-window">
-				<form action="O_QNA.do" method="post">
+				<form action="O_qna" method="post">
 					<div class="search-wrap">
 						<select name="query">
 							<option value="qna_title">제목</option>
