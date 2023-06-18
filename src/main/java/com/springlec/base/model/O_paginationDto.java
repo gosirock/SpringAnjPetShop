@@ -1,6 +1,6 @@
 package com.springlec.base.model;
 
-public class O_PageNationDto {
+public class O_paginationDto {
 
 	// Field
 	int itemsPerPage; // 한 페이지 당 게시물 개수
@@ -10,11 +10,11 @@ public class O_PageNationDto {
 	int pageSize; // 한 페이지당 보여줄 페이지의 개수
 	
 	// Constructor
-	public O_PageNationDto() {
+	public O_paginationDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public O_PageNationDto(int itemsPerPage, int totalCount, int currentPage, int totalPages, int pageSize) {
+	public O_paginationDto(int itemsPerPage, int totalCount, int currentPage, int totalPages, int pageSize) {
 		super();
 		this.itemsPerPage = itemsPerPage;
 		this.totalCount = totalCount;

@@ -2,7 +2,7 @@ package com.springlec.base.model;
 
 import java.awt.TextArea;
 
-public class O_NoticeDto {
+public class O_noticeDto {
 
 	// Field
 	int seq;
@@ -13,11 +13,11 @@ public class O_NoticeDto {
 	int isdelete;
 	
 	// Constructor
-	public O_NoticeDto() {
+	public O_noticeDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public O_NoticeDto(int seq, String adminid, String n_title, String n_content, String writedate) {
+	public O_noticeDto(int seq, String adminid, String n_title, String n_content, String writedate) {
 		super();
 		this.seq = seq;
 		this.adminid = adminid;
@@ -26,7 +26,7 @@ public class O_NoticeDto {
 		this.writedate = writedate;
 	}
 	
-	public O_NoticeDto(int seq, String n_title, String n_content, int isdelete) {
+	public O_noticeDto(int seq, String n_title, String n_content, int isdelete) {
 		super();
 		this.seq = seq;
 		this.n_title = n_title;
@@ -36,7 +36,7 @@ public class O_NoticeDto {
 
 	
 	
-	public O_NoticeDto(String n_title, String n_content, String writedate) {
+	public O_noticeDto(String n_title, String n_content, String writedate) {
 		super();
 		this.n_title = n_title;
 		this.n_content = n_content;

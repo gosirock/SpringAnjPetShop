@@ -1,6 +1,6 @@
 package com.springlec.base.model;
 
-public class O_CommentsDto {
+public class O_commentsDto {
 
 	// Field
 	int c_seq;
@@ -16,12 +16,12 @@ public class O_CommentsDto {
 	int isdelete;
 	
 	// Constructor
-	public O_CommentsDto() {
+	public O_commentsDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public O_CommentsDto(int c_seq, int rootseq, int ref, int step, int reforder, int answernum, String writer,
+	public O_commentsDto(int c_seq, int rootseq, int ref, int step, int reforder, int answernum, String writer,
 			int parentseq, String comments, String writedate, int isdelete) {
 		super();
 		this.c_seq = c_seq;

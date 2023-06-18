@@ -1,6 +1,6 @@
 package com.springlec.base.model;
 
-public class O_ReviewDto {
+public class O_reviewDto {
 
 	// Field
 	int seq;
@@ -15,13 +15,13 @@ public class O_ReviewDto {
 	String pthumbnail;
 	
 	// Constructor
-	public O_ReviewDto() {
+	public O_reviewDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
 	// 상품 이름과 썸네일 같이 가지고 오기 위한 생성자
-	public O_ReviewDto(int seq, String r_title, String r_content, String writedate, int isdelete, String userid,
+	public O_reviewDto(int seq, String r_title, String r_content, String writedate, int isdelete, String userid,
 			int orderseq, String filename, String pname, String pthumbnail) {
 		super();
 		this.seq = seq;
@@ -37,7 +37,7 @@ public class O_ReviewDto {
 	}
 
 	// 리스트 들고오기 위한 생성자
-	public O_ReviewDto(int seq, String r_title, String r_content, String writedate, int isdelete, String userid,
+	public O_reviewDto(int seq, String r_title, String r_content, String writedate, int isdelete, String userid,
 			int orderseq, String filename) {
 		super();
 		this.seq = seq;

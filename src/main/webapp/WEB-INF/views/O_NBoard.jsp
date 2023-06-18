@@ -2,10 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%
-session.setAttribute("USERID", "osm1119");
-session.setAttribute("ADMINID", "admin");
-%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,15 +61,15 @@ $(document).ready(function() {
 									<li class="main-nav02 dropdown">
 										<a href="#">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="cart.do">NOTICE</a>
+										<a href="O_notice">NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
 								<li class="main-nav04"><a href="#">CART</a></li>        
@@ -104,7 +100,7 @@ $(document).ready(function() {
 		<br>
 		<h3>COMMUNITY</h3>
 		<br>
-		<br> <span class="selected"><a href="O_Notice.do">NOTICE</a></span> <a href="O_FAQ.do">FAQ</a> <a href="O_QNA.do">Q&A</a> <a href="O_Review.do">REVIEW</a> <br>
+		<br> <span class="selected"><a href="O_notice">NOTICE</a></span> <a href="O_faq">FAQ</a> <a href="O_qna">Q&A</a> <a href="O_review">REVIEW</a> <br>
 		<br>
 	</div>
 
@@ -115,7 +111,7 @@ $(document).ready(function() {
 	<div id="board-search">
 		<div class="container">
 			<div class="search-window">
-				<form action="O_Notice.do" method="post">
+				<form action="O_notice" method="post">
 					<div class="search-wrap">
 						<select name="query">
 							<option value="n_title">제목</option>
@@ -143,7 +139,7 @@ $(document).ready(function() {
 				<c:forEach items="${noticeList}" var="dto">
 					<tr>
 						<td><span class="notice-button">공지</span></td>
-						<td><a href="O_NDetail.do?seq=${dto.seq}">${dto.n_title}</a></td>
+						<td><a href="O_nDetail?seq=${dto.seq}">${dto.n_title}</a></td>
 						<td>${dto.adminid}</td>
 						<td>${dto.writedate}</td>
 					</tr>
@@ -177,8 +173,8 @@ $(document).ready(function() {
 
     // 이전 버튼
     if (currentPage > pageSize) {
-      document.write('<span><a href="O_Notice.do?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
-      document.write('<span><a href="O_Notice.do?page=' + ((Math.floor(currentPage/pageSize)+1)*pageSize + 1 - (pageSize * 2)) + '&query=' + query + '&content=${content}"><</a></span>');
+      document.write('<span><a href="O_notice?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
+      document.write('<span><a href="O_notice?page=' + ((Math.floor(currentPage/pageSize)+1)*pageSize + 1 - (pageSize * 2)) + '&query=' + query + '&content=${content}"><</a></span>');
     } else {
       document.write('<span class="empty"><a><<</a></span>');
       document.write('<span class="empty"><a><</a></span>');
@@ -187,19 +183,17 @@ $(document).ready(function() {
     if (totalPages != 1) { // 페이지 번호
 	    for (let i = calcPage; i <= calcPage + pageSize - 1 && i <= totalPages; i++) {
 	      if (i === currentPage) {
-	    	document.write('<span class="current"><a href="O_Notice.do?page=' + i + '">' + i + '</a></span>');
+	    	document.write('<span class="current"><a href="O_notice?page=' + i + '">' + i + '</a></span>');
 	      } else {
-	        document.write('<span><a href="O_Notice.do?page=' + i + '">' + i + '</a><span>');
+	        document.write('<span><a href="O_notice?page=' + i + '">' + i + '</a><span>');
 	      }
 	    }
 	  }
 
-
-    
     // 다음 버튼
     if ((currentPage != totalPages) && (totalPages != 1) && currentPage <= Math.floor(totalPages/pageSize)*pageSize) {
-      document.write('<span><a href="O_Notice.do?page=' + nextAndPrev + '&query=' + query + '&content=${content}">></a><span>');
-      document.write('<span><a href="O_Notice.do?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
+      document.write('<span><a href="O_notice?page=' + nextAndPrev + '&query=' + query + '&content=${content}">></a><span>');
+      document.write('<span><a href="O_notice?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
     }else{
       document.write('<span class="empty"><a>></a><span>');
       document.write('<span class="empty"><a>>></a><span>');

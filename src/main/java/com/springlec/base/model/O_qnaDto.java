@@ -1,6 +1,6 @@
 package com.springlec.base.model;
 
-public class O_QnaDto {
+public class O_qnaDto {
 
 	// Field
 	int seq;
@@ -13,11 +13,11 @@ public class O_QnaDto {
 	String adminid;
 	
 	// Constructor
-	public O_QnaDto() {
+	public O_qnaDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public O_QnaDto(int seq, String category, String qna_title, String qna_content, int parentseq, String writedate,
+	public O_qnaDto(int seq, String category, String qna_title, String qna_content, int parentseq, String writedate,
 			String userid, String adminid) {
 		super();
 		this.seq = seq;
