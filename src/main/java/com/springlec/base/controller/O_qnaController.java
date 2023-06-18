@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.springlec.base.model.O_noticeDto;
 import com.springlec.base.model.O_paginationDto;
 import com.springlec.base.model.O_qnaDto;
 import com.springlec.base.service.O_pagination;
