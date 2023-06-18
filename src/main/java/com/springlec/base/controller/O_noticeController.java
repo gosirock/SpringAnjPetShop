@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springlec.base.model.O_noticeDto;
+import com.springlec.base.model.O_paginationDto;
 import com.springlec.base.service.O_noticeDaoService;
+import com.springlec.base.service.O_pagination;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -17,6 +19,8 @@ public class O_noticeController {
 	
 	@Autowired
 	O_noticeDaoService service;
+	@Autowired
+	O_pagination pagination;
 
 	@RequestMapping("/O_notice")
 	public String getNoticeList(HttpServletRequest request, Model model) throws Exception {
@@ -40,8 +44,10 @@ public class O_noticeController {
 		int startIndex = (currentPage - 1) * itemsPerPage;
 		
 		List<O_noticeDto> dtos = service.getNoticeList(queryName, queryContent, startIndex, itemsPerPage);
-		model.addAttribute("noticeList", dtos);
 		
+		O_paginationDto dto = pagination.pagination(itemsPerPage, totalCount, currentPage, (int)totalPages, pageSize);
+		model.addAttribute("noticeList", dtos);
+		model.addAttribute("p", dto);
 		return "O_NBoard";
 	}
 }
