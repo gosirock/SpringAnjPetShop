@@ -17,7 +17,7 @@
 </head>
 <script type="text/javascript">
 	function updateCheck(){
-		const form = document.QnaDetail
+		const form = document.qDetail
 		const qna_title = form.qna_title.value
 		const qna_content = form.qna_content.value
 		
@@ -34,13 +34,13 @@
 		// 그렇지 않으면 alert로 '본인의 게시글만 수정/삭제가 가능합니다.' 메시지 띄워주기!
 			
 		if(confirm("수정하시겠습니까?") == true){
-		form.action = "O_updateQnA.do";
+		form.action = "O_updateQnA";
 		form.submit();
 		}
 	}
 	
 	function deleteCheck(){
-		const form = document.QnaDetail
+		const form = document.qDetail
 		const seq = form.seq.value
 		const parentseq = form.parentseq.value
 		var result = 0
@@ -52,7 +52,7 @@
 		}
 		
 		if(confirm("정말 삭제하시겠습니까?") == true && result == 1){
-			form.action = "O_deleteQuestion.do?seq=" + seq;
+			form.action = "O_deleteQuestion?seq=" + seq;
 			form.submit();
 			return;
 			}else{
@@ -60,7 +60,7 @@
 			}
 		
 		if(confirm("정말 삭제하시겠습니까?") == true && result == 2){
-			form.action = "O_deleteAnswer.do?seq=" + seq;
+			form.action = "O_deleteAnswer?seq=" + seq;
 			form.submit();
 			return;
 			}else{
@@ -71,7 +71,7 @@
 	function writeAction(){
 		const form = document.QnaDetail
 		const seq = form.seq.value
-		form.action = "O_writeAnswerView.do?seq=" + seq;
+		form.action = "O_writeAnswerView?seq=" + seq;
 		form.submit();
 		}
 </script>
@@ -120,17 +120,17 @@ $(document).ready(function() {
 								</li>
 								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="#">COMMUNITY</a>
+										<a href="O_review">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="#">NOTICE</a>
+										<a href="O_notice">NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
 								<li class="main-nav04"><a href="#">CART</a></li>        
@@ -159,10 +159,10 @@ $(document).ready(function() {
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_Notice.do">NOTICE</a>
-			<a href="O_FAQ.do">FAQ</a> 
-			<span class="selected"><a href="O_QNA.do">Q&A</a></span>
-			<a href="O_Review.do">REVIEW</a>
+			<a href="O_notice">NOTICE</a>
+			<a href="O_faq">FAQ</a> 
+			<span class="selected"><a href="O_qna">Q&A</a></span>
+			<a href="O_review">REVIEW</a>
 		<br><br>
 	</div>
 	<div class="page-title">
@@ -171,39 +171,39 @@ $(document).ready(function() {
 
 	<!-- board list area -->
 	<div class="container">
-		<form name="QnaDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
+		<form name="qDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
 			<input type="hidden" name="status" value="1">
-			<input type="hidden" name="seq" value="${qnaDetail.seq }">
-			<input type="hidden" name="parentseq" value="${qnaDetail.parentseq}">
+			<input type="hidden" name="seq" value="${qDetail.seq }">
+			<input type="hidden" name="parentseq" value="${qDetail.parentseq}">
 			<table class="board-table">
 				<thead>
 					<tr>
 						<th class="th-wnum">제목</th>
-						<th scope="col" colspan="3"><input type="text" name="qna_title" value="${qnaDetail.qna_title}" readonly="readonly"></th>
+						<th scope="col" colspan="3"><input type="text" name="qna_title" value="${qDetail.qna_title}" readonly="readonly"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="th-wnum">구분</td>
-						<td scope="col" class="th-left">${qnaDetail.category }</td>
+						<td scope="col" class="th-left">${qDetail.category }</td>
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성일</td>
-						<td scope="col" class="th-left">${qnaDetail.writedate}</td>
+						<td scope="col" class="th-left">${qDetail.writedate}</td>
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성자</td>
-						<td scope="col" class="th-left">${qnaDetail.userid}</td>
+						<td scope="col" class="th-left">${qDetail.userid}</td>
 					</tr>
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qnaDetail.qna_content}" /></textarea>
+							<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qDetail.qna_content}" /></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td></td>
-						<td class="th-right"><span class="list-button"><a href="O_QNA.do">목록</a></span></td>
+						<td class="th-right"><span class="list-button"><a href="O_qna">목록</a></span></td>
 					</tr>
 				</tbody>
 			</table>

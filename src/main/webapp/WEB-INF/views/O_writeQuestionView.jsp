@@ -29,8 +29,8 @@
 			alert("내용을 입력해 주세요.")
 			return
 		}
-		form.action = "O_writeQuestion.do";
-		document.productinfo.submit();
+		form.action = "O_writeQuestion";
+		form.submit();
 	}
 
   function setQnaTitle() { // select의 옵션 선택하자마자 제목에 값을 넣어주는 함수.
@@ -87,17 +87,17 @@ $(document).ready(function() {
 								</li>
 								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="cart.do">COMMUNITY</a>
+										<a href="O_review">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="#">NOTICE</a>
+										<a href="O_notice">NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
 								<li class="main-nav04"><a href="#">CART</a></li>        
@@ -126,10 +126,10 @@ $(document).ready(function() {
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_Notice.do">NOTICE</a> 
-			<a href="O_FAQ.do">FAQ</a> 
-			<span class="selected"><a href="O_QNA.do">Q&A</a></span>
-			<a href="O_Review.do">REVIEW</a> 
+			<a href="O_notice">NOTICE</a> 
+			<a href="O_faq">FAQ</a> 
+			<span class="selected"><a href="O_qna">Q&A</a></span>
+			<a href="O_review">REVIEW</a> 
 		<br><br>
 	</div>
 
@@ -169,7 +169,7 @@ $(document).ready(function() {
 		  </table>
 		  <div class="container" style="text-align: right;">
 		    <br>
-		    <input type="submit" class="list-button th-right" value="등록" onclick="writeCheck()">
+		    <input type="button" class="list-button th-right" value="등록" onclick="writeCheck()">
 		  </div>
 </form>
 	</div>

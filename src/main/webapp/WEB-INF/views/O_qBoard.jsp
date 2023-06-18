@@ -146,18 +146,18 @@ function loginCheck(){
 				</tr>
 			</thead>
 			<tbody>
-				<c:set var="count" value="${qnaList.size() + 1}" />
-				<c:forEach items="${qnaList}" var="dto">
+				<c:set var="count" value="${QNAList.size() + 1}" />
+				<c:forEach items="${QNAList}" var="dto">
 					<c:set var="count" value="${count -1 }" />
 					<tr>
 						<td>${count}</td>
 						<td style="text-align: left;">
 							<c:choose>
 								<c:when test="${dto.seq == dto.parentseq }">
-									<a href="O_getQnaDetail.do?seq=${dto.seq }">[${dto.category}] ${dto.qna_title}</a>
+									<a href="O_qnaDetail?seq=${dto.seq }">[${dto.category}] ${dto.qna_title}</a>
 								</c:when>
 								<c:otherwise>
-									<span class="re-button">re</span> <a href="O_getQnaDetail.do?seq=${dto.seq }" style="font-weight: bold;">${dto.qna_title}</a>
+									<span class="re-button">re</span> <a href="O_qnaDetail?seq=${dto.seq }" style="font-weight: bold;">${dto.qna_title}</a>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -186,7 +186,7 @@ function loginCheck(){
         </c:when>
         <c:otherwise>
             <span class="list-button">
-                <a href="O_writeQuestionView.do">질문하기</a>
+                <a href="O_writeQuestionView">질문하기</a>
             </span>
         </c:otherwise>
     </c:choose>
@@ -200,48 +200,44 @@ function loginCheck(){
     let currentPage = ${p.currentPage}; // 현재 페이지
     let totalPages = ${p.totalPages}; // 전체 페이지의 수
     let calcPage = Math.floor((currentPage - 1) / pageSize) * pageSize + 1; // 현재 페이지에서 보여질 페이지의 시작값 계산
-
+    let nextAndPrev = 1 // 초기화
+    
+    if((currentPage % pageSize) != 0){ // pageSize 가 5일 때 (1~5페이지에서 다음 버튼 눌렀을 때 6으로 가기위해 계산해주는 페이지 수)
+    	nextAndPrev = ((Math.floor(currentPage/pageSize)+1)*pageSize + 1)
+    }else{ // 현재 페이지가 pageSize의 배수일 때는 Math.floor 값이 + 1 되므로 예외처리를 해준다.
+    	nextAndPrev = currentPage + 1 
+    }
+    
     // query가 null일 때 query를 n_content로 설정
     let query = "${query}";
     if (!query) {
-      query = "qna_title";
+      query = "userid";
     }
 
     // 이전 버튼
     if (currentPage > pageSize) {
-      document.write('<span><a href="O_QNA.do?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
-      document.write('<span><a href="O_QNA.do?page=' + (currentPage - 1) + '&query=' + query + '&content=${content}"><</a></span>');
+      document.write('<span><a href="O_qna?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
+      document.write('<span><a href="O_qna?page=' + ((Math.floor(currentPage/pageSize)+1)*pageSize + 1 - (pageSize * 2)) + '&query=' + query + '&content=${content}"><</a></span>');
     } else {
       document.write('<span class="empty"><a><<</a></span>');
       document.write('<span class="empty"><a><</a></span>');
     }
 
-    // 페이지 번호
-    if (totalPages != 1) {
-      let numPagesToShow = Math.min(pageSize, totalPages); // 보여줄 페이지 번호 개수 (pageSize와 totalPages 중 작은 값 선택)
-      let startPage = calcPage; // 시작 페이지
-
-      // 시작 페이지 조정
-      if (startPage + numPagesToShow - 1 > totalPages) {
-        startPage = Math.max(totalPages - numPagesToShow + 1, 1);
-      }
-
-      for (let i = startPage; i <= startPage + numPagesToShow - 1; i++) {
-        if (i === currentPage) {
-          document.write('<span class="current"><a href="O_QNA.do?page=' + i + '&query=' + query + '&content=${content}">' + i + '</a></span>');
-        } else {
-          document.write('<span><a href="O_QNA.do?page=' + i + '&query=' + query + '&content=${content}">' + i + '</a></span>');
-        }
-      }
-    }
+    if (totalPages != 1) { // 페이지 번호
+	    for (let i = calcPage; i <= calcPage + pageSize - 1 && i <= totalPages; i++) {
+	      if (i === currentPage) {
+	    	document.write('<span class="current"><a href="O_qna?page=' + i + '">' + i + '</a></span>');
+	      } else {
+	        document.write('<span><a href="O_qna?page=' + i + '">' + i + '</a><span>');
+	      }
+	    }
+	  }
 
     // 다음 버튼
-    if ((currentPage != totalPages) && (totalPages != 1) && (totalPages > pageSize)) {
-      document.write('<span><a href="O_QNA.do?page=' + (currentPage + 1) + '&query=' + query + '&content=${content}">></a><span>');
-      document.write('<span><a href="O_QNA.do?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
-    }else if((currentPage != totalPages) && (totalPages != 1) && (totalPages <= pageSize)){
-      document.write('<span><a href="O_QNA.do?page=' + (currentPage + 1) + '&query=' + query + '&content=${content}">></a><span>');
-    }else {
+    if ((currentPage != totalPages) && (totalPages != 1) && currentPage <= Math.floor(totalPages/pageSize)*pageSize) {
+      document.write('<span><a href="O_qna?page=' + nextAndPrev + '&query=' + query + '&content=${content}">></a><span>');
+      document.write('<span><a href="O_qna?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
+    }else{
       document.write('<span class="empty"><a>></a><span>');
       document.write('<span class="empty"><a>>></a><span>');
     }
