@@ -29,11 +29,8 @@
 			return
 		}
 		
-		// 나중에 본인 게시물인 경우에만 수정, 삭제 가능하게 구현해야함.
-		// 그렇지 않으면 alert로 '본인의 게시글만 수정/삭제가 가능합니다.' 메시지 띄워주기!
-			
 		if(confirm("수정하시겠습니까?") == true){
-		form.action = "O_updateQnA.do";
+		form.action = "O_updateQnA";
 		form.submit();
 		}
 	}
@@ -42,7 +39,7 @@
 		const form = document.QnaDetail
 		const seq = form.seq.value
 		const parentseq = form.parentseq.value
-		var result = 0
+		let result = 0
 		
 		if (seq == parentseq){ // 질문글일때
 			result = 1
@@ -50,27 +47,25 @@
 			result = 2
 		}
 		
-		if(confirm("정말 삭제하시겠습니까?") == true && result == 1){
-			form.action = "O_deleteQuestion.do?seq=" + seq;
-			form.submit();
-			return;
-			}else{
-				return; // 취소 눌러도 return함
+		if(result == 1){
+			if(confirm("정말 삭제하시겠습니까?") == true){
+				form.action = "O_deleteQuestionForAdmin?seq=" + seq;
+				form.submit();
 			}
+		}
 		
-		if(confirm("정말 삭제하시겠습니까?") == true && result == 2){
-			form.action = "O_deleteAnswer.do?seq=" + seq;
-			form.submit();
-			return;
-			}else{
-				return;
+		if(result == 2){
+			if(confirm("정말 삭제하시겠습니까?") == true){
+				form.action = "O_deleteAnswer?seq=" + seq;
+				form.submit();
 			}
+		}
 	}
 	
 	function writeAction(){
 		const form = document.QnaDetail
 		const seq = form.seq.value
-		form.action = "O_writeAnswerView.do?seq=" + seq;
+		form.action = "O_writeAnswerView?seq=" + seq;
 		form.submit();
 		}
 </script>
@@ -87,7 +82,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -104,10 +99,10 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_adminNotice.do">NOTICE</a>
-			<a href="O_adminFAQ.do">FAQ</a> 
-			<span class="selected"><a href="O_adminQNA.do">Q&A</a></span>
-			<a href="O_adminReview.do">REVIEW</a>
+			<a href="O_adminNotice">NOTICE</a>
+			<a href="O_adminFAQ">FAQ</a> 
+			<span class="selected"><a href="O_adminQnA">Q&A</a></span>
+			<a href="O_adminReview">REVIEW</a>
 		<br><br>
 	</div>
 	<div class="page-title">
@@ -118,41 +113,71 @@
 	<div class="container">
 		<form name="QnaDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
 			<input type="hidden" name="status" value="1">
-			<input type="hidden" name="seq" value="${qnaDetail.seq }">
-			<input type="hidden" name="parentseq" value="${qnaDetail.parentseq}">
+			<input type="hidden" name="seq" value="${qDetail.seq }">
+			<input type="hidden" name="parentseq" value="${qDetail.parentseq}">
 			<table class="board-table">
 				<thead>
 					<tr>
 						<th class="th-wnum">제목</th>
-						<th scope="col" colspan="3"><input type="text" name="qna_title" value="${qnaDetail.qna_title}" readonly="readonly"></th>
+						<th scope="col" colspan="3">
+							<c:choose>
+								<c:when test="${qDetail.seq == qDetail.parentseq}">
+									<input type="text" name="qna_title"
+										value="${qDetail.qna_title}" readonly="readonly">
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="qna_title"
+										value="${qDetail.qna_title}">
+								</c:otherwise>
+							</c:choose>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="th-wnum">구분</td>
-						<td scope="col" class="th-left">${qnaDetail.category }</td>
+						<td scope="col" class="th-left">${qDetail.category }</td>
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성일</td>
-						<td scope="col" class="th-left">${qnaDetail.writedate}</td>
+						<td scope="col" class="th-left">${qDetail.writedate}</td>
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성자</td>
-						<td scope="col" class="th-left">${qnaDetail.userid}</td>
+						<td scope="col" class="th-left">
+							<c:choose>
+								<c:when test="${qDetail.seq == qDetail.parentseq}">
+									${qDetail.userid}
+								</c:when>
+								<c:otherwise>
+									관리자
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qnaDetail.qna_content}" /></textarea>
+							<c:choose>
+								<c:when test="${qDetail.seq == qDetail.parentseq}">
+									<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qDetail.qna_content}" /></textarea>
+								</c:when>
+								<c:otherwise>
+									<textarea rows="25" cols="109" wrap="hard" name="qna_content"><c:out value="${qDetail.qna_content}" /></textarea>
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr>
-						<td class="th-wnum"><span class="list-button"><a href="O_QNA.do">목록</a></span></td>
+						<td class="th-wnum"><span class="list-button"><a href="O_adminQnA">목록</a></span></td>
 						<td class="th-right">
-							<input type="submit" class="list-button" value="수정" onclick="updateCheck()">
-							<input type="submit" class="list-button" value="삭제" onclick="deleteCheck()">
-							<c:if test="${qnaDetail.seq == qnaDetail.parentseq}"> <!-- 질문글에만 답변을 달 수 있음 -->
-            					<input type="submit" class="list-button" value="답변하기" onclick="writeAction()">
+							<c:if test="${qDetail.seq != qDetail.parentseq}"> <!-- 관리자는 답변글만 수정할 수 있음 -->
+            					<input type="button" class="list-button" value="수정" onclick="updateCheck()">
+        					</c:if>
+							
+							<input type="button" class="list-button" value="삭제" onclick="deleteCheck()"> <!-- 삭제는 질문글 & 답변 글 모두 가능 -->
+							<c:if test="${qDetail.seq == qDetail.parentseq}"> <!-- 질문글에만 답변을 달 수 있음 -->
+            					<input type="button" class="list-button" value="답변달기" onclick="writeAction()">
         					</c:if>
 						</td>
 					</tr>

@@ -29,8 +29,8 @@
 			alert("내용을 입력해 주세요.")
 			return
 		}
-		form.action = "O_writeAnswer.do";
-		document.productinfo.submit();
+		form.action = "O_writeAnswer";
+		form.submit();
 	}
 </script>
 </head>
@@ -47,7 +47,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -66,10 +66,10 @@
 		<br>
 		<h3>COMMUNITY</h3>
 		<br>
-		<br> <a href="O_adminNotice.do">NOTICE</a> 
-		<a href="O_adminFAQ.do">FAQ</a> 
-		<span class="selected"><a href="O_adminQNA.do">Q&A</a></span> 
-		<a href="O_adminReview.do">REVIEW</a> <br>
+		<br> <a href="O_adminNotice">NOTICE</a> 
+		<a href="O_adminFAQ">FAQ</a> 
+		<span class="selected"><a href="O_adminQnA">Q&A</a></span> 
+		<a href="O_adminReview">REVIEW</a> <br>
 		<br>
 	</div>
 
@@ -79,9 +79,9 @@
 	<!-- board list area -->
 	<div class="container">
 		<form name="writeQnA" method="post">
-			<input type="hidden" name="userid" value="${qnaDetail.userid }">
+			<input type="hidden" name="userid" value="${qDetail.userid }">
 			<input type="hidden" name="adminid" value="admin"> <!-- 로그인 구현되면 세션 값 받아오기 -->
-			<input type="hidden" name="seq" value="${qnaDetail.seq}">
+			<input type="hidden" name="seq" value="${qDetail.seq}">
 			<!-- 로그인 구현 시 session값으로 바꿔주기 -->
 			<table class="board-table">
 				<thead>
@@ -96,11 +96,11 @@
 						<td>
 <!-- 일부러 왼쪽 끝에 내용 붙여놓음. 그렇지 않으면 textarea에 공백값이 들어감 -->
 <textarea rows="30" cols="100" name="qna_content">
-제목 : ${qnaDetail.qna_title}
-작성자 : ${qnaDetail.userid}
-작성일 : ${qnaDetail.writedate}
+제목 : ${qDetail.qna_title}
+작성자 : ${qDetail.userid}
+작성일 : ${qDetail.writedate}
 [질문 내용]
-${qnaDetail.qna_content }
+${qDetail.qna_content }
 ---------------------------------------------------------------
 답변 :
 
@@ -111,8 +111,8 @@ ${qnaDetail.qna_content }
 			</table>
 			<div class="container" style="text-align: right;">
 				<br>
-				<span class="list-button"><a href="O_adminQNA.do">목록</a></span>
-				<input type="submit" class="list-button th-right" value="등록" onclick="writeCheck()">
+				<span class="list-button"><a href="O_adminQNA">목록</a></span>
+				<input type="button" class="list-button th-right" value="등록" onclick="writeCheck()">
 			</div>
 		</form>
 	</div>

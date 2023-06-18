@@ -30,9 +30,6 @@
 			return
 		}
 		
-		// 나중에 본인 게시물인 경우에만 수정, 삭제 가능하게 구현해야함.
-		// 그렇지 않으면 alert로 '본인의 게시글만 수정/삭제가 가능합니다.' 메시지 띄워주기!
-			
 		if(confirm("수정하시겠습니까?") == true){
 		form.action = "O_updateQnA";
 		form.submit();
@@ -40,32 +37,15 @@
 	}
 	
 	function deleteCheck(){
-		const form = document.qDetail
+		const form = document.QnaDetail
 		const seq = form.seq.value
 		const parentseq = form.parentseq.value
 		var result = 0
 		
-		if (seq == parentseq){ // 질문글일때
-			result = 1
-		}else{ // 답변글일때
-			result = 2
+		if(confirm("정말 삭제하시겠습니까?") == true){
+			form.action = "O_deleteQuestionForUser?seq=" + seq;
+			form.submit();
 		}
-		
-		if(confirm("정말 삭제하시겠습니까?") == true && result == 1){
-			form.action = "O_deleteQuestion?seq=" + seq;
-			form.submit();
-			return;
-			}else{
-				return; // 취소 눌러도 return함
-			}
-		
-		if(confirm("정말 삭제하시겠습니까?") == true && result == 2){
-			form.action = "O_deleteAnswer?seq=" + seq;
-			form.submit();
-			return;
-			}else{
-				return;
-			}
 	}
 	
 	function writeAction(){
@@ -73,8 +53,9 @@
 		const seq = form.seq.value
 		form.action = "O_writeAnswerView?seq=" + seq;
 		form.submit();
-		}
+	}
 </script>
+
 <script type="text/javascript">
 // 드롭다운
 $(function(){
@@ -179,7 +160,16 @@ $(document).ready(function() {
 				<thead>
 					<tr>
 						<th class="th-wnum">제목</th>
-						<th scope="col" colspan="3"><input type="text" name="qna_title" value="${qDetail.qna_title}" readonly="readonly"></th>
+						<th scope="col" colspan="3">
+							<c:choose>
+								<c:when test="${qDetail.userid != sessionScope.USERID}">
+									<input type="text" name="qna_title" value="${qDetail.qna_title}" readonly="readonly">
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="qna_title"	value="${qDetail.qna_title}">
+								</c:otherwise>
+							</c:choose>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -198,15 +188,25 @@ $(document).ready(function() {
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qDetail.qna_content}" /></textarea>
+							<c:choose>
+								<c:when test="${qDetail.userid != sessionScope.USERID}">
+									<textarea rows="25" cols="109" wrap="hard" name="qna_content" readonly="readonly"><c:out value="${qDetail.qna_content}" /></textarea>
+								</c:when>
+								<c:otherwise>
+									<textarea rows="25" cols="109" wrap="hard" name="qna_content"><c:out value="${qDetail.qna_content}" /></textarea>
+								</c:otherwise>
+							</c:choose>
 						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td class="th-right"><span class="list-button"><a href="O_qna">목록</a></span></td>
 					</tr>
 				</tbody>
 			</table>
+			<span class="list-button"><a href="O_qna">목록</a></span>
+			<c:if
+				test="${qDetail.seq == qDetail.parentseq && qDetail.userid == 'osm1119'}">
+				<!-- 질문글이면서 본인이 작성한 게시글일 때 -->
+				<input type="button" class="list-button" value="수정" onclick="updateCheck()">
+				<input type="button" class="list-button" value="삭제" onclick="deleteCheck()">
+			</c:if>
 		</form>
 	</div>
 	

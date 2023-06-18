@@ -49,4 +49,31 @@ public class O_qnaDaoImpl implements O_qnaDao {
 		return sqlSession.selectOne(nameSpace + ".getQuestionSeq");
 	}
 
+	@Override
+	public void updateQnA(int seq, String qna_title, String qna_content) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(nameSpace + ".updateQnA");
+	}
+
+	@Override
+	public void deleteQuestion(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(nameSpace + ".deleteQuestion");
+		
+	}
+
+	@Override
+	public void deleteAnswer(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(nameSpace + ".deleteAnswer");
+	}
+
+	@Override
+	public void writeAnswer(int seq, String category, String qna_title, String qna_content, String userid,
+			String adminid) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(nameSpace + ".writeAnswer");
+		
+	}
+
 }

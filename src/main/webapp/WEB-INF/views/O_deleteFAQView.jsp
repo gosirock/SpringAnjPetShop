@@ -33,7 +33,7 @@
 			return
 		}
 		form.action = "O_WriteFAQ";
-		document.productinfo.submit();
+		form.submit();
 	}
 </script>
 <script type="text/javascript">
@@ -122,15 +122,12 @@
 										<option value="${dto.seq}">${dto.n_title}</option>
 									</c:forEach>
 								</select>
+								<input type="submit" class="list-button th-right" value="삭제">
 							</div>
 						</th>
 					</tr>
 				</thead>
 			</table>
-			<div class="container" style="text-align: right;">
-				<br>
-				<input type="submit" class="list-button th-right" value="삭제">
-			</div>
 		</form>
 	</div>
 	
@@ -151,15 +148,12 @@
 										<option value="${dto.seq}">${dto.n_title}</option>
 									</c:forEach>
 								</select>
+								<input type="submit" class="list-button th-right" value="복구">
 							</div>
 						</th>
 					</tr>
 				</thead>
 			</table>
-			<div class="container" style="text-align: right;">
-				<br>
-				<input type="submit" class="list-button th-right" value="복구">
-			</div>
 		</form>
 	</div>
 	

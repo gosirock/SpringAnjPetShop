@@ -89,4 +89,14 @@ public class O_qnaController {
 		
 		return "redirect:O_qna";
 	}
+	
+	@RequestMapping("O_deleteQuestionForUser")
+	public String deleteQuestion(HttpServletRequest request) throws Exception{
+		
+		int seq = Integer.parseInt(request.getParameter("seq"));
+		
+		service.deleteQuestion(seq);
+		
+		return "redirect:O_qna";
+	}
 }

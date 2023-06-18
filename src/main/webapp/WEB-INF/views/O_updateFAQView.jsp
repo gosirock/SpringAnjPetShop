@@ -21,35 +21,20 @@
 <script type="text/javascript">
 	function updateCheck(){
 		const form = document.FAQ
-		const n_title = form.n_title.value
-		const n_content = form.n_content.value
-		
-		alert("수정되었습니다.")
-		form.action = "O_updateFAQ";
-		form.submit();
-	}
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".hidden_row").hide(); // 페이지 로드 시 숨겨진 행 숨기기
-		$(".toggle-icon").text("+"); // 초기에 토글 아이콘 "+"로 표시
-	});
 
-	function showHiddenRow(row) {
-		let $targetRow = $("#" + row);
-		let $toggleIcon = $targetRow.prev("tr").find(".toggle-icon");
-
-		if ($targetRow.is(":visible")) {
-			$targetRow.hide();
-			$toggleIcon.text("+");
-		} else {
-			$(".hidden_row").hide();
-			$(".toggle-icon").text("+");
-			$targetRow.show();
-			$toggleIcon.text("-");
+/* 		if(n_title == ""){
+			alert("FAQ 제목을 입력해 주세요.")
+			return
 		}
+		if(n_content == ""){
+			alert("FAQ 내용을 입력해 주세요.")
+			return
+		} */
+		alert("아직 구현되지 않았어요ㅠㅠㅠ")
+
 	}
 </script>
+
 </head>
 <link rel="stylesheet" href="W_Header.css">
 <body>
@@ -103,7 +88,7 @@
 	</div>
 
 	<div class="container">
-	<form name="FAQ">
+	<form name="FAQ" method="post">
 		<table class="board-table">
 			<thead>
 				<tr>
@@ -112,11 +97,11 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${FAQList}" var="dto">
-				<input type="hidden" name="seq" value="${dto.seq}">
+				<input type="hidden" name="seq_${dto.seq}" value="${dto.seq}">
 					<!-- 제목 클릭 시 hidden_row 토글 -->
 					<tr class="tr-background" onclick="showHiddenRow('row_${dto.seq}');">
 						<td class="custom-padding th-left" data-padding="20">
-						<input type="text" name="n_title" value="${dto.n_title}">
+						<input type="text" name="n_title_${dto.seq}" value="${dto.n_title}">
 							<span class="toggle-icon-wrapper">
 								<span class="toggle-icon" style="float: right;"></span>
 							</span>
@@ -125,11 +110,9 @@
 					<!-- id를 게시글의 seq로 부여 -->
 					<tr id="row_${dto.seq}" class="hidden_row">
 						<td class="custom-padding th-left" data-padding="60">
-							<input type="text" name="n_content" value="${dto.n_content}">
+							<input type="text" name="n_content_${dto.seq}" value="${dto.n_content}">
+							<input type="button" class="list-button" value="수정" onclick="updateCheck()">
 						</td>
-					</tr>
-					<tr>
-						<td class="th-right"><input type="button" class="list-button" value="수정" onclick="updateCheck()"></td>
 					</tr>
 				</c:forEach>
 			</tbody>

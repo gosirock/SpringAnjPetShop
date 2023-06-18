@@ -59,7 +59,10 @@ public class O_adminFaqController {
 		String n_title = request.getParameter("n_title");
 		String n_content = request.getParameter("n_content");
 		
-		service.updateFAQ(seq, n_title, n_content);
+		System.out.println("seq : " + seq);
+		System.out.println("n_title : " + n_title);
+		System.out.println("n_content : " + n_content);
+		//service.updateFAQ(seq, n_title, n_content);
 		
 		return "redirect:O_adminFAQ";
 	}

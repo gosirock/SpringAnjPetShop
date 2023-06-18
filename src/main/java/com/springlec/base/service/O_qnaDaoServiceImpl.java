@@ -54,4 +54,34 @@ public class O_qnaDaoServiceImpl implements O_qnaDaoService {
 		return dao.getQuestionSeq();
 	}
 
+	@Override
+	public void updateQnA(int seq, String qna_title, String qna_content) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateQnA(seq, qna_title, qna_content);
+	}
+
+	// 관리자용
+	@Override
+	public void deleteQuestion(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteQuestion(seq);
+	}
+
+	@Override
+	public void deleteAnswer(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteAnswer(seq);
+		
+	}
+
+	@Override
+	public void writeAnswer(int seq, String category, String qna_title, String qna_content, String userid,
+			String adminid) throws Exception {
+		// TODO Auto-generated method stub
+		dao.writeAnswer(seq, category, qna_title, qna_content, userid, adminid);
+		
+	}
+	
+	
+
 }

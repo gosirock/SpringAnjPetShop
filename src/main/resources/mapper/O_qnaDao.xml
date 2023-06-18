@@ -9,6 +9,7 @@
 	SELECT *
 	FROM qna
 	WHERE ${queryName} like #{queryContent}
+	AND isdelete = 0
 	ORDER BY parentseq DESC
 	LIMIT #{itemPerPage} OFFSET #{startNum}
 </select>
@@ -18,6 +19,7 @@
 	SELECT COUNT(*)
 	FROM qna
     WHERE ${queryName} like #{queryContent}
+    AND isdelete = 0
 </select>
 
 <!-- qna 세부사항 가져오기 -->
@@ -28,8 +30,8 @@
 </select>
 
 <insert id="writeQuestion">
-	INSERT INTO qna (category, qna_title, qna_content, writedate, userid, adminid)
-	VALUES (#{category}, #{qna_title}, #{qna_content}, NOW(), #{userid}, #{adminid})
+	INSERT INTO qna (category, qna_title, qna_content, writedate, userid, adminid, isdelete)
+	VALUES (#{category}, #{qna_title}, #{qna_content}, NOW(), #{userid}, #{adminid}, 0)
 </insert>
 
 <select id="getQuestionSeq" resultType="java.lang.Integer">
@@ -42,5 +44,28 @@
 	SET parentseq = #{seq}
 	WHERE seq = #{seq}
 </update>
+
+<update id="updateQnA">
+	UPDATE qna
+	SET qna_title = #{qna_title}, qna_content = #{qna_content}, writedate = now()
+	WHERE seq = #{seq}
+</update>
+
+<update id="deleteQuestion">
+	UPDATE qna
+	SET isdelete = 1
+	WHERE parentseq = #{seq}
+</update>
+
+<update id="deleteAnswer">
+	UPDATE qna
+	SET isdelete = 1
+	WHERE seq = #{seq}
+</update>
+
+<insert id="writeAnswer">
+	INSERT INTO qna (category, qna_title, qna_content, parentseq, writedate, userid, adminid, isdelete)
+	VALUES (#{category}, #{qna_title}, #{qna_content}, #{seq} ,NOW(), #{userid}, #{adminid}, 0)
+</insert>
 	
 </mapper>
