@@ -30,7 +30,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -45,10 +45,10 @@
 	<div class="page-title">
 		<br> <br> <br>
 		<h3>COMMUNITY</h3>
-		<br> <br> <a href="O_adminNotice.do">NOTICE</a>
-		<a href="O_adminFAQ.do">FAQ</a>
-		<a href="O_adminQNA.do">Q&A</a>
-		<span class="selected"><a href="O_adminReview.do">REVIEW</a></span>
+		<br> <br> <a href="O_adminNotice">NOTICE</a>
+		<a href="O_adminFAQ">FAQ</a>
+		<a href="O_adminQnA">Q&A</a>
+		<span class="selected"><a href="O_adminReview">REVIEW</a></span>
 		<br> <br>
 	</div>
 
@@ -77,14 +77,14 @@
 		<div class="review-grid">
 			<c:forEach items="${reviewList}" var="dto">
 				<div class="product-item">
-					<a href="O_adminRDetail.do?seq=${dto.seq }"><img src="images/review/${dto.filename }.png" alt="이미지 준비 중"></a>
+					<a href="O_adminRDetail?seq=${dto.seq }"><img src="images/review/${dto.filename }.png" alt="이미지 준비 중"></a>
 					<!-- 제목 길이가 13자 이상이면 ...으로 표시 -->
 					<c:set var="trimedTitle" value="${dto.r_title}" />
 					<c:if test="${fn:length(trimedTitle) > 13}">
 						<c:set var="trimedTitle" value="${fn:substring(trimedTitle, 0, 13)}..." />
 					</c:if>
 					<h5>
-						<a href="O_RDetail.do?seq=${dto.seq }">${trimedTitle}</a>
+						<a href="O_adminRDetail?seq=${dto.seq }">${trimedTitle}</a>
 					</h5>
 					<c:set var="maskedUserId" value="${fn:substring(dto.userid, 0, 3)}***" />
 					<p>작성자 : ${maskedUserId}</p>
@@ -103,7 +103,14 @@
     let currentPage = ${p.currentPage}; // 현재 페이지
     let totalPages = ${p.totalPages}; // 전체 페이지의 수
     let calcPage = Math.floor((currentPage - 1) / pageSize) * pageSize + 1; // 현재 페이지에서 보여질 페이지의 시작값 계산
-
+    let nextAndPrev = 1 // 초기화
+    
+    if((currentPage % pageSize) != 0){ // pageSize 가 5일 때 (1~5페이지에서 다음 버튼 눌렀을 때 6으로 가기위해 계산해주는 페이지 수)
+    	nextAndPrev = ((Math.floor(currentPage/pageSize)+1)*pageSize + 1)
+    }else{ // 현재 페이지가 pageSize의 배수일 때는 Math.floor 값이 + 1 되므로 예외처리를 해준다.
+    	nextAndPrev = currentPage + 1 
+    }
+    
     // query가 null일 때 query를 n_content로 설정
     let query = "${query}";
     if (!query) {
@@ -111,38 +118,29 @@
     }
 
     // 이전 버튼
-    if (currentPage > 1) {
-      document.write('<span><a href="O_adminReview.do?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
-      document.write('<span><a href="O_adminReview.do?page=' + (currentPage - 1) + '&query=' + query + '&content=${content}"><</a></span>');
+    if (currentPage > pageSize) {
+      document.write('<span><a href="O_adminReview?page=' + 1 + '&query=' + query + '&content=${content}"><<</a></span>');
+      document.write('<span><a href="O_adminReview?page=' + ((Math.floor(currentPage/pageSize)+1)*pageSize + 1 - (pageSize * 2)) + '&query=' + query + '&content=${content}"><</a></span>');
     } else {
       document.write('<span class="empty"><a><<</a></span>');
       document.write('<span class="empty"><a><</a></span>');
     }
 
-    // 페이지 번호
-    if (totalPages != 1) {
-      let numPagesToShow = Math.min(pageSize, totalPages); // 보여줄 페이지 번호 개수 (pageSize와 totalPages 중 작은 값 선택)
-      let startPage = calcPage; // 시작 페이지
-
-      // 시작 페이지 조정
-      if (startPage + numPagesToShow - 1 > totalPages) {
-        startPage = Math.max(totalPages - numPagesToShow + 1, 1);
-      }
-
-      for (let i = startPage; i <= startPage + numPagesToShow - 1; i++) {
-        if (i === currentPage) {
-          document.write('<span class="current"><a href="O_adminReview.do?page=' + i + '&query=' + query + '&content=${content}">' + i + '</a></span>');
-        } else {
-          document.write('<span><a href="O_adminReview.do?page=' + i + '&query=' + query + '&content=${content}">' + i + '</a></span>');
-        }
-      }
-    }
+    if (totalPages != 1) { // 페이지 번호
+	    for (let i = calcPage; i <= calcPage + pageSize - 1 && i <= totalPages; i++) {
+	      if (i === currentPage) {
+	    	document.write('<span class="current"><a href="O_adminReview?page=' + i + '">' + i + '</a></span>');
+	      } else {
+	        document.write('<span><a href="O_adminReview?page=' + i + '">' + i + '</a><span>');
+	      }
+	    }
+	  }
 
     // 다음 버튼
-    if (currentPage != totalPages && totalPages != 1) {
-      document.write('<span><a href="O_adminReview.do?page=' + (currentPage + 1) + '&query=' + query + '&content=${content}">></a><span>');
-      document.write('<span><a href="O_adminReview.do?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
-    } else {
+    if ((currentPage != totalPages) && (totalPages != 1) && currentPage <= Math.floor(totalPages/pageSize)*pageSize && nextAndPrev <= totalPages) {
+      document.write('<span><a href="O_adminReview?page=' + nextAndPrev + '&query=' + query + '&content=${content}">></a><span>');
+      document.write('<span><a href="O_adminReview?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
+    }else{
       document.write('<span class="empty"><a>></a><span>');
       document.write('<span class="empty"><a>>></a><span>');
     }

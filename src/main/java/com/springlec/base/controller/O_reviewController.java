@@ -104,4 +104,5 @@ public class O_reviewController {
 		
 		return "redirect:O_rDetail?seq=" + seq;
 	}
-}
+	
+} // End

@@ -61,7 +61,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -78,10 +78,10 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_adminNotice.do">NOTICE</a> 
-			<a href="O_adminFAQ.do">FAQ</a> 
-			<a href="O_adminQNA.do">Q&A</a> 
-			<span class="selected"><a href="O_adminReview.do">REVIEW</a></span>
+			<a href="O_adminNotice">NOTICE</a> 
+			<a href="O_adminFAQ">FAQ</a> 
+			<a href="O_adminQnA">Q&A</a> 
+			<span class="selected"><a href="O_adminReview">REVIEW</a></span>
 		<br><br>
 	</div>
 	<div class="page-title">
@@ -89,7 +89,7 @@
 	</div>
 
 	<div class="container">
-		<img src="images/review/${RDetail.filename }.png" alt="이미지 준비중" style="width: 25%; height: 25%;">
+		<img src="images/review/${rDetail.filename }.png" alt="이미지 준비중" style="width: 25%; height: 25%;">
 	</div>
 	<!-- board list area -->
 	<div class="container">
@@ -100,34 +100,34 @@
 				<thead>
 					<tr>
 						<th class="th-wwnum">제목</th>
-						<th scope="col"><input type="text" readonly="readonly" name="r_title" value="${RDetail.r_title}"></th>
+						<th scope="col"><input type="text" readonly="readonly" name="r_title" value="${rDetail.r_title}"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<c:set var="maskedUserId" value="${fn:substring(RDetail.userid, 0, 3)}***" />
+						<c:set var="maskedUserId" value="${fn:substring(rDetail.userid, 0, 3)}***" />
 						<td class="th-wnum">작성자</td>
 						<td scope="col" class="th-left">${maskedUserId }</td>
 					</tr>
 					<tr>
 						<td class="th-wnum">상품<br>설명</td>
 						<td scope="col" class="th-left" align="left">
-							<img src="images/thumbnail/${RDetail.pthumbnail}.png" style="width: 8%; float: left;" alt="Product Thumbnail">
-							<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${RDetail.pname }
+							<img src="images/thumbnail/${rDetail.pthumbnail}.png" style="width: 8%; float: left;" alt="Product Thumbnail">
+							<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rDetail.pname }
 						</td>
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성일</td>
-						<td scope="col" class="th-left">${RDetail.writedate}</td>
+						<td scope="col" class="th-left">${rDetail.writedate}</td>
 					</tr>
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea readonly="readonly" rows="20" cols="109" wrap="hard" name="n_content"><c:out value="${RDetail.r_content}" /></textarea>
+							<textarea readonly="readonly" rows="20" cols="109" wrap="hard" name="n_content"><c:out value="${rDetail.r_content}" /></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td class="th-wnum"><span class="list-button"><a href="O_adminReview.do">목록</a></span></td>
+						<td class="th-wnum"><span class="list-button"><a href="O_adminReview">목록</a></span></td>
 						<td class="th-right">
 							<input type="submit" class="list-button" value="수정" onclick="updateCheck()">
 							<input type="submit" class="list-button" value="삭제" onclick="deleteCheck()">
@@ -136,7 +136,7 @@
 				</tbody>
 			</table>
 		</form>
-		<form action="O_adminWriteComment.do">
+		<form action="O_adminWriteComment">
 		<input type="hidden" name="userid" value="관리자">
 		<input type="hidden" name="seq" value="${seq }">
 			<table class="board-table">
@@ -158,7 +158,7 @@
 		<form action="">
 			<table class="comment-table">
 				<tbody>
-					<c:forEach items="${CommentList}" var="dto">
+					<c:forEach items="${commentList}" var="dto">
 						<c:set var="indentationSize" value="12" /> <!-- 들여쓰기 사이즈 -->
 						<c:set var="indentation" value="&nbsp;" />
 						<c:forEach begin="1" end="${dto.step * indentationSize}" var="i"> <!-- step만큼 들여쓰기 반복 -->
