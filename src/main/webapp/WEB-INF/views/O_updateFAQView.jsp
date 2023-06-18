@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>FAQ 삭제</title>
+<title>공지사항</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -19,21 +19,14 @@
 <script src="JS/O_ScrollTop.js"></script>
 
 <script type="text/javascript">
-	function writeCheck(){
-		const form = document.writeFAQ
+	function updateCheck(){
+		const form = document.FAQ
 		const n_title = form.n_title.value
 		const n_content = form.n_content.value
 		
-		if(n_title == ""){
-			alert("제목을 입력해 주세요.")
-			return
-		}
-		if(n_content == ""){
-			alert("내용을 입력해 주세요.")
-			return
-		}
-		form.action = "O_WriteFAQ.do";
-		document.productinfo.submit();
+		alert("수정되었습니다.")
+		form.action = "O_updateFAQ";
+		form.submit();
 	}
 </script>
 <script type="text/javascript">
@@ -57,25 +50,6 @@
 		}
 	}
 </script>
-<!-- <script type="text/javascript">
-	function setTitleAndContent(SelectedSeq){
-		var FAQList = ${FAQList};
-		var seq = SelectedSeq;
-		const selectedDto = FAQList.find(dto => dto.seq === seq);
-		
-		const n_title = selectedDto.n_title;
-		const n_content = selectedDto.n_content;
-		
-		var n_titleInput = document.getElementById("n_title");
-	    var n_contentTextarea = document.getElementById("n_content");
-	    
-	    n_titleInput.removeAttribute("readonly");
-		n_titleInput.value = n_title;
-		n_contentTextarea.removeAttribute("readonly");
-		n_contentTextarea.value = n_content;
-		
-	}
-</script> -->
 </head>
 <link rel="stylesheet" href="W_Header.css">
 <body>
@@ -90,7 +64,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -110,76 +84,58 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_adminNotice.do">NOTICE</a> 
-			<span class="selected"><a href="O_adminFAQ.do">FAQ</a></span>
-			<a href="O_adminQNA.do">Q&A</a> 
-			<a href="O_adminReview.do">REVIEW</a> 
+			<a href="O_adminNotice">NOTICE</a> 
+			<span class="selected"><a href="O_adminFAQ">FAQ</a></span>
+			<a href="O_adminQnA">Q&A</a> 
+			<a href="O_adminReview">REVIEW</a> 
 		<br><br>
 	</div>
 	<div class="page-title">
-			<a href="O_adminFAQ.do">목록</a> 
-			<a href="O_writeViewFAQ.do">등록</a> 
-			<a href="O_updateViewFAQ.do">수정</a>
-			<a href="O_deleteViewFAQ.do">삭제</a>
+			<a href="O_adminFAQ">목록</a> 
+			<a href="O_writeFAQView">등록</a> 
+			<a href="O_updateFAQView">수정</a>
+			<a href="O_deleteFAQView">삭제</a>
 	</div>
 	
 	<!-- board list area -->
 	<div class="page-title">
-		<h4>FAQ 삭제</h4>
+		<h4>FAQ 수정</h4>
 	</div>
 
 	<div class="container">
-		<form action="O_changeFAQStatus.do" method="post">
-			<input type="hidden" name="status" value="1">
-			<table class="board-table">
-				<thead>
-					<tr>
-						<th scope="col">
-							<div class="qna longSelect">
-								<select name="seq">
-									<c:forEach items="${FAQList}" var="dto">
-										<option value="${dto.seq}">${dto.n_title}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</th>
+	<form name="FAQ">
+		<table class="board-table">
+			<thead>
+				<tr>
+					<th scope="col" colspan="1">내용</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${FAQList}" var="dto">
+				<input type="hidden" name="seq" value="${dto.seq}">
+					<!-- 제목 클릭 시 hidden_row 토글 -->
+					<tr class="tr-background" onclick="showHiddenRow('row_${dto.seq}');">
+						<td class="custom-padding th-left" data-padding="20">
+						<input type="text" name="n_title" value="${dto.n_title}">
+							<span class="toggle-icon-wrapper">
+								<span class="toggle-icon" style="float: right;"></span>
+							</span>
+						</td>
 					</tr>
-				</thead>
-			</table>
-			<div class="container" style="text-align: right;">
-				<br>
-				<input type="submit" class="list-button th-right" value="삭제">
-			</div>
-		</form>
-	</div>
-	
-	<div class="page-title">
-		<h4>삭제된 FAQ 복구</h4>
-	</div>
-
-	<div class="container">
-		<form action="O_changeFAQStatus.do" method="post">
-		<input type="hidden" name="status" value="0">
-			<table class="board-table">
-				<thead>
-					<tr>
-						<th scope="col">
-							<div class="qna longSelect">
-								<select name="seq">
-									<c:forEach items="${DeletedFAQList}" var="dto">
-										<option value="${dto.seq}">${dto.n_title}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</th>
+					<!-- id를 게시글의 seq로 부여 -->
+					<tr id="row_${dto.seq}" class="hidden_row">
+						<td class="custom-padding th-left" data-padding="60">
+							<input type="text" name="n_content" value="${dto.n_content}">
+						</td>
 					</tr>
-				</thead>
-			</table>
-			<div class="container" style="text-align: right;">
-				<br>
-				<input type="submit" class="list-button th-right" value="복구">
-			</div>
+					<tr>
+						<td class="th-right"><input type="button" class="list-button" value="수정" onclick="updateCheck()"></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 		</form>
+		<br><br><br>
 	</div>
 	
 	<button class="top-button" onclick="scrollToTop()">top</button>

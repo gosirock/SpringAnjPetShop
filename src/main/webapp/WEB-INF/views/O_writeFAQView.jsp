@@ -32,8 +32,8 @@
 			alert("내용을 입력해 주세요.")
 			return
 		}
-		form.action = "O_writeFAQ.do";
-		document.productinfo.submit();
+		form.action = "O_writeFAQ";
+		form.submit();
 	}
 </script>
 <script type="text/javascript">
@@ -57,25 +57,6 @@
 		}
 	}
 </script>
-<!-- <script type="text/javascript">
-	function setTitleAndContent(SelectedSeq){
-		var FAQList = ${FAQList};
-		var seq = SelectedSeq;
-		const selectedDto = FAQList.find(dto => dto.seq === seq);
-		
-		const n_title = selectedDto.n_title;
-		const n_content = selectedDto.n_content;
-		
-		var n_titleInput = document.getElementById("n_title");
-	    var n_contentTextarea = document.getElementById("n_content");
-	    
-	    n_titleInput.removeAttribute("readonly");
-		n_titleInput.value = n_title;
-		n_contentTextarea.removeAttribute("readonly");
-		n_contentTextarea.value = n_content;
-		
-	}
-</script> -->
 </head>
 <link rel="stylesheet" href="W_Header.css">
 <body>
@@ -90,7 +71,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -111,17 +92,17 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<a href="O_adminNotice.do">NOTICE</a> 
-			<span class="selected"><a href="O_adminFAQ.do">FAQ</a></span>
-			<a href="O_adminQNA.do">Q&A</a> 
-			<a href="O_adminReview.do">REVIEW</a> 
+			<a href="O_adminNotice">NOTICE</a> 
+			<span class="selected"><a href="O_adminFAQ">FAQ</a></span>
+			<a href="O_adminQnA">Q&A</a> 
+			<a href="O_adminReview">REVIEW</a> 
 		<br><br>
 	</div>
 	<div class="page-title">
-			<a href="O_adminFAQ.do">목록</a> 
-			<a href="O_writeViewFAQ.do">등록</a> 
-			<a href="O_updateViewFAQ.do">수정</a>
-			<a href="O_deleteViewFAQ.do">삭제</a>
+			<a href="O_adminFAQ">목록</a> 
+			<a href="O_writeFAQView">등록</a> 
+			<a href="O_updateFAQView">수정</a>
+			<a href="O_deleteFAQView">삭제</a>
 	</div>
 	
 	<!-- board list area -->
@@ -160,7 +141,7 @@
 			</table>
 			<div class="container" style="text-align: right;">
 				<br>
-				<input type="submit" class="list-button th-right" value="등록" onclick="writeCheck()">
+				<input type="button" class="list-button th-right" value="등록" onclick="writeCheck()">
 			</div>
 		</form>
 	</div>

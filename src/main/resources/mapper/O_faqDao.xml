@@ -4,12 +4,34 @@
 
 <mapper namespace="com.springlec.base.dao.O_faqDao">
 
-<!-- 공지 목록 가져오기 (검색 기능 포함) -->
+<!-- faq 목록 가져오기 (검색 기능 포함) -->
 <select id="getFAQList" resultType="com.springlec.base.model.O_noticeDto">
 	SELECT *
 	FROM notice
 	WHERE isdelete = 0 AND category = 'FAQ'
 	ORDER BY n_title
 </select>
+
+<!-- 관리자용 FAQ CRUD -->
+<select id="getDeletedFAQList" resultType="com.springlec.base.model.O_noticeDto">
+	SELECT *
+	FROM notice
+	WHERE isdelete = 1 AND category = 'FAQ'
+	ORDER BY n_title
+</select>
+
+<insert id="writeFAQ">
+	INSERT INTO notice (adminid, category, n_title, n_content, writedate, isdelete)
+	VALUES (#{adminid},'FAQ',#{n_title},#{n_content},now(),0)
+</insert>
+
+<update id="updateFAQ">
+	UPDATE notice SET n_title = #{n_title}, n_content = #{n_content}, writedate = now()
+	WHERE seq = #{seq}
+</update>
+
+<update id="changeFAQStatus">
+	UPDATE notice SET isdelete = #{status} where seq = #{seq}
+</update>
 
 </mapper>
