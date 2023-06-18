@@ -29,4 +29,10 @@ public class O_noticeDaoServiceImpl implements O_noticeDaoService {
 		return dao.getNoticeCount(queryName, queryContent);
 	}
 
+	@Override
+	public O_noticeDto getNoticeDetail(int nSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getNoticeDetail(nSeq);
+	}
+
 }

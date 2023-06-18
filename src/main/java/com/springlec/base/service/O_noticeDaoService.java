@@ -8,7 +8,7 @@ public interface O_noticeDaoService {
 	
 	public List<O_noticeDto> getNoticeList(String queryName, String queryContent,
 			int startNum, int itemPerPage) throws Exception;
-
 	public int getNoticeCount(String queryName, String queryContent) throws Exception;
+	public O_noticeDto getNoticeDetail(int nSeq) throws Exception;
 
 }

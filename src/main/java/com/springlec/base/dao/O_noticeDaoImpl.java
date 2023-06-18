@@ -24,4 +24,10 @@ public class O_noticeDaoImpl implements O_noticeDao {
 		return (int)sqlSession.selectOne(nameSpace + ".O_getNoticeCount");
 	}
 
+	@Override
+	public O_noticeDto getNoticeDetail(int nSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return (O_noticeDto)sqlSession.selectList(nameSpace + ".O_getNoticeDetail");
+	}
+
 }

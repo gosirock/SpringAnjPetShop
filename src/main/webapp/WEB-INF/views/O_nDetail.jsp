@@ -100,10 +100,10 @@ $(document).ready(function() {
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<span class="selected"><a href="O_Notice.do">NOTICE</a></span>
-			<a href="O_FAQ.do">FAQ</a> 
-			<a href="O_QNA.do">Q&A</a> 
-			<a href="O_Review.do">REVIEW</a> 
+			<span class="selected"><a href="O_notice.do">NOTICE</a></span>
+			<a href="O_faq.do">FAQ</a> 
+			<a href="O_qna.do">Q&A</a> 
+			<a href="O_review.do">REVIEW</a> 
 		<br><br>
 	</div>
 	<div class="page-title">
@@ -112,14 +112,14 @@ $(document).ready(function() {
 
 	<!-- board list area -->
 	<div class="container">
-		<form name="NDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
+		<form name="nDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
 			<input type="hidden" name="status" value="1">
 			<input type="hidden" name="seq" value="${seq }">
 			<table class="board-table">
 				<thead>
 					<tr>
 						<th class="th-wnum">제목</th>
-						<th scope="col" colspan="3"><input type="text" name="n_title" value="${NDetail.n_title}" readonly="readonly"></th>
+						<th scope="col" colspan="3"><input type="text" name="n_title" value="${nDetail.n_title}" readonly="readonly"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -129,17 +129,17 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성일</td>
-						<td scope="col" class="th-left">${NDetail.writedate}</td>
+						<td scope="col" class="th-left">${nDetail.writedate}</td>
 					</tr>
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea rows="25" cols="109" wrap="hard" name="n_content" readonly="readonly"><c:out value="${NDetail.n_content}" /></textarea>
+							<textarea rows="25" cols="109" wrap="hard" name="n_content" readonly="readonly"><c:out value="${nDetail.n_content}" /></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td></td>
-						<td class="th-right"><span class="list-button"><a href="O_Notice.do">목록</a></span></td>
+						<td class="th-right"><span class="list-button"><a href="O_notice">목록</a></span></td>
 					</tr>
 				</tbody>
 			</table>

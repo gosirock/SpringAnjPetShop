@@ -20,4 +20,10 @@
     WHERE isdelete = 0 AND category = '공지' AND ${queryName} like #{queryContent}
 </select>
 
+<select id="getNoticeDetail" resultType="com.springlec.base.model.O_noticeDto">
+	SELECT n_title, n_content, writedate
+	FROM notice
+	WHERE seq = #{nSeq}
+</select>
+
 </mapper>

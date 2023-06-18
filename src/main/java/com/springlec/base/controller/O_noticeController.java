@@ -1,5 +1,7 @@
 package com.springlec.base.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,23 @@ public class O_noticeController {
 		O_paginationDto dto = pagination.pagination(itemsPerPage, totalCount, currentPage, (int)totalPages, pageSize);
 		model.addAttribute("noticeList", dtos);
 		model.addAttribute("p", dto);
-		return "O_NBoard";
+		return "O_nBoard";
+	}
+	
+	@RequestMapping("/O_nDetail")
+	public String getNoticeDetail(HttpServletRequest request, Model model) throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		int seq = Integer.parseInt(request.getParameter("seq"));
+		O_noticeDto dto = service.getNoticeDetail(seq);
+		String writeDate = dto.getWritedate();
+		Timestamp t_writeDate = Timestamp.valueOf(writeDate);
+		
+		writeDate =  format.format(t_writeDate);
+		dto.setWritedate(writeDate);
+		
+		model.addAttribute("nDetail",dto);
+		model.addAttribute("seq", seq);
+		return("O_nDetail");
+		
 	}
 }
