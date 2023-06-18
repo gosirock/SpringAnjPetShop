@@ -30,4 +30,25 @@ public class O_noticeDaoImpl implements O_noticeDao {
 		return (O_noticeDto)sqlSession.selectList(nameSpace + ".O_getNoticeDetail");
 	}
 
+	// --------------------- 관리자용 수정, 삭제, 작성 기능 -------------------------
+	@Override
+	public void writeNotice(String adminid, String n_title, String n_content) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(nameSpace + ".O_writeNotice");
+		
+	}
+
+	@Override
+	public void updateNotice(int seq, String n_title, String n_content) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(nameSpace + ".O_updateNotice");
+		
+	}
+
+	@Override
+	public void deleteNotice(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(nameSpace + ".O_deleteNotice");
+	}
+
 }

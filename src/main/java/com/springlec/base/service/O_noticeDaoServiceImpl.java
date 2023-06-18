@@ -34,5 +34,27 @@ public class O_noticeDaoServiceImpl implements O_noticeDaoService {
 		// TODO Auto-generated method stub
 		return dao.getNoticeDetail(nSeq);
 	}
+	
+	// --------------------- 관리자용 수정, 삭제, 작성 기능 -------------------------
+	@Override
+	public void writeNotice(String adminid, String n_title, String n_content) throws Exception {
+		// TODO Auto-generated method stub
+		dao.writeNotice(adminid, n_title, n_content);
+		
+	}
+
+	@Override
+	public void updateNotice(int seq, String n_title, String n_content) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateNotice(seq, n_title, n_content);
+		
+	}
+
+	@Override
+	public void deleteNotice(int seq) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteNotice(seq);
+		
+	}
 
 }

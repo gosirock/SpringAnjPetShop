@@ -26,4 +26,20 @@
 	WHERE seq = #{nSeq}
 </select>
 
+<!-- 관리자용 CRUD -->
+<insert id="writeNotice">
+	INSERT INTO notice (adminid, category, n_title, n_content, writedate, isdelete)
+	VALUES (#{adminid},'공지',#{n_title},#{n_content},now(),0)
+</insert>
+
+<update id="updateNotice">
+	UPDATE notice SET n_title = #{n_title}, n_content = #{n_content}, writedate = now()
+	WHERE seq = #{seq}
+</update>
+
+<update id="deleteNotice">
+	UPDATE notice SET writedate = now(), isdelete = 1
+	WHERE seq = #{seq}
+</update>
+
 </mapper>

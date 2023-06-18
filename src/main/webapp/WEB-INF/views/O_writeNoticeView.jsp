@@ -28,8 +28,9 @@
 			alert("내용을 입력해 주세요.")
 			return
 		}
-		form.action = "O_writeNotice.do";
-		document.productinfo.submit();
+		alert("공지사항이 등록되었습니다.")
+		form.action = "O_writeNotice";
+		form.submit()
 	}
 </script>
 </head>
@@ -46,7 +47,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -63,10 +64,10 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<span class="selected"><a href="O_adminNotice.do">NOTICE</a></span>
-			<a href="O_adminFAQ.do">FAQ</a> 
-			<a href="O_adminQNA.do">Q&A</a> 
-			<a href="O_adminReview.do">REVIEW</a> 
+			<span class="selected"><a href="O_adminNotice">NOTICE</a></span>
+			<a href="O_adminFAQ">FAQ</a> 
+			<a href="O_adminQnA">Q&A</a> 
+			<a href="O_adminReview">REVIEW</a> 
 		<br><br>
 	</div>
 
@@ -87,15 +88,15 @@
 				<tbody>
 					<tr>
 						<td class="th-wnum">작성자</td>
-						<td scope="col" class="th-left">admin</td> <!-- 나중에 로그인한 관리자의 세션으로 받아오기 -->
+						<td scope="col" class="th-left">관리자</td> <!-- 나중에 로그인한 관리자의 세션으로 받아오기 -->
 					</tr>
 					<tr>
 						<td class="th-wnum">내용</td>
 						<td class="th-left"><textarea rows="25" cols="102" wrap="hard" name="n_content" placeholder="내용을 입력하세요."></textarea></td>
 					</tr>
 					<tr>
-						<td class="th-wnum"><span class="list-button"><a href="O_adminNotice.do">목록</a></span></td>
-						<td class="th-right"><input type="submit" class="list-button" value="등록" onclick="writeCheck()"></td>
+						<td class="th-wnum"><span class="list-button"><a href="O_adminNotice">목록</a></span></td>
+						<td class="th-right"><input type="button" class="list-button" value="등록" onclick="writeCheck()"></td>
 					</tr>
 				</tbody>
 			</table>

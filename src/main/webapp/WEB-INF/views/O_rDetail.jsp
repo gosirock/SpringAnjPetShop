@@ -49,12 +49,12 @@
 	
 	function writeAction(){
 		const form = document.writeComment
+		form.action = "O_writeComment";
 		if(form.userid.value == ""){
-			alert("로그인이 되어있어야 댓글 작성이 가능합니다.");
+			alert("로그인 후 댓글 작성이 가능합니다.");
 			return
 		}else{
-			form.action = "O_writeComment";
-			form.submit
+			form.submit();
 		}
 		
 	}
@@ -202,9 +202,10 @@ $(document).ready(function() {
 				</tbody>
 			</table>
 		</form>
-		<form name="writeComment">
-		<%-- <input type="hidden" name="userid" value="${sessionScope.USERID}"> --%>
-		<input type="hidden" name="userid" value="osm1119">
+		
+		<!-- 댓글 뷰 -->
+		<form name="writeComment" method="post">
+		<input type="hidden" name="userid" value="${sessionScope.USERID}">
 		<input type="hidden" name="seq" value="${seq }">
 			<table class="board-table">
 				<thead>
@@ -237,10 +238,28 @@ $(document).ready(function() {
 							<c:set var="indentation1" value="${indentation1}&nbsp;" />
 						</c:forEach>
 						<tr>
-							<td style="text-align: left; font-size: 14px;"><input style="font-size: 14px; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: ${dto.writer }&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly"></td>
+							<td style="text-align: left; font-size: 14px;">
+								<c:choose>
+										<c:when test="${dto.writer eq '관리자'}">
+											<input style="font-size: 14px; font-weight:bold; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: 관리자&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
+										</c:when>
+										<c:otherwise>
+											<input style="font-size: 14px; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: ${dto.writer }&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
+										</c:otherwise>
+								</c:choose>
+							</td>
 						</tr>
 						<tr>
-							<td style="text-align: left;"><input style="font-size: 17px; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글"></td>
+							<td style="text-align: left;">
+							<c:choose>
+										<c:when test="${dto.writer eq '관리자'}">
+											<input style="font-size: 17px; font-weight:bold; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
+										</c:when>
+										<c:otherwise>
+											<input style="font-size: 17px; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
+										</c:otherwise>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

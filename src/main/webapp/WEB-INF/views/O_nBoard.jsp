@@ -191,7 +191,7 @@ $(document).ready(function() {
 	  }
 
     // 다음 버튼
-    if ((currentPage != totalPages) && (totalPages != 1) && currentPage <= Math.floor(totalPages/pageSize)*pageSize) {
+    if ((currentPage != totalPages) && (totalPages != 1) && currentPage <= Math.floor(totalPages/pageSize)*pageSize && nextAndPrev <= totalPages) {
       document.write('<span><a href="O_notice?page=' + nextAndPrev + '&query=' + query + '&content=${content}">></a><span>');
       document.write('<span><a href="O_notice?page=' + totalPages + '&query=' + query + '&content=${content}">>></a><span>');
     }else{

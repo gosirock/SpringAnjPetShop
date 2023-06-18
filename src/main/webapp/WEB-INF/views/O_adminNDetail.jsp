@@ -29,7 +29,7 @@
 			return
 		}
 		if(confirm("수정하시겠습니까?") == true){
-		form.action = "O_updateNotice.do";
+		form.action = "O_updateNotice";
 		form.submit();
 		}
 	}
@@ -39,7 +39,7 @@
 		
 		if(confirm("정말 삭제하시겠습니까?") == true){
 			const form = document.NDetail
-			form.action = "O_changeNoticeStatus.do";
+			form.action = "O_deleteNotice";
 			form.submit();
 			}
 	}
@@ -59,7 +59,7 @@
 					      	</ul>
 					      </li>
 					      <li><a href="W_UserList.jsp">회원 관리</a></li>
-					      <li><a href="O_adminNotice.do">게시판 관리</a>
+					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
 					      <li><a href="W_SalesDaily.jsp">매출현황</a>
@@ -76,10 +76,10 @@
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<span class="selected"><a href="O_adminNotice.do">NOTICE</a></span>
-			<a href="O_adminFAQ.do">FAQ</a> 
-			<a href="O_adminQNA.do">Q&A</a> 
-			<a href="O_adminReview.do">REVIEW</a> 
+			<span class="selected"><a href="O_adminNotice">NOTICE</a></span>
+			<a href="O_adminFAQ">FAQ</a> 
+			<a href="O_adminQnA">Q&A</a> 
+			<a href="O_adminReview">REVIEW</a> 
 		<br><br>
 	</div>
 	<div class="page-title">
@@ -95,7 +95,7 @@
 				<thead>
 					<tr>
 						<th class="th-wnum">제목</th>
-						<th scope="col" colspan="3"><input type="text" name="n_title" value="${NDetail.n_title}"></th>
+						<th scope="col" colspan="3"><input type="text" name="n_title" value="${nDetail.n_title}"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -105,19 +105,19 @@
 					</tr>
 					<tr>
 						<td scope="col" class="th-wnum">작성일</td>
-						<td scope="col" class="th-left">${NDetail.writedate}</td>
+						<td scope="col" class="th-left">${nDetail.writedate}</td>
 					</tr>
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea rows="25" cols="109" wrap="hard" name="n_content"><c:out value="${NDetail.n_content}" /></textarea>
+							<textarea rows="25" cols="109" wrap="hard" name="n_content"><c:out value="${nDetail.n_content}" /></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td class="th-wnum"><span class="list-button"><a href="O_adminNotice.do">목록</a></span></td>
+						<td class="th-wnum"><span class="list-button"><a href="O_adminNotice">목록</a></span></td>
 						<td class="th-right">
-							<input type="submit" class="list-button" value="수정" onclick="updateCheck()">
-							<input type="submit" class="list-button" value="삭제" onclick="deleteCheck()">
+							<input type="button" class="list-button" value="수정" onclick="updateCheck()">
+							<input type="button" class="list-button" value="삭제" onclick="deleteCheck()">
 						</td>
 					</tr>
 				</tbody>
