@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.J_pDetailDao">
+	
+	<!-- 1. 사용자가 선택한 제품 상세 정보 페이지 -->
+	<select id="viewPDetail" resultType="com.springlec.base.model.J_productDto">
+		SELECT * FROM product WHERE pid = 'C1001' 	<!-- #{pid}로 바꿔줘야돼  -->
+	</select>
+	
+	<insert id="insertCart">
+		INSERT INTO cart (count, pid, userid) VALUES (#{count}, #{pid}, 'bono') 	<!-- uid 값을 #{uid}로 쓸것  -->
+	</insert>
+
+	<insert id="insertPurchase">
+		INSERT INTO purchase (count, pid, userid) VALUES (#{count}, #{pid}, 'bono') 	<!-- uid 값을 #{uid}로 쓸것  -->
+	</insert>
+
+
+
+
+
+
+
+</mapper>
