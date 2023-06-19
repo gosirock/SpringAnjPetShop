@@ -44,4 +44,4 @@ public class O_faqDaoImpl implements O_faqDao {
 	}
 
 
-}
+} // end
