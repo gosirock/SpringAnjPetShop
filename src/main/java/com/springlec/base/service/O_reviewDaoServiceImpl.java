@@ -49,9 +49,9 @@ public class O_reviewDaoServiceImpl implements O_reviewDaoService {
 	}
 
 	@Override
-	public void writeComment(int rseq, String userid, int maxRef, String comment) throws Exception {
+	public void writeParentComment(int rseq, String userid, int maxRef, String comment) throws Exception {
 		// TODO Auto-generated method stub
-		dao.writeComment(rseq, userid, maxRef, comment);
+		dao.writeParentComment(rseq, userid, maxRef, comment);
 	}
 
 }

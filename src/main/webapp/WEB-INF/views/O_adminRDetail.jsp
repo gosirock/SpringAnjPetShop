@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="CSS/O_RBoardStyle.css">
 <link rel="stylesheet" href="CSS/O_CommentStyle.css">
 <script src="JS/O_ScrollTop.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
 	function updateCheck(){
@@ -44,6 +46,26 @@
 			form.action = "";
 			form.submit();
 			}
+	}
+	
+	$(document).ready(function() {
+		$(".hidden_row").hide(); // 페이지 로드 시 숨겨진 행 숨기기
+		$(".toggle-icon").text("+"); // 초기에 토글 아이콘 "+"로 표시
+	});
+
+	function showHiddenRow(row) {
+		let $targetRow = $("#" + row);
+		let $toggleIcon = $targetRow.prev("tr").find(".toggle-icon");
+
+		if ($targetRow.is(":visible")) {
+			$targetRow.hide();
+			$toggleIcon.text("+");
+		} else {
+			$(".hidden_row").hide();
+			$(".toggle-icon").text("+");
+			$targetRow.show();
+			$toggleIcon.text("-");
+		}
 	}
 </script>
 
@@ -136,7 +158,7 @@
 				</tbody>
 			</table>
 		</form>
-		<form action="O_adminWriteComment">
+		<form action="O_adminWriteParentComment">
 		<input type="hidden" name="userid" value="관리자">
 		<input type="hidden" name="seq" value="${seq }">
 			<table class="board-table">
@@ -173,24 +195,36 @@
 							<td style="text-align: left; font-size: 14px;">
 								<c:choose>
 										<c:when test="${dto.writer eq '관리자'}">
-											<input style="font-size: 14px; font-weight:bold; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: 관리자&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
+											<input style="font-size: 14px; font-weight:bold; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
 										</c:when>
 										<c:otherwise>
-											<input style="font-size: 14px; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: ${dto.writer }&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
+											<input style="font-size: 14px; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
 										</c:otherwise>
 								</c:choose>
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align: left;">
+							<td style="text-align: left;" colspan="3">
 							<c:choose>
 										<c:when test="${dto.writer eq '관리자'}">
-											<input style="font-size: 17px; font-weight:bold; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
+											<input style="font-size: 17px; font-weight:bold; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
 										</c:when>
 										<c:otherwise>
-											<input style="font-size: 17px; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
+											<input style="font-size: 17px; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
 										</c:otherwise>
 								</c:choose>
+								<input type="button" class="comment-button" value="답글창" onclick="showHiddenRow('row_${dto.c_seq}');">
+							</td>
+						</tr>
+						<tr id="row_${dto.c_seq}" class="hidden_row">
+							<td scope="col">
+								<input type="text" name="comment" placeholder="답글 추가...">
+							</td>
+							<td>
+								<input class="comment-button" type="reset" style="text-align: right;" value="취소">
+							</td>
+							<td>
+								<input class="cancel-button" type="submit" style="text-align: right;" value="답글">
 							</td>
 						</tr>
 					</c:forEach>

@@ -44,7 +44,7 @@ public class O_reviewDaoImpl implements O_reviewDao {
 	}
 
 	@Override
-	public void writeComment(int rseq, String userid, int maxRef, String comment) throws Exception {
+	public void writeParentComment(int rseq, String userid, int maxRef, String comment) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.insert(nameSpace + ".writeComment");
 		

@@ -12,5 +12,5 @@ public interface O_reviewDaoService {
 	public O_reviewDto getReviewDetail(int nSeq) throws Exception;
 	public List<O_commentsDto> getCommentsList(int t_rootseq) throws Exception;
 	public int getMaxRef() throws Exception;
-	public void writeComment(int rseq, String userid, int maxRef, String comment) throws Exception;
+	public void writeParentComment(int rseq, String userid, int maxRef, String comment) throws Exception;
 }

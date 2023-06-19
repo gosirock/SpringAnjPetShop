@@ -93,14 +93,14 @@ public class O_reviewController {
 		return("O_rDetail");
 	}
 	
-	@RequestMapping("/O_writeComment")
+	@RequestMapping("/O_writeParentComment")
 	public String writeComment(HttpServletRequest request) throws Exception{
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		String userid = request.getParameter("userid");
 		String comment = request.getParameter("comment");
 		int maxRef = service.getMaxRef();
 		
-		service.writeComment(seq, userid, maxRef, comment);
+		service.writeParentComment(seq, userid, maxRef, comment);
 		
 		return "redirect:O_rDetail?seq=" + seq;
 	}

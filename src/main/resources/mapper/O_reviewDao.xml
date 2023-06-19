@@ -38,7 +38,7 @@
 	SELECT MAX(ref) FROM comments
 </select>
 
-<insert id="writeComment">
+<insert id="writeParentComment">
 	INSERT INTO comments (rootseq, ref, step, reforder, answernum, writer, parentseq, comments, writedate, isdelete)
 	VALUES (#{rseq},#{maxRef}+1,0,0,0,#{userid},0,#{comment},now(),0)
 </insert>

@@ -204,7 +204,7 @@ $(document).ready(function() {
 		</form>
 		
 		<!-- 댓글 뷰 -->
-		<form name="writeComment" method="post">
+		<form name="writeParentComment" method="post">
 		<input type="hidden" name="userid" value="${sessionScope.USERID}">
 		<input type="hidden" name="seq" value="${seq }">
 			<table class="board-table">
