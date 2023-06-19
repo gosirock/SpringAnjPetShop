@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.A_MainDao">
+
+	<select id="A_MainView3" resultType="com.springlec.base.model.A_MainDto">
+		SELECT pid, pname, pprice, pthumbnail from product order by rand() Limit 4
+	</select>
+	
+	<select id="A_MainView2" resultType="com.springlec.base.model.A_MainDto">
+		SELECT orders.pid, product.pname, product.pprice, product.pthumbnail FROM orders INNER JOIN product ON orders.pid = product.pid GROUP BY orders.pid ORDER BY COUNT(*) DESC Limit 3;
+	</select>
+
+</mapper>

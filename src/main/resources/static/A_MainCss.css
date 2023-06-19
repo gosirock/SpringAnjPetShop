@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* .product-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px; 요소 사이 간격
+	text-align: center;
+}
+
+.product-item {
+	text-align: center;
+	grid-column: span 1;
+}
+
+.product-item img {
+	width: 50%;
+	height: auto;
+}
+
+.product-item h3 {
+	margin-top: 10px;
+}
+
+.product-item p {
+	margin-top: 5px;
+} */
+
+/* img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+}  */

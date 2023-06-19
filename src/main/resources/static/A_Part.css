@@ -1,0 +1,74 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700");
+body {
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Oswald", sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5em;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.container {
+  max-width: 1024px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.timeline-item {
+  padding: 3em 2em 2em;
+  position: relative;
+  color: rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.3);
+}
+.timeline-item p {
+  font-size: 0.7rem;
+}
+.timeline-item::before {
+  content: attr(date-is);
+  position: absolute;
+  left: 2em;
+  font-weight: bold;
+  top: 1em;
+  display: block;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 0.785rem;
+}
+.timeline-item::after {
+  width: 10px;
+  height: 10px;
+  display: block;
+  top: 1em;
+  position: absolute;
+  left: -7px;
+  border-radius: 10px;
+  content: "";
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  background: white;
+}
+.timeline-item:last-child {
+  border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+}
+
+.profile-pic {
+  position: absolute;
+  top: 250px; /* 이미지를 약간 아래로 이동시킬 위치 조정 */
+  right: 60px; /* 이미지를 오른쪽으로 조정 */
+  max-width: 50% /* 이미지의 최대 너비 조정 */
+}
+
+.profile-pic img {
+  border-radius: 50%; /* 이미지를 원형으로 만듭니다. */
+}
