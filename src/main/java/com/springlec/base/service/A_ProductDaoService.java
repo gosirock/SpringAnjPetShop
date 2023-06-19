@@ -6,7 +6,5 @@ import com.springlec.base.model.A_ProductDto;
 
 public interface A_ProductDaoService {
 
-	
-	public List<A_ProductDto> A_ProductView() throws Exception;
-
+	public List<A_ProductDto> A_ProductView(String pcategory, String query, String content, String sortOrder) throws Exception;
 }

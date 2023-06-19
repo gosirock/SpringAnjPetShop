@@ -5,8 +5,30 @@
 <mapper namespace="com.springlec.base.dao.A_ProductDao">
 
 	<select id="A_ProductView" resultType="com.springlec.base.model.A_ProductDto">
-		select pid, pname, pprice, pthumbnail from product
-	</select>
+    SELECT pid, pname, pprice, pthumbnail
+    FROM product
+    <where>
+        <if test="query != null and !query.isEmpty()">
+            AND ${query} LIKE CONCAT('%', #{content}, '%')
+        </if>
+        <if test="pcategory != null">
+            AND pcategory = #{pcategory}
+        </if>
+    </where>
+    <choose>
+        <when test="sortOrder == 'highprice'">
+            ORDER BY pprice DESC
+        </when>
+        <when test="sortOrder == 'lowprice'">
+            ORDER BY pprice ASC
+        </when>
+    </choose>
+</select>
 
+		<!-- <select id="A_ProductView2" resultType="com.springlec.base.model.A_ProductDto">
+		select * from product where ${query} like #{content}
+		</select> -->
+ 
+     
 
 </mapper>

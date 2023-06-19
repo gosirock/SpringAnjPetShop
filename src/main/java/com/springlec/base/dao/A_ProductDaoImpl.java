@@ -13,9 +13,10 @@ public class A_ProductDaoImpl implements A_ProductDao {
 	public static String nameSpace = "com.springlec.base.dao.A_ProductDao";
 
 	@Override
-	public List<A_ProductDto> A_ProductView() throws Exception {
+	public List<A_ProductDto> A_ProductView(String pcategory, String query, String content, String sortOrder) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlsession.selectList(nameSpace + ".A_ProductView");
+	return sqlsession.selectList(nameSpace + ".A_ProductView");
 	}
+
 
 }

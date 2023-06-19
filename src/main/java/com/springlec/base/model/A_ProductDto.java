@@ -16,8 +16,23 @@ public class A_ProductDto {
 	int postcode;
 	String address;
 	String detailaddress;
-
+    String queryName;
+    String queryContent;
+    String sortOrder;
 	
+    
+    
+    
+    
+	
+
+	public A_ProductDto(String queryName, String queryContent, String sortOrder) {
+		super();
+		this.queryName = queryName;
+		this.queryContent = queryContent;
+		this.sortOrder = sortOrder;
+	}
+
 	public A_ProductDto(String id, String pw, String name, String tel, String email, int postcode, String address,
 			String detailaddress) {
 		super();
@@ -64,6 +79,31 @@ public class A_ProductDto {
 	public A_ProductDto(String pid) {
 		super();
 		this.pid = pid;
+	}
+
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
+	}
+
+
+	public String getQueryContent() {
+		return queryContent;
+	}
+
+	public void setQueryContent(String queryContent) {
+		this.queryContent = queryContent;
+	}
+
+	public String getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 	public String getPid() {

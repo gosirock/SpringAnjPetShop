@@ -136,7 +136,7 @@ $(document).ready(function() {
 			</header><br><br> <br> <br><br><br>
      				
      				
-     				<!-- 검  -->
+     				<!-- 검색  -->
      				
      				 <form action="Product" class="search-form">  <!-- 검색 -->
               	 		 <select name="query">

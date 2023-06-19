@@ -12,6 +12,7 @@ import com.springlec.base.service.A_MainDaoService;
 
 @Controller
 public class A_Controller {
+	
 	@Autowired
 	A_MainDaoService service;
 	

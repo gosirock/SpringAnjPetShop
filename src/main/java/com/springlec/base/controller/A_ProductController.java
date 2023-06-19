@@ -10,17 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springlec.base.model.A_ProductDto;
 import com.springlec.base.service.A_ProductDaoService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class A_ProductController {
 
 	@Autowired
 	A_ProductDaoService service;
-	
+
 	@RequestMapping("/Product")
-	public String A_ProductView(Model model) throws Exception{
-		List<A_ProductDto> listdao = service.A_ProductView();
+	public String A_ProductView(HttpServletRequest request, Model model) throws Exception {
+		String query = request.getParameter("query");
+		String content = request.getParameter("content");
+		String pcategory = request.getParameter("pcategory");
+		String sortOrder = request.getParameter("sortOrder");
+		
+		
+		if (query == null) {
+			query = "pname";
+			content = "";
+		}
+
+		List<A_ProductDto> listdao = service.A_ProductView(pcategory, query, content, sortOrder);
 		model.addAttribute("A_ProductView", listdao);
+
 		return "A_ProductView";
-	
-}
 	}
+
+//	@RequestMapping("/Product2")
+//	public String A_ProductView2(HttpServletRequest request, Model model)throws Exception {
+//		System.out.println(request.getParameter("query"));
+//		List<A_ProductDto> listDao = service.A_ProductView2(request.getParameter("query"), request.getParameter("content"));
+//		model.addAttribute("A_ProductView", listDao);
+//		return "A_ProductView";
+}

@@ -15,9 +15,18 @@ public class A_ProductDaoServiceImpl implements A_ProductDaoService {
 	A_ProductDao dao;
 
 	@Override
-	public List<A_ProductDto> A_ProductView() throws Exception {
+	public List<A_ProductDto> A_ProductView(String pcategory, String query, String content, String sortOrder) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.A_ProductView();
+		content = "%" + content + '%';
+		return dao.A_ProductView(pcategory, query, content, sortOrder);
 	}
 
+//	@Override
+//	public List<A_ProductDto> A_ProductView2(String query, String content) throws Exception {
+//		// TODO Auto-generated method stub
+//		content = "%" + content + '%';
+//		return dao.A_ProductView2(query, content);
+//	}
+	
 }
+	

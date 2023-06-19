@@ -129,27 +129,27 @@
 
 						<!-- 검색 및 상품정렬 -->
 						<div style="text-align: right;">
-						  <form class="search-form">
+						  <form action="Product" class="search-form">
               	  		<select name="query">
 		                    <option value="pname" selected="selected">Product</option>
 		                    <option value="pprice">Price</option>
 		                </select>
 			                <input type="text" name="content" size="150">
 			                <input type="submit" value="Search">
-			              <select id="sortOrder" name="sortOrder" onchange="handleSortOrderChange()">
+			             <select id="sortOrder" name="sortOrder" onchange="handleSortOrderChange()">
 		                    <option value="">Price Sort</option>
 		                    <option value="highprice">Highest Price</option>
 		                    <option value="lowprice">Lowest Price</option>
-              		 	</select>
+              		 	</select> 
 				            </form>
 				        </div>
 						<br/>
 						
 
 							 <li class="center-align">
-						        <a href="A_ProductView.do?pcategory=food" class="btn-login btn-dog">Food</a> 
-						        <a href="A_ProductView.do?pcategory=clean" class="btn-login btn-dog">Clean</a> 
-						        <a href="A_ProductView.do?pcategory=living" class="btn-login btn-dog">Living</a> 
+						        <a href="Product?pcategory=food" class="btn-login btn-dog">Food</a> 
+						        <a href="Product?pcategory=clean" class="btn-login btn-dog">Clean</a> 
+						        <a href="Product?pcategory=living" class="btn-login btn-dog">Living</a> 
                              </li><br><br>
 				
 						<!-- 전체 상품목록 -->
