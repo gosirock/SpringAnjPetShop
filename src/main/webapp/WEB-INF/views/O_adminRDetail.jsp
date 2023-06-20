@@ -200,9 +200,13 @@
 	</div>
 	<!-- 댓글 -------------------------------------------------------------------------->
 	<div class="container">
-		<table class="comment-table">
+		<table>
 			<tbody>
 				<c:forEach items="${commentList}" var="dto">
+					<!-- isdelete가 1이면 삭제된 댓글이라고 보여주기 위한 작업 -->
+					<c:if test="${dto.isdelete == 1}">
+		 				<c:set var="dto.comments" value="삭제된 댓글입니다." />
+					</c:if>
 					<form name="comment${dto.c_seq }" method="post">
 						<input type="hidden" name="c_seq" value="${dto.c_seq }">
 						<input type="hidden" name="rootseq" value="${dto.rootseq }">
@@ -226,21 +230,38 @@
 							<c:set var="indentation1" value="${indentation1}&nbsp;" />
 						</c:forEach>
 					<tr>
-						<td style="text-align: left; font-size: 14px;">
-							<input
-								style="font-size: 14px; font-weight: bold; border-bottom: none;"
-								type="text"
-								value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
-								readonly="readonly">
+						<td style="text-align: left; font-size: 14px;" colspan="3"><c:choose>
+								<c:when test="${dto.writer eq '관리자'}">
+									<input
+										style="font-size: 14px; font-weight: bold; border-bottom: none;"
+										type="text"
+										value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
+										readonly="readonly">
+								</c:when>
+								<c:otherwise>
+									<input style="font-size: 14px; border-bottom: none;"
+										type="text"
+										value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
+										readonly="readonly">
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr>
-						<td style="text-align: left;" colspan="3">
-							<input style="font-size: 17px; font-weight: bold; border-top: none;"
-									type="text" readonly="readonly"
-									value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
-							<input type="button" class="comment-button" value="답글창"
-									onclick="showHiddenRow('row_${dto.c_seq}');">
+						<td style="text-align: left;" colspan="3"><c:choose>
+								<c:when test="${dto.writer eq '관리자'}">
+									<input
+										style="font-size: 17px; font-weight: bold; border-top: none;"
+										type="text" readonly="readonly"
+										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
+								</c:when>
+								<c:otherwise>
+									<input style="font-size: 17px; border-top: none;" type="text"
+										readonly="readonly"
+										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
+								</c:otherwise>
+							</c:choose> <input type="button" class="comment-button" value="답글창"
+							onclick="showHiddenRow('row_${dto.c_seq}');">
 						</td>
 					</tr>
 					<tr id="row_${dto.c_seq}" class="hidden_row">
