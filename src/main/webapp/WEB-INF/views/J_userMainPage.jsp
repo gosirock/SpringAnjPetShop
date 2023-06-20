@@ -8,8 +8,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>ANJ MY PAGE</title>
-<link rel="stylesheet" href="J_userMyPage.css">
+<link rel="stylesheet" href="CSS/J_userMainPage.css">
 <!-- <link rel="stylesheet" href="A_heardCss.css"> -->
+
 <script type="text/javascript">
 // 드롭다운 
 $(function(){
@@ -124,21 +125,21 @@ $(document).ready(function() {
 		<table class="operations">
 			<tr>
 				<td> 
-				<a href="J_orderHistoryPage.jsp"><img src="J_userPageIcon/J_orderIcon.gif" style="width: 3px; height: auto; border: 1px solid black;"></a> 
+				<a href="J_orderHistoryPage.jsp"><img src="J_userPageIcon/J_orderIcon.gif" style="width: 50px; height: auto; border: 3px solid black;"></a> 
 				<h4><a href="J_orderHistoryPage.jsp">ORDER </a></h4> 
 				<h5><a href="J_orderHistoryPage.jsp">주문내역 조회 </a></h5>
 				<h6><a href="J_orderHistoryPage.jsp">고객님께서 주문하신 상품의 주문내역을 확인하실 수 있습니다. </a></h6>  
 				</td>
 
 				<td>
-				<a href="J_userProfilePage.do"><img src="J_userPageIcon/J_profileIcon.gif" style="width: 3px; height: auto;"></a> 
-				<h4><a href="J_userProfilePage.do"> PROFILE </a> </h4> 
-				<h5><a href="J_userProfilePage.do"> 회원 정보 </a></h5>
-				<h6><a href="J_userProfilePage.do"> 회원이신 고객님의 개인 정보를 관리하는 공간입니다. </a></h6>  
+				<a href="j_uProfilePage"><img src="J_userPageIcon/J_profileIcon.gif" style="width: 30px; height: auto;"></a> 
+				<h4><a href="j_uProfilePage"> PROFILE </a> </h4> 
+				<h5><a href="j_uProfilePage"> 회원 정보 </a></h5>
+				<h6><a href="j_uProfilePage"> 회원이신 고객님의 개인 정보를 관리하는 공간입니다. </a></h6>  
 				</td>
 
 				<td>	
-				<a href="J_wishListPage.jsp"><img src="J_userPageIcon/J_wishlistIcon.gif" style="width: 3px; height: auto; /* border: 1px solid black; */"></a> 
+				<a href="J_wishListPage.jsp"><img src="J_userPageIcon/J_wishlistIcon.gif" style="width: 30px; height: auto; /* border: 1px solid black; */"></a> 
 				<h4><a href="J_wishListPage.jsp"> WISHLIST </a></h4> 
 				<h5><a href="J_wishListPage.jsp"> 관심 상품 </a></h5>
 				<h6><a href="J_wishListPage.jsp"> 관심상품으로 등록하신 상품의 목록을 보여드립니다. </a></h6>  
@@ -146,21 +147,21 @@ $(document).ready(function() {
 			</tr>
 			<tr>			
 				<td> 
-				<a href="J_mileageHistoryPage.jsp"><img src="J_userPageIcon/J_mileageIcon.gif" style="width: 3px; height: auto; /* border: 1px solid black; */"></a> 
+				<a href="J_mileageHistoryPage.jsp"><img src="J_userPageIcon/J_mileageIcon.gif" style="width: 30px; height: auto; /* border: 1px solid black; */"></a> 
 				<h4><a href="J_mileageHistoryPage.jsp"> MILEAGE </a></h4> 
 				<h5><a href="J_mileageHistoryPage.jsp"> 제품구매 적립금 </a></h5>
 				<h6><a href="J_mileageHistoryPage.jsp"> 제품구매 적립금은 상품 구매 시 사용하실 수 있습니다. </a></h6>  
 				</td>
 				
 				<td>
-				<a href="J_bordPage.jsp"><img src="J_userPageIcon/J_boardIcon.gif" style="width: 3px; height: auto; /* border: 1px solid black; */"></a> 
+				<a href="J_bordPage.jsp"><img src="J_userPageIcon/J_boardIcon.gif" style="width: 30px; height: auto; /* border: 1px solid black; */"></a> 
 				<h4><a href="J_bordPage.jsp"> BOARD </a></h4> 
 				<h5><a href="J_bordPage.jsp"> 게시물 관리 </a></h5>
 				<h6><a href="J_bordPage.jsp"> 고객님께서 작성하신 게시물을 관리하는 공간입니다. </a></h6>  
 				</td> 
 				
 				<td>
-				<img src="J_userPageIcon/J_customercenterIcon.gif" style="width: 3px; height: auto; /* border: 1px solid black; */"> 
+				<img src="J_userPageIcon/J_customercenterIcon.gif" style="width: 30px; height: auto; /* border: 1px solid black; */"> 
 				<h4> 고객센터 </h4> 
 				<h5> 1577 - 5462 </h5>
 				<h6> 매일 AM 09:00 ~ PM 17:00 <br/>

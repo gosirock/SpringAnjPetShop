@@ -164,18 +164,22 @@ header .head-wrap-sub ul li a:hover {
   padding:100px;
 }
 
+#requiredInfo{
+	display: flex;
+	justify-content: space-between;
+}
 
-#userInfo {
+#userInfoUpdate {
 	/* padding: 30px; */
 	border-collapse: collapse; /* 인접한 셀의 경계를 합치기 */
 } 
 
-#userIn tr{
+#userInfoUpdate tr{
 	padding: 30px; 
 	border-bottom: 1px solid lightgray;
 } 
 
-#userid, #username, #useraddress, #usertel, #useremail {
+#infoUpdate {
 	text-align: center;
 	font-size: 15px;
 	padding: 30px;
@@ -191,11 +195,26 @@ header .head-wrap-sub ul li a:hover {
 	text-align: right;
 }
 
-#tfUserid, #tfUserName, #tfUserTel, #tfUserEmail {
+#tfUserid {
 	font-size: 15px;
 	width: 200px;
 	height: 10px;
 	padding: 10px;
+}
+
+#pfUserpw, #pfUserpwCheck {
+	font-size: 15px;
+	width: 200px;
+	height: 10px;
+	padding: 10px;
+}
+
+#pfUserpw1 {
+	font-size: 15px;
+	width: 200px;
+	height: 10px;
+	padding: 10px;
+	
 }
 
 #sample6_postcode{

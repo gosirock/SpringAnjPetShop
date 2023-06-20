@@ -50,7 +50,7 @@ public class J_pDetailController {
 		
 	}
 	
-	
+
 	
 
 }

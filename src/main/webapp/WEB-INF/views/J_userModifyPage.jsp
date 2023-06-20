@@ -7,29 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>어제보다 더 나은, ANJ Shop</title>
-<link rel="stylesheet" href="CSS/J_userProfilePage.css">
-
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
-		$("#btnUpdate").click(function() {
-			// 확인 대화상자
-			if (confirm("회원님의 정보를 수정하시겠습니까?")) {
-				document.form1.action = "/modifyUser"
-				document.form1.submit();
-			}
-		});
-	});
-	
-	$(document).ready(function(){
-		$("#btnDelete").click(function() {
-			// 확인 대화상자
-			if (confirm("회원님의 정보를 삭제하시겠습니까?")) {
-				document.form1.action = "/deleteUser"
-				document.form1.submit();
-			}
-		});
-	});
-</script> -->
+<link rel="stylesheet" href="CSS/J_userModifyPage.css">
 
 	<!-- 주소api -->
 <script type="text/javascript">
@@ -117,6 +95,56 @@ $(document).ready(function() {
 		document.getElementById("sample6_detailAddress").placeholder = ""; // 상세주소 필드 초기화
 		document.getElementById("sample6_detailAddress").focus(); // 상세주소 필드에 포커스를 준다
 	}
+	
+	
+	
+	/* 이메일 입력받기 */
+	function selectedEmail(){
+		var emailDomain = document.getElementById("domainSelect");
+		var customDomain = document.getElementById("customDomain");
+		
+		if(emailDomain.value === "custom") {
+			customDomain.value = null ;
+			customDomain.readOnly = false ;
+		
+		} else {
+			customDomain.value = emailDomain.value;
+			customDomain.readOnly = true ;
+			
+		} 
+	}
+	
+	// 비밀번호 확인 칸에 입력할 때마다 일치 여부를 확인하는 함수
+	function checkPasswordMatch() {
+	  var password = document.getElementById("pfUserpw").value; // 비밀번호 입력 값
+	  var confirmPassword = document.getElementById("pfUserpwCheck").value; // 비밀번호 확인 입력 값
+	  var passwordMatchLabel = document.getElementById("passwordMatch"); // 일치 여부를 표시할 <span> 요소
+
+	  if (password === confirmPassword) {
+	    passwordMatchLabel.textContent = "일치합니다.";
+	    passwordMatchLabel.style.color = "green";
+	  } else if ((confirmPassword === "")) {
+		  passwordMatchLabel.textContent = "";
+	  }	else {
+	    passwordMatchLabel.textContent = "일치하지 않습니다.";
+	    passwordMatchLabel.style.color = "red";
+	  } 
+	  
+	  
+	}
+ 
+/* 	// 비밀번호 확인 칸의 입력 이벤트에 checkPasswordMatch 함수를 연결
+	document.getElementById("pfUserpwCheck").addEventListener("input", checkPasswordMatch);
+
+	function clearField("tfUserPhone2") {
+		document.getElementById("tfUserPhone2").value = " ";
+	}
+	function clearField("tfUserPhone3") {
+		document.getElementById("tfUserPhone3").value = " ";
+	} */
+	
+	 
+
 </script>
 		
 	
@@ -183,127 +211,84 @@ $(document).ready(function() {
 	<main class="main">
 	
 		<h1 id="pageTitle">${userView.username }님의 정보</h1><br/>
+		<div id="requiredInfo">
+			<p style="font-size: 20px; text-align: left;">기본 정보</p>
+			<p style="font-size: 15px; text-align: right;">* 표시는 필수 입력 사항</p>
+		</div>
 		
+		<form action="updateInfo" id="updateForm">
 		<hr>
-		<form name="form1">
-		<table id="userInfo">
+		<table id="userInfoUpdate">
 			<tr>
-				<td id="userid" style="background-color: #FFFFF0;"> 아이디  &nbsp;&nbsp;</td>
+				<td id="infoUpdate" style="background-color: #FFFFF0;"> 아이디 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;<input type="text" name="userid" id="tfUserid" value="${userView.userid }" maxlength="15" readonly="readonly" disabled="disabled" >&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
-				<td id="username"> 성함  &nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;<input type="text" id="tfUserName" value="${userView.username }" maxlength="15" readonly="readonly" disabled="disabled">&nbsp;&nbsp;</td>
+				<td id="infoUpdate" style="background-color: #FFFFF0;"> 비밀번호 변경 <sup>*</sup> &nbsp;&nbsp; </td>
+				<td>&nbsp;&nbsp;<input type="password" name="userpasswd" id="pfUserpw" maxlength="30" onkeyup="checkPasswordMatch();">&nbsp;&nbsp; (영문, 숫자 포함 8 ~ 16 글자)</td>
+			</tr>
+			<div id="pwCheck">
+				<tr>
+					<td id="infoUpdate"> 비밀번호 변경 확인 <sup>*</sup> &nbsp;&nbsp; </td>
+					<td>&nbsp;&nbsp;<input type="password" id="pfUserpwCheck" maxlength="30" onkeyup="checkPasswordMatch();">&nbsp;&nbsp;<span id="passwordMatch"></span> </td>
+				</tr>
+			</div>
+			<tr>
+				<td id="infoUpdate"> 이름 <sup>*</sup> &nbsp;&nbsp;</td>
+				<td>&nbsp;&nbsp;<input type="text" id="pfUserpw" value="${userView.username }" maxlength="15" readonly="readonly" disabled="disabled">&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
-				<td id="useraddress"> 배송지 주소  &nbsp;&nbsp;</td>
+				<td id="infoUpdate"> 배송지 주소  &nbsp;&nbsp;</td>
 				<td style="padding: 18px;">
 					<input type="text" id="sample6_postcode" value="${userView.userpostcode }" readonly="readonly" name="userpostcode">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 					<input type="text" id="sample6_address" value="${userView.useraddress }" readonly="readonly" name="useraddress">
 					 기본 주소<br> 
-					<input type="text"	id="sample6_detailAddress" value="${userView.userdetailaddress }" readonly="readonly" name="userdetailaddress">
-					 나머지 주소 <br>
+					<input type="text"	id="sample6_detailAddress" value="${userView.userdetailaddress }" name="userdetailaddress">
+					 나머지 주소 (선택 입력 가능)<br>
+					<p style="font-size: 12px; text-align: left;"> ※ 상세주소(아파트 동, 호수) 꼭 기재 부탁드립니다.</p> 
 				</td>
 			</tr>
 			<tr>
-				<td id="usertel"> 휴대전화  &nbsp;&nbsp;</td>
+				<td id="infoUpdate"> 휴대전화 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td> &nbsp;&nbsp;
-					<input type="text" size="20" name="usertel" id="tfUserTel" value="${userView.usertel }" readonly="readonly">
+					<select name="phone1" id="tfUserPhone1" >
+						<option value="010">010</option>
+						<option value="011">011</option>
+						<option value="016">016</option>
+						<option value="017">017</option>
+						<option value="018">018</option>
+						<option value="019">019</option>
+					</select> - <input type="text" maxlength="4" size="4" name="phone2" id="tfUserPhone2" onfocus="clearField('tfuserPhone2')">
+					- <input type="text" maxlength="4" size="4" name="phone3" id="tfUserPhone3" onfocus="clearField('tfuserPhone3')">
 				</td>
 			</tr>
 			<tr>
-				<td id="useremail"> 이메일  &nbsp;&nbsp;</td>
+				<td id="infoUpdate"> 이메일 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td> &nbsp;&nbsp;
-					<input type="text" size="30" name="useremail" id="tfUserEmail" value="${userView.useremail }" readonly="readonly">
+					<input type="text" name="useremail" id="inputEmail" onfocus="clearField('inputEmail')">
+					@<input type="text" name="userdomain" id="customDomain" onfocus="clearField('customDomain')" >
+					<select id="domainSelect"  onchange="selectedEmail()">
+						<option value="none" selected="selected" >선택해 주세요</option>
+						<option value="naver.com">naver.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="hotmail.com">hotmail.com</option>
+						<option value="custom" >직접입력</option>
+					</select>	
 				</td>
 			</tr>
 		</table><br/>
+		<input type="submit" id="btnUpdate" value="회원정보 수정">&nbsp;&nbsp;
+		</form>
 		
-		<!-- <form action="modifyUser" id="updateForm">
-			<input type="submit" id="btnUpdate" value="회원정보 수정">&nbsp;&nbsp;
-		</form> 
-		
-		<form action="j_userUpdateCancel.do"> 		취소버튼 클릭시 메인페이지로 보내기
+		<form action="j_uProfilePage"> 		<!-- 취소버튼 클릭시 메인페이지로 보내기 -->
 			<input type="submit" id="btnCancel" value="취소">  <br/>
 		</form>
 		
-		<form id="deleteForm" action="deleteUser">
-			<input type="submit" id="btnDelete" value="회원 탈퇴">
-		</form> -->
-		
-		
-			<input type="button" value="회원 정보 수정" id="btnUpdate" style="display: inline-block;">
-			<input type="button" value="뒤로 가기" id="btnBack" style="display: inline-block;"">
-			<input type="button" value="홈화면" id="btnHome" style="display: inline-block;"">
-			
+		<form id="deleteForm" action="deleteInfo">
+			<input type="submit" id="btnDeleteInfo" value="회원 탈퇴">
 		</form>
-		
-		<div id="checkPwModal" class="modal" style="display: none;">
-			<div class="modal-content">
-				<h3>비밀번호를 입력하신 후 이용 가능하신 서비스입니다.</h3><br>
-				<input type="password" id="inputPw" placeholder="비밀번호를 입력해 주세요"> <br>
-				<span id="message"></span> <br>
-				<button id="btnPwSubmit">확인</button>
-				<button id="btnPwCancel">취소</button> <br>
-			</div>
-		</div>
-		
-		<script type="text/javascript" >
-			var btnUpdate = document.getElementById("btnUpdate");
-			var btnBack = document.getElementById("btnBack");
-			var btnHome = document.getElementById("btnHome");
-			var checkPwModal = document.getElementById("checkPwModal");
-			var btnPwCancel = document.getElementById("btnPwCancel")/* [0] */;
-			var btnPwSubmit = document.getElementById("btnPwSubmit");
-			var message = document.getElementById("message");
-			
-			btnUpdate.onclick = function() {
-				btnUpdate.style.display = "none";
-				btnBack.style.display = "none";
-				btnHome.style.display = "none";
-				checkPwModal.style.display = "block";
-				
-				btnPwCancel.onclick = function() {
-					checkPwModal.style.display = "none";
-					btnUpdate.style.display = "inline-block";
-					btnBack.style.display = "inline-block";
-					btnHome.style.display = "inline-block";
-					inputPw.value = "";
-					message.textContent = "";
-				}
-
-				btnPwSubmit.onclick = function() {
-					var inputPw = document.getElementById("inputPw").value;
-					if (inputPw === "${userView.userpasswd}") {
-						document.form1.action = "/sendToModifyPage"
-						document.form1.submit();
-					} else if (inputPw ==="") {
-						message.textContent = "비밀번호를 입력해 주세요."
-					} else {
-						message.textContent = "비밀번호가 일치하지 않습니다."
-					}
-				}
-			}
-			
-			btnBack.onclick = function() {
-				document.form1.action = "/j_userPage"
-				document.form1.submit();
-			}
-			
-			btnHome.onclick = function() {
-				document.form1.action = "/A_MainView"
-				document.form1.submit();
-			}
-			
-			btnPwCancel.onclick = function() {
-				checkPwModal.style.display = "none";
-				btnUpdate.style.display = "inline-block";
-				btnBack.style.display = "inline-block";
-				btnHome.style.display = "inline-block";
-			}
-			
-		</script>
 	
 		
 	
@@ -347,14 +332,35 @@ $(document).ready(function() {
 	
 	
 	
+<script type="text/javascript">
+/* 이메일 초기값 띄우기 */
+var email = '${userView.useremail}';
+
+var parts = email.split('@');
+var useremail = parts[0];
+var userdomain = parts[1];
+
+document.getElementById('inputEmail').value = useremail;
+document.getElementById('customDomain').value = userdomain;
+
+/* 전화번호 초기값 띄우기*/
+var phoneNumber = "${userView.usertel}"; // 데이터베이스에서 불러온 전화번호
+
+var parts = phoneNumber.split('-');
+var phone1 = parts[0];
+var phone2 = parts[1];
+var phone3 = parts[2];
+
+document.getElementById('tfUserPhone1').value = phone1;
+document.getElementById('tfUserPhone2').value = phone2;
+document.getElementById('tfUserPhone3').value = phone3;
 
 
-
-
+</script>
 
 
 </body>
- <!-- <script type="text/javascript">
+<script type="text/javascript">
 
 
 /* 회원정보 수정시 확인창 띄우기 */
@@ -392,5 +398,5 @@ document.getElementById('deleteForm').addEventListener('submit', function(e) {
 });
 
 
-</script> 
- --></html>
+</script>
+</html>
