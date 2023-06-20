@@ -287,14 +287,14 @@ $(document).ready(function() {
 //서버에서 전달된 JSON 값
 // 체크박스 클릭 시 데이터 채우기
 var serverData = {
-	username : "${delivery_View.username}",
-	userpostcode : "${delivery_View.userpostcode}",
-	useraddress : "${delivery_View.useraddress}",
-	userdetailaddress : "${delivery_View.userdetailaddress}",
-	usertel : "${delivery_View.usertel}",
-	useremail : "${delivery_View.useremail}",
-	mileage : "${delivery_View.mileage}",
-	usedmileage : "${delivery_View.usedmileage}"
+	username : "${username}",
+	userpostcode : "${userpostcode}",
+	useraddress : "${useraddress}",
+	userdetailaddress : "${userdetailaddress}",
+	usertel : "${usertel}",
+	useremail : "${useremail}",
+	mileage : "${mileage}",
+	usedmileage : "${usedmileage}"
 };
 
 
@@ -412,7 +412,7 @@ fillUserInfo(document.getElementById("checkboxId"));
 		<c:set var="totalPrice" value="0" />
 		<!-- 누적 변수 초기화 -->
 
-		<c:forEach items="${list}" var="dto">
+		<c:forEach items="${plist}" var="dto">
 			<table border="0" style="border-top: 1px solid #E8E8E8;">
 				<tr>
 				<!-- 이미지 -->
@@ -500,7 +500,7 @@ fillUserInfo(document.getElementById("checkboxId"));
 							style="height: 30px; background-color: #DFE9E8; border-color: white;"
 							size="50"><br> <input type="text"
 							id="sample6_detailAddress" placeholder="상세주소"
-							name="userdetailaddress"
+							name="userdetailaddress" 
 							style="height: 30px; background-color: #DFE9E8; border-color: white;"
 							size="50"><br>
 						<p style="font-size: 7px; text-align: left;">※상세주소(아파트 동, 호수)꼭
@@ -581,7 +581,7 @@ fillUserInfo(document.getElementById("checkboxId"));
 						적립 예정 마일리지 <span id="formattedMileage"></span>원
 
 
-    <br>보유 <fmt:formatNumber value="${delivery_View.mileage}" pattern="#,##0" />원<br>
+    <br>보유 <fmt:formatNumber value="${mileage}" pattern="#,##0" />원<br>
     <input type="text" name="mileage" id="mileageInput" size="20" dir="ltr" style="font-size: 15px; height: 30px; background-color: #DFE9E8; border-color: white; text-align: right;" 
            inputmode="numeric" oninput="formatNumberInput(this)" onblur="checkEnteredmileages()" value="0">원&nbsp;
 
@@ -688,7 +688,7 @@ fillUserInfo(document.getElementById("checkboxId"));
     		
     	
 		var totalPrice = parseInt("${totalPrice}");
-		var deliverymileage = parseInt("${delivery_View.mileage}");
+		var deliverymileage = parseInt("${mileage}");
 
 		function useAllmileages() {
 			  var mileageInput = document.getElementById("mileageInput");

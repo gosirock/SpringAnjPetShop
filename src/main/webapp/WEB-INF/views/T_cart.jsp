@@ -16,173 +16,201 @@
 </head>
 
 <script>
-	/* // 발자국 찍기
-	src="footprint.js" */
-	
-	// 숫자 단위정리
-	function numberWithCommas(x) {
-	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+  /* 발자국 찍기
+  src="footprint.js" */
 
-	// 변경된 총 주문금액 재계산
-	function calculateTotalPrice(selectElement, rowId) {
-	  var selectedCount = selectElement.value;
-	  var originalCount = selectElement.getAttribute("data-original-count");
-	  if (selectedCount !== originalCount) {
-	    var priceText = selectElement.getAttribute("data-price");
-	    var price = parseInt(priceText);
-	    var newTotalPrice = selectedCount * price;
-	    document.getElementById(rowId).value = newTotalPrice;
-	  }
-	}
+  // 숫자 단위정리
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
-	// 합계구하기
-	function submitForm(pid, selectedCount) {
-	  var form = document.getElementById("form_" + pid);
-	  form.elements["count_" + pid].value = selectedCount;
-	  form.submit();
-	}
+  // 변경된 총 주문금액 재계산
+  function calculateTotalPrice(selectElement, rowId) {
+    var selectedCount = selectElement.value;
+    var originalCount = selectElement.getAttribute("data-original-count");
+    if (selectedCount !== originalCount) {
+      var priceText = selectElement.getAttribute("data-price");
+      var price = parseInt(priceText);
+      var newTotalPrice = selectedCount * price;
+      document.getElementById(rowId).value = newTotalPrice;
+    }
+  }
 
-	// 체크박스 체크 여부에 따라 총 주문금액 계산
-	function calculateTotalAmount() {
-	  var totalAmount = 0;
-	  var totalPriceElements = document.querySelectorAll("[id^='totalPrice_']");
-	  var checkboxes = document.getElementsByName('check'); // 체크박스 요소 가져오기
+  // 합계구하기
+  function submitForm(pid, selectedCount) {
+    var form = document.getElementById("form_" + pid);
+    form.elements["count_" + pid].value = selectedCount;
+    form.submit();
+  }
 
-	  totalPriceElements.forEach(function(element, index) {
-	    var priceText = element.textContent.replace(/[^0-9]/g, "");
-	    var price = parseInt(priceText);
-	    var checkbox = checkboxes[index]; // 해당 인덱스의 체크박스 가져오기
+  // 체크박스 체크 여부에 따라 총 주문금액 계산
+  function calculateTotalAmount() {
+    var totalAmount = 0;
+    var totalPriceElements = document.querySelectorAll("[id^='totalPrice_']");
+    var checkboxes = document.getElementsByName('check'); // 체크박스 요소 가져오기
 
-	    if (checkbox.checked) { // 체크박스가 체크된 경우에만 계산
-	      if (!isNaN(price)) {
-	        totalAmount += price;
-	      }
-	    }
-	  });
+    totalPriceElements.forEach(function(element, index) {
+      var priceText = element.textContent.replace(/[^0-9]/g, "");
+      var price = parseInt(priceText);
+      var checkbox = checkboxes[index]; // 해당 인덱스의 체크박스 가져오기
 
-	  var totalAmountElement = document.getElementById("totalAmount");
-	  totalAmountElement.textContent = numberWithCommas(totalAmount);
+      if (checkbox.checked) { // 체크박스가 체크된 경우에만 계산
+        if (!isNaN(price)) {
+          totalAmount += price;
+        }
+      }
+    });
 
-	  // ${totalAmount}와 0을 더한 값을 계산하고 출력(최종 주문 합계)
-	  var totalAmountCalc = totalAmount + 0;
-	  document.getElementById("totalAmountFormatted").textContent = numberWithCommas(totalAmountCalc);
-	}
+    var totalAmountElement = document.getElementById("totalAmount");
+    totalAmountElement.textContent = numberWithCommas(totalAmount);
 
-	// 페이지 로드 시 총 주문금액 초기화
-	window.addEventListener("load", calculateTotalAmount);
+    // ${totalAmount}와 0을 더한 값을 계산하고 출력(최종 주문 합계)
+    var totalAmountCalc = totalAmount + 0;
+    document.getElementById("totalAmountFormatted").textContent = numberWithCommas(totalAmountCalc);
+  }
 
-	// 변경 여부 확인 후 폼 제출
-	function confirmSubmitForm(pid, selectedCount) {
-	  var confirmation = confirm("변경하시겠습니까?");
-	  if (confirmation) {
-	    calculateTotalAmount(); // 확인 버튼을 누를 때 총 주문 금액 계산
-	    submitForm(pid, selectedCount);
-	  }
-	}
+  // 페이지 로드 시 총 주문금액 초기화
+  window.addEventListener("load", calculateTotalAmount);
+  // 장바구니 수량 변경 여부 확인 후 폼 제출
+  function confirmSubmitForm(pid, selectedCount) {
+    var confirmation = confirm("변경하시겠습니까?");
+    if (confirmation) {
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/updateCart'; // 서버의 업데이트 작업을 처리하는 URL 경로
 
-	function deleteSelectedItems() {
-		  var checkboxes = document.getElementsByName('check');
-		  var selectedItems = [];
+      var inputPid = document.createElement('input');
+      inputPid.type = 'hidden';
+      inputPid.name = 'pid';
+      inputPid.value = pid;
 
-		  // 선택된 체크박스의 값을 배열에 추가
-		  for (var i = 0; i < checkboxes.length; i++) {
-		    if (checkboxes[i].checked) {
-		      var formId = checkboxes[i].parentNode.parentNode.parentNode.parentNode.id;
-		      var pid = formId.substring(formId.indexOf('_') + 1);
-		      selectedItems.push(pid);
-		    }
-		  }
+      var inputCount = document.createElement('input');
+      inputCount.type = 'hidden';
+      inputCount.name = 'count';
+      inputCount.value = selectedCount;
 
-		  // 선택된 항목이 있을 경우 서버로 삭제 요청 전송
-		  if (selectedItems.length > 0) {
-		    var confirmation = confirm('선택한 항목을 삭제하시겠습니까?');
-		    if (confirmation) {
-		      for (var j = 0; j < selectedItems.length; j++) {
-		        deleteItem(selectedItems[j]);
-		      }
-		    }
-		  }
-		}
+      form.appendChild(inputPid);
+      form.appendChild(inputCount);
 
-		function deleteItem(pid) {
-		  var form = document.createElement('form');
-		  form.method = 'POST';
-		  form.action = 'delete.do';
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
 
-		  var input = document.createElement('input');
-		  input.type = 'hidden';
-		  input.name = 'pid';
-		  input.value = pid;
+  
+  // 장바구니 선택 삭제
+  // 선택된 체크박스의 값을 배열에 추가
+ function deleteSelectedItems() {
+  var checkboxes = document.querySelectorAll('input[name="check"]:checked');
+  var selectedItems = [];
 
-		  form.appendChild(input);
+  checkboxes.forEach(function (checkbox) {
+    var pidElement = checkbox.parentNode.querySelector('input[type="hidden"]');
+    var pid = pidElement.value;
+    selectedItems.push(pid);
+  });
 
-		  document.body.appendChild(form);
-		  form.submit();
-		}
+  if (selectedItems.length > 0) {
+    var confirmation = confirm('선택한 항목을 삭제하시겠습니까?');
+    if (confirmation) {
+      deleteCart(selectedItems.join(','));
+    }
+  }
+}
+
+function deleteCart(selectedItems) {
+  var form = document.createElement('form');
+  form.method = 'post';
+  form.action = 'deleteCart';
+
+  var pidInput = document.createElement('input');
+  pidInput.type = 'hidden';
+  pidInput.name = 'pid';
+  pidInput.value = selectedItems;
+  form.appendChild(pidInput);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
+// 장바구니 전체 삭제
+function deleteAllCart() {
+  var confirmation = confirm('모든 항목을 삭제하시겠습니까?');
+  if (confirmation) {
+    var form = document.createElement('form');
+    form.method = 'post';
+    form.action = 'deleteAllCart';
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+}
 
 
-	// 주문하기 버튼 클릭 시 선택된 상품들의 폼을 제출
-	function submitSelectedItems() {
-	  var checkboxes = document.getElementsByName('check');
+
+
+// 장바구니 선택 주문
+function orderSelectedItems() {
+	  var checkboxes = document.querySelectorAll('input[name="check"]:checked');
 	  var selectedItems = [];
 
-	  /* // 선택된 체크박스의 값을 배열에 추가
-	  for (var i = 0; i < checkboxes.length; i++) {
-	    if (checkboxes[i].checked) {
-	      var formId = checkboxes[i].parentNode.parentNode.parentNode.parentNode.id;
-	      var pid = formId.substring(formId.indexOf('_') + 1);
-	      selectedItems.push(pid);
-	    }
-	  } */
+	  checkboxes.forEach(function (checkbox) {
+	    var pidElement = checkbox.parentNode.querySelector('input[type="hidden"]');
+	    var pid = pidElement.value;
+	    selectedItems.push(pid);
+	  });
 
-	  // 선택된 항목이 있을 경우 폼 제출
 	  if (selectedItems.length > 0) {
-	    var form = document.createElement('form');
-	    form.method = 'POST';
-	    form.action = 'purchase.do';
-
-	    // 선택된 상품들의 pid 값을 폼에 추가
-	    for (var j = 0; j < selectedItems.length; j++) {
-	      var input = document.createElement('input');
-	      input.type = 'hidden';
-	      input.name = 'pid';
-	      input.value = selectedItems[j];
-	      form.appendChild(input);
+	    var confirmation = confirm('선택한 항목을 구매하시겠습니까?');
+	    if (confirmation) {
+	    	purchasecart(selectedItems.join(','));
 	    }
-
-	    document.body.appendChild(form);
-	    form.submit();
 	  }
 	}
 
-	// 드롭다운 
-	$(function(){
-		   var $firstmenu = $('nav > ul > li'),
-		       $header = $('header');
-		    $firstmenu.mouseenter(function(){
-		       $header.stop().animate({height:'300px'},200);
-		    })
-		    .mouseleave(function(){
-		        $header.stop().animate({height:'50px'},200);
-		    }) 
-			});
-			
+	function purchasecart(selectedItems) {
+	  var form = document.createElement('form');
+	  form.method = 'get';
+	  form.action = 'purchase';
 
-	$(document).ready(function() {
-		$(".dropdown").hover(
-			function() {
-				$(this).find(".dropdown-content").css("display", "block");
-				$("header").addClass("fixed-header"); // 헤더에 fixed-header 클래스 추가
-			},
-			function() {
-				$(this).find(".dropdown-content").css("display", "none");
-				$("header").removeClass("fixed-header"); // 헤더에서 fixed-header 클래스 제거
-			}
-		);
-	});
-	 
+	  var pidInput = document.createElement('input');
+	  pidInput.type = 'hidden';
+	  pidInput.name = 'pid';
+	  pidInput.value = selectedItems;
+	  form.appendChild(pidInput);
+
+	  document.body.appendChild(form);
+	  form.submit();
+	}
+	
+  
+
+  // 드롭다운 
+ /*  $(function(){
+    var $firstmenu = $('nav > ul > li'),
+        $header = $('header');
+      $firstmenu.mouseenter(function(){
+         $header.stop().animate({height:'300px'},200);
+      })
+      .mouseleave(function(){
+          $header.stop().animate({height:'50px'},200);
+      }) 
+    });
+
+  $(document).ready(function() {
+    $(".dropdown").hover(
+      function() {
+        $(this).find(".dropdown-content").css("display", "block");
+        $("header").addClass("fixed-header"); // 헤더에 fixed-header 클래스 추가
+      },
+      function() {
+        $(this).find(".dropdown-content").css("display", "none");
+        $("header").removeClass("fixed-header"); // 헤더에서 fixed-header 클래스 제거
+      }
+    );
+  }); */
 </script>
+
 
 <body>
 
@@ -234,85 +262,78 @@
 	
 
 	</main>
-	<c:forEach items="${plist}" var="dto">
-		<form id="form_${dto.pid}" action="T_cart?pid=${dto.pid}"
-			method="post">
-			<table style="border-top: 2px solid #E8E8E8;">
-				<tr>
-					<td colspan="2" style="width: 20px;"><input type="checkbox" name="check" checked="checked" onchange="calculateTotalAmount()"></td>
-					<!-- 이미지 -->
-					<!-- <td style="width: 200px; height: 100px; text-align: left;">image</td> -->
-					<td style="width: 150px; height: 50px; text-align: left;">
-						<img alt="제품 이미지를 준비중 입니다." src="images/thumbnail/${dto.pthumbnail}.png">
-					</td>
-					<!-- 상품정보 -->
-					<td style="width: 750px; height: 100px; text-align: left;">&emsp;&emsp;<span
-						class="pid" style="font-size: 25px;">${dto.pid}</span><br>&emsp;&emsp;<span
-						class="pname" style="font-size: 25px;">${dto.pname}</span>&emsp;&emsp;<br>
-						&emsp;&emsp;<fmt:formatNumber value="${dto.pprice}" pattern="#,##0" />원<br>
-					</td>
-					<!-- 수량 -->
-					 <td style="width: 130px; text-align: center;">
-				      <select name="count_${dto.pid}" data-original-count="${dto.count}" data-price="${dto.pprice}" onchange="calculateTotalPrice(this, '${dto.pid}')">
-				        <c:forEach begin="1" end="10" var="i">
-				          <option value="${i}" ${i eq dto.count ? 'selected' : ''}>${i}</option>
-				        </c:forEach>
-				      </select>
-				    </td>
-					<!-- 주문금액 -->
-					<td id="total_${dto.pid}" style="width: 100px;">
-			            <span id="totalPrice_${dto.pid}" data-total-price="${dto.pprice * dto.count}">
-			              <fmt:formatNumber value="${dto.pprice * dto.count}" pattern="#,##0"/>
-			            </span>원
-			          </td>
-					<!-- 변경 버튼 -->
-					<td style="width: 100px; text-align: center;"><a href="#"
-						onclick="confirmSubmitForm('${dto.pid}', document.getElementsByName('count_${dto.pid}')[0].value)">변경</a>
-						<input type="hidden" name="pid" value="${dto.pid}" /></td>
-				</tr>
-			</table>
-						<input type="hidden" name="userid" value="${sessionScope.USERID}">
-		</form>
-	</c:forEach>
+<form action="allPurchase" method="post">
+<input type="hidden" name="userid" value="do">
+  <c:forEach items="${clist}" var="dto">
+    <table style="border-top: 2px solid #E8E8E8;">
+      <tr>
+        <td colspan="2" style="width: 20px;">
+           <input type="checkbox" name="check" checked="checked" onchange="calculateTotalAmount()">
+          <input type="hidden" name="check_${loop.index}" value="${dto.pid}">
+        </td>
+        <!-- 이미지 -->
+        <td style="width: 150px; height: 50px; text-align: left;">
+          <img alt="제품 이미지를 준비중 입니다." src="images/thumbnail/${dto.pthumbnail}.png">
+        </td>
+        <!-- 상품정보 -->
+        <td style="width: 750px; height: 100px; text-align: left;">
+          &emsp;&emsp;<span class="pid" style="font-size: 25px;">${dto.pid}</span><br>
+          &emsp;&emsp;<span class="pname" style="font-size: 25px;">${dto.pname}</span>&emsp;&emsp;<br>
+          &emsp;&emsp;<fmt:formatNumber value="${dto.pprice}" pattern="#,##0" />원<br>
+        </td>
+        <!-- 수량 -->
+        <td style="width: 130px; text-align: center;">
+          <select name="count_${dto.pid}" data-original-count="${dto.count}" data-price="${dto.pprice}" onchange="calculateTotalPrice(this, '${dto.pid}')">
+            <c:forEach begin="1" end="10" var="i">
+              <option value="${i}" ${i eq dto.count ? 'selected' : ''}>${i}</option>
+            </c:forEach>
+          </select>
+        </td>
+        <!-- 주문금액 -->
+        <td id="total_${dto.pid}" style="width: 100px;">
+          <span id="totalPrice_${dto.pid}" data-total-price="${dto.pprice * dto.count}">
+            <fmt:formatNumber value="${dto.pprice * dto.count}" pattern="#,##0"/>
+          </span>원
+        </td>
+        <!-- 변경 버튼 -->
+        <td style="width: 100px; text-align: center;">
+          <a href="#" onclick="confirmSubmitForm('${dto.pid}', document.getElementsByName('count_${dto.pid}')[0].value)">변경</a>
+        	 <input type="hidden" name="pidList" value="${dto.pid}" />
+    <input type="hidden" name="countList" value="${dto.count}" />
+        </td>
+      </tr>
+    </table>
+  </c:forEach>
+
+  <table border="0">
+    <tr>
+    	<td style="width: 800px; text-align: left; border-top: 2px solid #E8E8E8;">
+    		<input type="button" value="선택삭제" style="width: 100px; height: 40px; color: #477A7B; border-color: #477A7B;" onclick="deleteSelectedItems()">
+    		<input type="button" value="전체삭제" style="width: 100px; height: 40px; color: #477A7B; border-color: #477A7B;" onclick="deleteAllCart()">
+    	</td>
+      <td style="width: 250px; text-align: right; border-top: 2px solid #E8E8E8;"><br>
+      	<input type="button" value="선택상품 주문" style="width: 100px; height: 40px; color: #477A7B; border-color: #477A7B;" onclick="orderSelectedItems()">
+        <input type="submit" value="전체상품 주문" style="width: 100px; height: 40px; background-color: #477A7B; color: white; border-color: #477A7B;">
+        <br><br><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 900px; text-align: left; border-bottom: 2px solid #E8E8E8;">주문금액<br>배송비</td>
+      <td style="width: 150px; text-align: right; border-bottom: 2px solid #E8E8E8;">
+        <span id="totalAmount"><fmt:formatNumber value="${totalAmount}" pattern="#,##0" /></span>원<br>0원
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 600px; text-align: left;">합계</td>
+      <td style="width: 150px; text-align: right;">
+        <span id="totalAmountFormatted"><fmt:formatNumber value="${totalAmount}" pattern="#,##0" /></span>원
+      </td>
+    </tr>
+  </table>
+</form>
 
 
-	<!--  -->
-	<form action="purchase.do" method="post">
-		<table>
-			<tr>
-				<td colspan="2"
-					style="text-align: right; border-top: 2px solid #E8E8E8;"><br>
-				<input type="button" value="삭제"
-       style="width: 80px; height: 30px; color: #477A7B; border-color: #477A7B;"
-       onclick="deleteSelectedItems()">
-				<input type="submit" value="주문하기"
-					style="width: 80px; height: 30px; background-color: #477A7B; color: white; border-color: #477A7B;"
-					class="submit-button"><br>
-				<br>
-				<br></td>
-			</tr>
-			<tr>
-				<td
-					style="width: 900px; text-align: left; border-bottom: 2px solid #E8E8E8;">주문금액
-					<br>배송비
-				</td>
-				<td style="width: 150px; text-align: right; border-bottom: 2px solid #E8E8E8;">
-					<span id="totalAmount"> <fmt:formatNumber
-							value="${totalAmount}" pattern="#,##0" />
-				</span>원<br>0원
-				</td>
-			</tr>
-			<tr>
-				<td style="width: 600px; text-align: left;">합계</td>
-				<td style="width: 150px; text-align: right;">
-  <span id="totalAmountFormatted">
-    <fmt:formatNumber value="${totalAmount}" pattern="#,##0" />
-  </span>원
-</td>
-				</td>
-			</tr>
-		</table>
-	</form> 
+
 			  
 
 
@@ -354,6 +375,10 @@
             </div>
         </footer>
 </body>
+
+
+
+
 </html>
 
 

@@ -71,7 +71,15 @@ public class T_ordersDto {
 		this.usedmileage = usedmileage;
 		this.ordermessage = ordermessage;
 	}
+	
+	
 
+	public T_ordersDto(String pid, int count, String userid) {
+		super();
+		this.pid = pid;
+		this.count = count;
+		this.userid = userid;
+	}
 	public String getUserid() {
 		return userid;
 	}
