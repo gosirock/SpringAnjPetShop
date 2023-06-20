@@ -57,7 +57,13 @@ public class O_writeCommentController {
 		// 자식글 insert
 		service.writeComment(rootseq, ref, step, reforder, answernum, writer, parentseq, comments);
 		
-		return "redirect:O_adminRDetail?seq=" + seq; // 해당 리뷰 게시글 redirect
+		
+		// 해당 리뷰 게시글 redirect
+		if(writer.equals("관리자")) {
+			return "redirect:O_adminRDetail?seq=" + seq; // 관리자 페이지로 넘어감
+		}else {
+			return "redirect:O_rDetail?seq=" + seq; // 유저 페이지로 넘어감
+		}
 	}
 	
 	

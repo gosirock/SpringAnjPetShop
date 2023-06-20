@@ -47,45 +47,51 @@
 			}
 	}
 	
-	function writeAction(){
-		const form = document.writeComment
-		form.action = "O_writeComment";
-		if(form.userid.value == ""){
-			alert("로그인 후 댓글 작성이 가능합니다.");
-			return
-		}else{
-			form.submit();
+	$(document).ready(function() {
+		$(".hidden_row").hide(); // 페이지 로드 시 숨겨진 행 숨기기
+	});
+
+	function showHiddenRow(row) {
+		let $targetRow = $("#" + row);
+		let $toggleIcon = $targetRow.prev("tr").find(".toggle-icon");
+
+		if ($targetRow.is(":visible")) {
+			$targetRow.hide();
+		} else {
+			$(".hidden_row").hide();
+			$targetRow.show();
 		}
+	}
+
+	function reply(c_seq){
+		const form = document.forms["comment" + c_seq];
+		var seq = form.seq.value;
+		var c_seq = form.c_seq.value;
+		var rootseq = form.rootseq.value;
+		var ref = form.ref.value;
+		var step = form.step.value;
+		var reforder = form.reforder.value;
+		var parentseq = form.parentseq.value;
+		var writer = form.writer.value;
+		var comments = form.comments.value;
 		
+		console.log("step: ", step)
+		console.log("c_seq: ", c_seq)
+		console.log("rootseq: ", rootseq)
+		console.log("ref: ", ref)
+		console.log("step: ", step)
+		console.log("reforder: ", reforder)
+		console.log("parentseq: ", parentseq)
+		console.log("writer: ", writer)
+		console.log("comments: ", comments)
+		
+		form.action = "writeComment?seq="+seq+"&c_seq="+c_seq+"&rootseq="+rootseq+"&comments="+comments+"&ref="+ref
+									+"&step="+step+"&reforder="+reforder+"&parentseq="+parentseq+"&writer="+writer
+									
+		form.submit();
 	}
 </script>
-<script type="text/javascript">
-// 드롭다운
-$(function(){
-		   var $firstmenu = $('nav > ul > li'),
-		       $header = $('header');
-		    $firstmenu.mouseenter(function(){
-		       $header.stop().animate({height:'300px'},200);
-		    })
-		    .mouseleave(function(){
-		        $header.stop().animate({height:'50px'},200);
-		    }) 
-			});
-			
 
-$(document).ready(function() {
-	$(".dropdown").hover(
-		function() {
-			$(this).find(".dropdown-content").css("display", "block");
-			$("header").addClass("fixed-header"); // 헤더에 fixed-header 클래스 추가
-		},
-		function() {
-			$(this).find(".dropdown-content").css("display", "none");
-			$("header").removeClass("fixed-header"); // 헤더에서 fixed-header 클래스 제거
-		}
-	);
-});
-</script>
 </head>
 <body>
 	<header>
@@ -204,32 +210,48 @@ $(document).ready(function() {
 		</form>
 		
 		<!-- 댓글 뷰 -->
-		<form name="writeParentComment" method="post">
-		<input type="hidden" name="userid" value="${sessionScope.USERID}">
-		<input type="hidden" name="seq" value="${seq }">
-			<table class="board-table">
-				<thead>
-					<tr>
-						<th class="th-id">${sessionScope.USERID}</th>
-						<th scope="col" colspan="3">
-							<span class="comment"><input type="text" name="comment" placeholder="댓글을 입력하세요." ></span>
-						</th>
-						<th><input class="comment-button" type="reset" value="취소"></th>
-						<th><input class="cancel-button" type="button" value="댓글" onclick="writeAction()"></th>
-					</tr>
-				</thead>
-			</table>
-		</form>
+		<div>
+			<c:if test="${not empty sessionScope.USERID}">
+				<form name="writeParentComment" method="post">
+				<input type="hidden" name="userid" value="${sessionScope.USERID}">
+				<input type="hidden" name="seq" value="${seq }">
+					<table class="board-table">
+						<thead>
+							<tr>
+								<th class="th-id">${sessionScope.USERID}</th>
+								<th scope="col" colspan="3">
+									<span class="comment"><input type="text" name="comment" placeholder="댓글을 입력하세요." ></span>
+								</th>
+								<th><input class="comment-cancel-button" type="reset" value="취소"></th>
+								<th><input class="comment-write-button" type="button" value="댓글" onclick="writeAction()"></th>
+							</tr>
+						</thead>
+					</table>
+				</form>
+			</c:if>
+		</div>
 	</div>
-<!-- 댓글 -->
+<!-- 댓글 -------------------------------------------------------------------------->
 	<div class="container">
-		<form action="">
-			<table class="comment-table">
-				<tbody>
-					<c:forEach items="${commentList}" var="dto">
+		<table>
+			<tbody>
+				<!-- 댓글 반복문 -->
+				<c:forEach items="${commentList}" var="dto"> 
+					<form name="comment${dto.c_seq }" method="post">
+						<input type="hidden" name="c_seq" value="${dto.c_seq }">
+						<input type="hidden" name="rootseq" value="${dto.rootseq }">
+						<input type="hidden" name="ref" value="${dto.ref }">
+						<input type="hidden" name="step" value="${dto.step }">
+						<input type="hidden" name="reforder" value="${dto.reforder }">
+						<input type="hidden" name="answernum" value="${dto.answernum }">
+						<input type="hidden" name="parentseq" value="${dto.parentseq }">
+						<input type="hidden" name="writer" value="osm1119"> <!-- 로그인 구현되면 session값으로 바꾸기 -->
+						<input type="hidden" name="seq" value="${seq }">
+						<!-- 들여쓰기 사이즈 -->
 						<c:set var="indentationSize" value="12" />
 						<c:set var="indentation" value="&nbsp;" />
 						<c:forEach begin="1" end="${dto.step * indentationSize}" var="i">
+							<!-- step만큼 들여쓰기 반복 -->
 							<c:set var="indentation" value="${indentation}&nbsp;" />
 						</c:forEach>
 						<c:set var="indentation1Size" value="10" />
@@ -237,34 +259,39 @@ $(document).ready(function() {
 						<c:forEach begin="1" end="${dto.step * indentation1Size}" var="i">
 							<c:set var="indentation1" value="${indentation1}&nbsp;" />
 						</c:forEach>
+						<!-- 작성자, 작성일 라인 -->
 						<tr>
 							<td style="text-align: left; font-size: 14px;">
-								<c:choose>
-										<c:when test="${dto.writer eq '관리자'}">
-											<input style="font-size: 14px; font-weight:bold; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: 관리자&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
-										</c:when>
-										<c:otherwise>
-											<input style="font-size: 14px; border-bottom: none;" type="text" value="${indentation}&nbsp;&nbsp;&nbsp;작성자: ${dto.writer }&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
-										</c:otherwise>
-								</c:choose>
+								<input style="font-size: 14px; border-bottom: none;" type="text"
+										value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }" readonly="readonly">
 							</td>
 						</tr>
+						<!-- 댓글내용, 답글 토글버튼 라인 -->
 						<tr>
-							<td style="text-align: left;">
-							<c:choose>
-										<c:when test="${dto.writer eq '관리자'}">
-											<input style="font-size: 17px; font-weight:bold; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
-										</c:when>
-										<c:otherwise>
-											<input style="font-size: 17px; border-top: none;" type="text" readonly="readonly" value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;"> <input type="button" class="comment-button" value="댓글">
-										</c:otherwise>
-								</c:choose>
+							<td style="text-align: left;" colspan="3">
+							<input style="font-size: 17px; border-top: none;" type="text"
+									readonly="readonly"
+									value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
+							<c:if test="${not empty sessionScope.USERID}">
+								<input type="button" class="comment-button" value="답글창" onclick="showHiddenRow('row_${dto.c_seq}');"></td>
+							</c:if>
+						</tr>
+						<!-- 숨겨진 담글창 -->
+						<tr id="row_${dto.c_seq}" class="hidden_row">
+							<td scope="col">
+								<input type="text" name="comments" placeholder="답글 추가..." style="background-color: lightgray;">
+							</td>
+							<td>
+								<input class="comment-cancel-button" type="reset" style="text-align: right;" value="취소">
+							</td>
+							<td>
+								<input class="comment-write-button" type="button" style="text-align: right;" value="답글" onclick="reply('${dto.c_seq}')">
 							</td>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</form>
+					</form>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 
 

@@ -16,8 +16,7 @@
 <link rel="stylesheet" href="CSS/O_RBoardStyle.css">
 <link rel="stylesheet" href="CSS/O_CommentStyle.css">
 <script src="JS/O_ScrollTop.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
@@ -65,8 +64,7 @@
 			$targetRow.show();
 		}
 	}
-</script>
-<script type="text/javascript">
+
 	function reply(c_seq){
 		const form = document.forms["comment" + c_seq];
 		var seq = form.seq.value;
@@ -193,8 +191,8 @@
 						<th class="th-id">관리자</th>
 						<th scope="col" colspan="3"><span class="comment"><input
 								type="text" name="comment" placeholder="댓글을 입력하세요."></span></th>
-						<th><input class="comment-button" type="reset" value="취소"></th>
-						<th><input class="cancel-button" type="submit" value="댓글"></th>
+						<th><input class="comment-cancel-button" type="reset" value="취소"></th>
+						<th><input class="comment-write-button" type="submit" value="댓글"></th>
 					</tr>
 				</thead>
 			</table>
@@ -228,42 +226,27 @@
 							<c:set var="indentation1" value="${indentation1}&nbsp;" />
 						</c:forEach>
 					<tr>
-						<td style="text-align: left; font-size: 14px;"><c:choose>
-								<c:when test="${dto.writer eq '관리자'}">
-									<input
-										style="font-size: 14px; font-weight: bold; border-bottom: none;"
-										type="text"
-										value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
-										readonly="readonly">
-								</c:when>
-								<c:otherwise>
-									<input style="font-size: 14px; border-bottom: none;"
-										type="text"
-										value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
-										readonly="readonly">
-								</c:otherwise>
-							</c:choose></td>
+						<td style="text-align: left; font-size: 14px;">
+							<input
+								style="font-size: 14px; font-weight: bold; border-bottom: none;"
+								type="text"
+								value="${indentation}&nbsp;&nbsp;&nbsp;작성자:${dto.writer}&nbsp;&nbsp;&nbsp;작성일: ${dto.writedate }"
+								readonly="readonly">
+						</td>
 					</tr>
 					<tr>
-						<td style="text-align: left;" colspan="3"><c:choose>
-								<c:when test="${dto.writer eq '관리자'}">
-									<input
-										style="font-size: 17px; font-weight: bold; border-top: none;"
-										type="text" readonly="readonly"
-										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
-								</c:when>
-								<c:otherwise>
-									<input style="font-size: 17px; border-top: none;" type="text"
-										readonly="readonly"
-										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
-								</c:otherwise>
-							</c:choose> <input type="button" class="comment-button" value="답글창"
-							onclick="showHiddenRow('row_${dto.c_seq}');"></td>
+						<td style="text-align: left;" colspan="3">
+							<input style="font-size: 17px; font-weight: bold; border-top: none;"
+									type="text" readonly="readonly"
+									value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
+							<input type="button" class="comment-button" value="답글창"
+									onclick="showHiddenRow('row_${dto.c_seq}');">
+						</td>
 					</tr>
 					<tr id="row_${dto.c_seq}" class="hidden_row">
 						<td scope="col"><input type="text" name="comments" placeholder="답글 추가..."></td>
-						<td><input class="comment-button" type="reset" style="text-align: right;" value="취소"></td>
-						<td><input class="cancel-button" type="button" style="text-align: right;" value="답글" onclick="reply('${dto.c_seq}')"></td>
+						<td><input class="comment-cancel-button" type="reset" style="text-align: right;" value="취소"></td>
+						<td><input class="comment-write-button" type="button" style="text-align: right;" value="답글" onclick="reply('${dto.c_seq}')"></td>
 					</tr>
 					</form>
 				</c:forEach>
