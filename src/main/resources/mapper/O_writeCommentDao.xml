@@ -4,4 +4,35 @@
 
 <mapper namespace="com.springlec.base.dao.O_writeCommentDao">
 
+	<update id="updateParentAnswerNum">
+		UPDATE comments
+		SET answernum = answernum + 1
+		WHERE c_seq = #{c_seq}
+	</update>
+
+	<select id="getMaxRefOrderAndMaxAnswerNum1" resultType="com.springlec.base.model.O_calcCommentDto">
+		SELECT reforder AS maxRefOrder, answernum AS maxAnswerNum
+		FROM comments
+		WHERE parentseq = #{parentSeq} AND reforder = (SELECT MAX(reforder) FROM comments WHERE parentseq = #{parentCseq});
+	</select>
+
+	<select id="getMaxRefOrderAndMaxAnswerNum2" resultType="com.springlec.base.model.O_calcCommentDto">
+		SELECT reforder AS maxRefOrder, 0 AS maxAnswerNum
+		FROM comments
+		WHERE c_seq = #{parentCseq};
+	</select>
+
+	<update id="updateRefOrder">
+		UPDATE comments
+		SET reforder = reforder + 1
+		WHERE ref = #{parentRef}
+		AND reforder > (#{MaxRefOrder} + #{MaxAnswerNum})
+
+	</update>
+	
+	<insert id="writeComment">
+		INSERT comments(rootseq, ref, step, reforder, answernum, parentseq, writer,comments, writedate, isdelete)
+		VALUES (#{rootseq}, #{ref}, #{step}, #{reforder}, 0, #{parentseq}, #{writer}, #{comments}, now(), 0)
+	</insert>
+	
 </mapper>
