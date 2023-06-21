@@ -26,6 +26,7 @@ public class O_qnaController {
 	
 	@RequestMapping("/O_qna")
 	public String getQNAList(HttpServletRequest request, Model model) throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String queryName = request.getParameter("query");
 		String queryContent = request.getParameter("content");
 		
@@ -46,7 +47,15 @@ public class O_qnaController {
 		int startIndex = (currentPage - 1) * itemsPerPage;
 		
 		List<O_qnaDto> dtos = service.getQNAList(queryName, queryContent, startIndex, itemsPerPage);
-		
+		// 날짜 형식 변경
+		for (O_qnaDto dto : dtos) {
+			String c_writeDate = dto.getWritedate();
+			Timestamp t_c_writeDate = Timestamp.valueOf(c_writeDate);
+			c_writeDate = format.format(t_c_writeDate);
+			dto.setWritedate(c_writeDate);
+
+		}
+		// 페이징
 		O_paginationDto dto = pagination.pagination(itemsPerPage, totalCount, currentPage, (int)totalPages, pageSize);
 		model.addAttribute("QNAList", dtos);
 		model.addAttribute("p", dto);
@@ -90,7 +99,19 @@ public class O_qnaController {
 		return "redirect:O_qna";
 	}
 	
-	@RequestMapping("O_deleteQuestionForUser")
+	@RequestMapping("/O_updateQnAForUser")
+	public String updateQnA(HttpServletRequest request) throws Exception{
+		
+		int seq = Integer.parseInt(request.getParameter("seq"));
+		String qna_title = request.getParameter("qna_title");
+		String qna_content = request.getParameter("qna_content");
+		
+		service.updateQnA(seq, qna_title, qna_content);
+		
+		return "redirect:O_qna";
+	}
+	
+	@RequestMapping("/O_deleteQuestionForUser")
 	public String deleteQuestion(HttpServletRequest request) throws Exception{
 		
 		int seq = Integer.parseInt(request.getParameter("seq"));

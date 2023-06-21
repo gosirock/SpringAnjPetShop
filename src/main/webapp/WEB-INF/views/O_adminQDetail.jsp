@@ -30,7 +30,7 @@
 		}
 		
 		if(confirm("수정하시겠습니까?") == true){
-		form.action = "O_updateQnA";
+		form.action = "O_updateQnAForAdmin";
 		form.submit();
 		}
 	}

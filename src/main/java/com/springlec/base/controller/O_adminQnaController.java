@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.springlec.base.model.O_commentsDto;
 import com.springlec.base.model.O_paginationDto;
 import com.springlec.base.model.O_qnaDto;
 import com.springlec.base.service.O_pagination;
@@ -26,6 +27,7 @@ public class O_adminQnaController {
 	
 	@RequestMapping("/O_adminQnA")
 	public String getQNAList(HttpServletRequest request, Model model) throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String queryName = request.getParameter("query");
 		String queryContent = request.getParameter("content");
 		
@@ -46,7 +48,15 @@ public class O_adminQnaController {
 		int startIndex = (currentPage - 1) * itemsPerPage;
 		
 		List<O_qnaDto> dtos = service.getQNAList(queryName, queryContent, startIndex, itemsPerPage);
-		
+		// 날짜 형식 변경
+		for (O_qnaDto dto : dtos) {
+			String c_writeDate = dto.getWritedate();
+			Timestamp t_c_writeDate = Timestamp.valueOf(c_writeDate);
+			c_writeDate = format.format(t_c_writeDate);
+			dto.setWritedate(c_writeDate);
+
+		}
+		// 페이징
 		O_paginationDto dto = pagination.pagination(itemsPerPage, totalCount, currentPage, (int)totalPages, pageSize);
 		model.addAttribute("QNAList", dtos);
 		model.addAttribute("p", dto);
@@ -101,7 +111,7 @@ public class O_adminQnaController {
 		return "redirect:O_adminQnA";
 	}
 	
-	@RequestMapping("O_updateQnA")
+	@RequestMapping("/O_updateQnAForAdmin")
 	public String updateQnA(HttpServletRequest request) throws Exception{
 		
 		int seq = Integer.parseInt(request.getParameter("seq"));
@@ -113,7 +123,7 @@ public class O_adminQnaController {
 		return "redirect:O_adminQnA";
 	}
 	
-	@RequestMapping("O_deleteQuestionForAdmin")
+	@RequestMapping("/O_deleteQuestionForAdmin")
 	public String deleteQuestion(HttpServletRequest request) throws Exception{
 		
 		int seq = Integer.parseInt(request.getParameter("seq"));
@@ -123,7 +133,7 @@ public class O_adminQnaController {
 		return "redirect:O_adminQnA";
 	}
 	
-	@RequestMapping("O_deleteAnswer")
+	@RequestMapping("/O_deleteAnswer")
 	public String deleteAnswer(HttpServletRequest request) throws Exception{
 		
 		int seq = Integer.parseInt(request.getParameter("seq"));

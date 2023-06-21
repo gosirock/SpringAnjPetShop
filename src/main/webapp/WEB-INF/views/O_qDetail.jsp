@@ -31,7 +31,7 @@
 		}
 		
 		if(confirm("수정하시겠습니까?") == true){
-		form.action = "O_updateQnA";
+		form.action = "O_updateQnAForUser";
 		form.submit();
 		}
 	}
@@ -152,7 +152,7 @@ $(document).ready(function() {
 
 	<!-- board list area -->
 	<div class="container">
-		<form name="qDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
+		<form name="QnaDetail" method="post"> <!-- 유저용에서는 이 폼태그 빼고 제목을 input타입 빼고 그냥 적기, textarea readonly 속성 넣어주기 -->
 			<input type="hidden" name="status" value="1">
 			<input type="hidden" name="seq" value="${qDetail.seq }">
 			<input type="hidden" name="parentseq" value="${qDetail.parentseq}">
@@ -202,7 +202,7 @@ $(document).ready(function() {
 			</table>
 			<span class="list-button"><a href="O_qna">목록</a></span>
 			<c:if
-				test="${qDetail.seq == qDetail.parentseq && qDetail.userid == 'osm1119'}">
+				test="${qDetail.seq == qDetail.parentseq && qDetail.userid == sessionScope.USERID}">
 				<!-- 질문글이면서 본인이 작성한 게시글일 때 -->
 				<input type="button" class="list-button" value="수정" onclick="updateCheck()">
 				<input type="button" class="list-button" value="삭제" onclick="deleteCheck()">
