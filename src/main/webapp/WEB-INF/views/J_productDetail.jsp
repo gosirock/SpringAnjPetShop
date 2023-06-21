@@ -113,7 +113,8 @@ $(document).ready(function() {
 				배송비 무료 </h5> <hr>
 				
 				수량을 선택해 주세요. <br/><br/>
-				<form action="insert" name="basket" method="get" style="display: inline; width: 50%;">
+				<form name="form1" method="get" style="display: inline; width: 50%;">
+					<input type="hidden" name="pid" value="${productDetail.pid }">
 					<input type="button" onclick="clickMinus()" value=" - " style="font-size: 23px; color: #477A7B; background-color: #DFE9E8; border: none; ">
 					<input type="text" name="count" size="2" id="quantity" value="1" min="0" max="${productDetail.pstock }" onchange="updateQuantity(this.value)" oninput="calcPrice(this.value)" style="text-align: center; font-size: 20px;border: none;">
 					<input type="button" onclick="clickPlus()" value=" + " style="font-size: 23px; color: #477A7B; background-color: #DFE9E8; border: none; ">
@@ -123,31 +124,45 @@ $(document).ready(function() {
 					<h5 style="text-align: right;"> <span id="resultRewards"> (적립금 : + ${productDetail.pprice * 0.01 } 원) </span></h5><br/><br/>
 					
 					<div style="display: flex;">
-							<input type="hidden" name="pid" value="${productDetail.pid}">
-							<input type="hidden" name="count"  >
-							<button type="submit" name="button" value="btnCart" style="font-size: 25px; color: #477A7B; background-color: #DFE9E8; border: none; width: 100%; height: 60px">장바구니 담기</button>
-		<!-- 				</form>
-						<form action="j_purchase.do" name="purchase" method="get" style="display: inline; width: 50%;"> -->
-							<input type="hidden" name="pid" value="${productDetail.pid}">
-							<input type="hidden" name="count" >
-							<button type="submit" name="button" value="btnPurchase" style="font-size: 25px; color: white; background-color: #477A7B; border: none; width: 100%; height: 60px">즉시 구매하기</button>
+						<button type="button" id="btnCart" value="장바구니 담기" style="font-size: 25px; color: #477A7B; background-color: #DFE9E8; border: none; width: 100%; height: 60px">장바구니 담기</button>
+						<button type="button" id="btnPurchase" value="즉시 구매하기" style="font-size: 25px; color: white; background-color: #477A7B; border: none; width: 100%; height: 60px">즉시 구매하기</button>
+					</div>
 				</form>
-				</div>
+				<script type="text/javascript">
+					var btnCart = document.getElementById("btnCart");
+					var btnPurchase = document.getElementById("btnPurchase");
+					
+					btnCart.onclick = function() {
+						var confirmation = confirm('장바구니에 추가하시겠습니까?');
+						 if (confirmation === true) {
+						   // 확인 버튼 클릭 시 장바구니에 추가하기
+						   document.form1.action = "/insertCart";
+						   document.form1.submit();
+						 } else {
+						   // 취소 버튼 클릭 시 다시 현재 페이지로 보여주기
+						   document.form1.action = "/j_pClicked";
+						   return false;
+						 }
+					}
+					
+					btnPurchase.onclick = function() {
+						var confirmation = confirm('즉시 구매하시겠습니까?');
+						 if (confirmation === true) {
+						   // 확인 버튼 클릭 시 즉시 구매 페이지로 보내주기
+						   document.form1.action = "/insertPurchase";
+						   document.form1.submit();
+						 } else {
+						   // 취소 버튼 클릭 시 다시 현재 페이지로 보여주기
+						   document.form1.action = "/j_pClicked";
+						   return false;
+						 }
+					}
+					
 				
+				
+				</script>
 			</div>
 		</div>
-<!-- 		<div id="modal" class="modal" style="display: none;"> 		장바구니 클릭시 띄워줄 모달창
-			<div class="title" style="background-color: #477A7B">
-				<h2 style="font-size: 25px; color: white; display: inline;">장바구니 담기</h2>
-				<span id="closeModal" onclick="closeCartModal()" style="font-size: 30px; color: white; display: inline;">&times;</span>
-			</div>
-			<div class="content">
-				<p>제품이 장바구니에 정상적으로 추가되었습니다. <br/> 장바구니로 이동하시겠습니까? </p>
-				<a href="cart.do"><button style="display:inline; font-size: 20px; color: white; background-color: #477A7B;"> 장바구니로 이동</button></a> 
-				<button onclick="closeCartModal()" style="display: inline; font-size: 20px; color: #477A7B; background-color: #DFE9E8;">계속 쇼핑하기</button>
-			</div>
-		</div> -->
-		
 		<div class="bottom-section-wrapper">
 			<div class="bottom-section">
 				<img alt="" src="images/filename/${productDetail.pfilename }.jpg"><br/>

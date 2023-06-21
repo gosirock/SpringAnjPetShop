@@ -11,13 +11,18 @@
 	
 	<!-- 2. 카트 테이블에 수량, 제품아이디, 유저아이디 입력하기 -->
 	<insert id="insertCart">
-		INSERT INTO cart (count, pid, userid) VALUES (#{count}, #{pid}, #{userid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
+		INSERT INTO cart (count, userid, pid) VALUES (#{count}, #{userid}, #{pid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
 	</insert>
 
 	<!-- 3. 구매 테이블에 수량, 제품아이디, 유저아이디 입력하기 -->
 	<insert id="insertPurchase">
-		INSERT INTO purchase (count, pid, userid) VALUES (#{count}, #{pid}, #{userid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
+		INSERT INTO purchase (count, userid, pid) VALUES (#{count}, #{userid}, #{pid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
 	</insert>
+	
+	<!-- 4. 즉시 구매 선택 옵션 불러와서 띄워주기  -->
+	<select id="selectPurchase">
+		SELECT * FROM purchase WHERE pid = #{pid} and userid = #{userid}
+	</select>
 
 
 </mapper>

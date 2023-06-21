@@ -1,8 +1,11 @@
 package com.springlec.base.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.springlec.base.model.J_productDto;
+import com.springlec.base.model.J_purchaseDto;
 
 public class J_pDetailDaoImpl implements J_pDetailDao {
 	
@@ -25,6 +28,13 @@ public class J_pDetailDaoImpl implements J_pDetailDao {
 	public void insertPurchase(String pid, String userid, int count) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.insert(nameSpace + ".insertPurchase");
+		
+	}
+
+	@Override
+	public List<J_purchaseDto> selectPurchase(String pid, String userid) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(nameSpace + ".selectPurchase");
 		
 	}
 
