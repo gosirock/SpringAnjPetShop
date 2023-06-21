@@ -644,5 +644,5 @@ hr {
     transition: transform 0.3s;
   }
   .thumbnail:hover {
-    transform: scale(1.2);
+    transform: scale(1.4);
   }

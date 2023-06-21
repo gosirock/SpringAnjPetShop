@@ -67,6 +67,8 @@
 		);
 	});
 	
+	
+	
 </script>
 <body>
 
@@ -79,28 +81,28 @@
 						<nav class="head-menu-main-nav">
 							<ul> 
 								<li class="main-nav02 dropdown">
-									<a href="#">ANJLIFE</a>
+									<a href="#">🐕 ANJLIFE</a>
 											<div class="dropdown-content">
 												<a href="A_introduction">introduction</a>
 												<a href="A_Part">Part</a>
 											</div>
 								</li>
-								<li class="main-nav01"><a href="Product">SHOP</a></li>
+								<li class="main-nav01"><a href="Product">🦴 SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="O_review">COMMUNITY</a>
+										<a href="O_review">💬 COMMUNITY</a>
 											<div class="dropdown-content">
 												<a href="O_review">review</a>
 												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="O_notice">NOTICE</a>
+										<a href="O_notice">📜 NOTICE</a>
 								      <div class="dropdown-content">
 								      <a href="O_faq">FAQ</a>
 									  <a href="O_notice">Notice</a>
 									 </div>
 								        
-								<li class="main-nav04"><a href="T_cart">CART</a></li>        
+								<li class="main-nav04"><a href="T_cart">👜 CART</a></li>        
 								<li class="right-align" id="loginContainer">
 									<c:choose>
 										  <c:when test="${empty sessionScope.USERID}">
@@ -110,7 +112,7 @@
 										  </c:when>
 										  <c:otherwise>
 										    <!-- 세션 값이 있을 때 -->
-										    <li><button class="btn-login btn-dog" onclick="location.href='Main'">Logout</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='Logout'">Logout</button></li>
 										    <li><button class="btn-login btn-dog" onclick="location.href='j_userPage'">MyPage</button></li>
 										  </c:otherwise>
 										</c:choose>
@@ -156,16 +158,17 @@
 							<h1 style="text-align: center; color: #477A7B;">ANJ's Pick</h1><br>
 						
 							<div class="product-grid">
-								 <c:forEach items="${A_ProductView}" var="dto">
-								    <div class="product-item">
-								      <a href="j_productClicked.do?pid=${dto.pid}">
-								        <img class="thumbnail" src="images/thumbnail/${dto.pthumbnail}.png" alt="Product Thumbnail">
-								      </a>
-								      <h3>${dto.pname}</h3>
-								      <p>Price: ${dto.pprice} JPY</p>
-								    </div>
-								  </c:forEach>
-								</div><br/><br/><br/>
+							  <c:forEach items="${A_ProductView}" var="dto">
+							    <div class="product-item">
+							      <a href="j_productClicked.do?pid=${dto.pid}">
+							        <img class="thumbnail" src="images/thumbnail/${dto.pthumbnail}.png" alt="Product Thumbnail">
+							      </a>
+							      <h3>${dto.pname}</h3>
+							      <p>PRICE: ￥  <span class="price">${dto.pprice}</span></p>
+							    </div>
+							  </c:forEach>
+							</div>
+							<br/><br/><br/>
 				
 				
 			  
@@ -174,7 +177,6 @@
   							<button onclick="goToPreviousPage()">Back</button>
   						<div id="pageNumbers">
 						     <span id="currentPage" class="page-number"></span>
-						     <span id="currentPage"></span><span id="totalPages"></span>
 						  </div>
 						  <button onclick="goToNextPage()">Next</button>
 						</div>
@@ -183,6 +185,111 @@
 			
 			
 						<script>
+						
+						  // 상품 가격을 ,로 구분하여 표시
+						  var priceElements = document.querySelectorAll('.price');
+						  priceElements.forEach(function (element) {
+						    element.textContent = parseInt(element.textContent).toLocaleString();
+						  });
+						  
+						  
+					  // 한 페이지에 보여줄 상품의 개수
+					  var itemsPerPage = 8;
+					
+					  // 상품 목록 컨테이너 요소
+					  var productGrid = document.querySelector('.product-grid');
+					
+					  // 상품 아이템 요소들
+					  var productItems = productGrid.querySelectorAll('.product-item');
+					
+					  // 상품 아이템 개수
+					  var itemCount = productItems.length;
+					
+					  // 현재 페이지 번호
+					  var currentPage = 1;
+					
+					  // 전체 페이지 개수
+					  var totalPages = Math.ceil(itemCount / itemsPerPage);
+					
+					  // 페이지를 업데이트하는 함수
+					  function updatePage() {
+					    // 모든 상품 아이템을 숨김
+					    productItems.forEach(function (item) {
+					      item.style.display = 'none';
+					    });
+					
+					    // 현재 페이지에 해당하는 상품 아이템만 보여줌
+					    var startIndex = (currentPage - 1) * itemsPerPage;
+					    var endIndex = startIndex + itemsPerPage;
+					    for (var i = startIndex; i < endIndex && i < itemCount; i++) {
+					      productItems[i].style.display = 'block';
+					    }
+					
+					    // 현재 페이지 번호를 표시하는 요소 업데이트
+					    var currentPageElement = document.getElementById('currentPage');
+					    currentPageElement.textContent = currentPage;
+					  }
+					
+					  // 페이지 번호를 생성하고 표시하는 함수
+					  function generatePagination() {
+					    var paginationElement = document.getElementById('pagination');
+					    paginationElement.innerHTML = '';
+					
+					    // 이전 페이지로 이동하는 버튼 생성
+					    var previousButton = document.createElement('button');
+					    previousButton.textContent = '이전';
+					    previousButton.addEventListener('click', goToPreviousPage);
+					    paginationElement.appendChild(previousButton);
+					
+					    // 페이지 번호 생성
+					    for (var i = 1; i <= totalPages; i++) {
+					      var pageButton = document.createElement('button');
+					      pageButton.textContent = i;
+					      pageButton.addEventListener('click', function () {
+					        goToPage(parseInt(this.textContent));
+					      });
+					      paginationElement.appendChild(pageButton);
+					    }
+					
+					    // 다음 페이지로 이동하는 버튼 생성
+					    var nextButton = document.createElement('button');
+					    nextButton.textContent = '다음';
+					    nextButton.addEventListener('click', goToNextPage);
+					    paginationElement.appendChild(nextButton);
+					  }
+					
+					  // 초기 페이지 업데이트
+					  updatePage();
+					  // 페이지 번호 생성 및 표시
+					  generatePagination();
+					
+					  // 페이지 번호를 클릭했을 때 해당 페이지로 이동
+					  function goToPage(page) {
+					    if (page < 1 || page > totalPages) {
+					      return;
+					    }
+					    currentPage = page;
+					    updatePage();
+					  }
+					
+					  // 이전 페이지로 이동하는 함수
+					  function goToPreviousPage() {
+					    if (currentPage > 1) {
+					      currentPage--;
+					      updatePage();
+					    }
+					  }
+					
+					  // 다음 페이지로 이동하는 함수
+					  function goToNextPage() {
+					    if (currentPage < totalPages) {
+					      currentPage++;
+					      updatePage();
+					    }
+					  }
+					</script>
+					
+					<!-- <script> // 1/3 형식으로 보여주는 것
 						// 한 페이지에 보여줄 상품의 개수
 						var itemsPerPage = 8;
 
@@ -224,6 +331,8 @@
 						var totalPagesElement = document.createElement('span');
 						totalPagesElement.id = 'totalPages';
 						totalPagesElement.textContent = totalPages;
+						
+						// 
 
 						// 현재 페이지 번호와 전체 페이지 개수를 표시하는 요소 찾기
 						var currentPageElement = document.getElementById('currentPage');
@@ -258,13 +367,12 @@
 						      currentPage++;
 						      updatePage();
 						    }
-						  }
+						  } -->
+											  
+											  
+											  
 						  
-						  
-						  
-						  
-						</script>
-
+					
 						<footer>
 							<ul>
 								<li><a href="#">Brand Story</a></li>
