@@ -13,7 +13,7 @@
         $("#idCheckConfirm").text("아이디를 입력해 주세요").css("color", "black");
     } else {
         $.ajax({
-            url: "idCheck.do",
+            url: "idCheck",
             type: "post",
             dataType: "text",
             data: {"id": oId},

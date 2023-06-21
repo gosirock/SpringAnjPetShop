@@ -25,10 +25,6 @@
     </choose>
 </select>
 
-		<!-- <select id="A_ProductView2" resultType="com.springlec.base.model.A_ProductDto">
-		select * from product where ${query} like #{content}
-		</select> -->
- 
-     
+	
 
 </mapper>

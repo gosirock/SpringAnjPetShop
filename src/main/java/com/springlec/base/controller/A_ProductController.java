@@ -37,10 +37,5 @@ public class A_ProductController {
 		return "A_ProductView";
 	}
 
-//	@RequestMapping("/Product2")
-//	public String A_ProductView2(HttpServletRequest request, Model model)throws Exception {
-//		System.out.println(request.getParameter("query"));
-//		List<A_ProductDto> listDao = service.A_ProductView2(request.getParameter("query"), request.getParameter("content"));
-//		model.addAttribute("A_ProductView", listDao);
-//		return "A_ProductView";
+
 }

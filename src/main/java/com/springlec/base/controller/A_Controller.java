@@ -23,10 +23,19 @@ public class A_Controller {
 		List<A_MainDto> listDao2 = service.A_MainView2();
 		model.addAttribute("A_MainView2", listDao2);
 		model.addAttribute("A_MainView3", listDao);
+		
 		return "A_MainView";
 	}
 	
+	@RequestMapping("/A_introduction")
+	public String A_introduction()throws Exception{
+		return "A_introduction";
+	}
 	
+	@RequestMapping("/A_Part")
+	public String A_Part()throws Exception{
+		return "A_Part";
+	}
 	
 }
 

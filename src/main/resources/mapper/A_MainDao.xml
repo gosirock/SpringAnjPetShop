@@ -7,7 +7,7 @@
 	<select id="A_MainView3" resultType="com.springlec.base.model.A_MainDto">
 		SELECT pid, pname, pprice, pthumbnail from product order by rand() Limit 4
 	</select>
-	
+
 	<select id="A_MainView2" resultType="com.springlec.base.model.A_MainDto">
 		SELECT orders.pid, product.pname, product.pprice, product.pthumbnail FROM orders INNER JOIN product ON orders.pid = product.pid GROUP BY orders.pid ORDER BY COUNT(*) DESC Limit 3;
 	</select>

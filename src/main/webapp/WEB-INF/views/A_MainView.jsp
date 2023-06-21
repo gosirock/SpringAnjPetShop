@@ -86,7 +86,7 @@ $(document).ready(function() {
 			<header>
 				<div class="head-wrap">
 					<div class="head-wrap-inner">
-						<a href="A_MainView.do?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
+						<a href="Main?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
 					</div>
 					<div class="head-wrap-sub">
 						<nav class="head-menu-main-nav">
@@ -94,8 +94,8 @@ $(document).ready(function() {
 								<li class="main-nav02 dropdown">
 									<a href="#">ANJLIFE</a>
 											<div class="dropdown-content">
-												<a href="A_introduction.jsp">introduction</a>
-												<a href="A_Part.jsp">Part</a>
+												<a href="A_introduction">introduction</a>
+												<a href="A_Part">Part</a>
 											</div>
 								</li>
 								<li class="main-nav01"><a href="Product">SHOP</a></li>
@@ -118,8 +118,8 @@ $(document).ready(function() {
 									<c:choose>
 										  <c:when test="${empty sessionScope.USERID}">
 										    <!-- 세션 값이 비어있을 때 -->
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_loginView.jsp'">Login</button></li>
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_JoinView.jsp'">New</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_loginView'">Login</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_JoinView'">New</button></li>
 										  </c:when>
 										  <c:otherwise>
 										    <!-- 세션 값이 있을 때 -->
@@ -133,7 +133,7 @@ $(document).ready(function() {
 						</nav>
 					</div>
 				</div>
-			</header><br><br> <br> <br><br><br>
+			</header><br><br> <br> 
      				
      				
      				<!-- 검색  -->

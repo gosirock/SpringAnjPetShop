@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.A_JoinDao">
+
+<select id="joinIdChack" resultType="String">
+    SELECT count(userid) 
+    FROM user 
+    WHERE userid = #{id}
+</select>
+
+<insert id="join">
+    INSERT INTO user (userid, userpasswd, username, usertel, useremail, userpostcode, useraddress, userdetailaddress, insertdate, mileage) values(#{id}, #{pw}, #{name}, #{tel}, #{email}, #{postcode}, #{address}, #{detailaddress}, now(),2650)
+</insert>
+
+</mapper>
