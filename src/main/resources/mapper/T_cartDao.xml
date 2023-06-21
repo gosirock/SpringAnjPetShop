@@ -8,7 +8,7 @@
 <select id="clistDao" resultType="com.springlec.base.model.T_productDto">
 		SELECT c.seq, p.pthumbnail, c.count, c.userid, c.pid, p.pname, p.pprice
         FROM user u, cart c, product p
-        WHERE u.userid = c.userid AND p.pid = c.pid <!-- AND u.userid = #{userId} -->
+        WHERE u.userid = c.userid AND p.pid = c.pid AND u.userid = #{userId}
 </select>
 
 <!-- 장바구니 수량 업데이트 -->
@@ -29,32 +29,33 @@
 <!-- 선택 구매 -->
 <insert id="insertPurchaseDao">
 	INSERT INTO purchase (count, userid, pid)
-  SELECT c.count, 'do', #{pid}
+  SELECT c.count, #{userid}, #{pid}
   FROM cart c
   JOIN user u ON u.userid = c.userid 
   JOIN product p ON p.pid = c.pid
-  WHERE u.userid = 'do' AND p.pid = #{pid}
+  WHERE u.userid = #{userid} AND p.pid = #{pid}
 </insert>
 
 <!-- 전체 구매 -->
 <insert id="insertAllpurchaseDao">
 	INSERT INTO purchase (count, userid, pid)
-	SELECT c.count, 'do', c.pid
+	SELECT c.count, #{userid}, c.pid
 	FROM cart c
 	JOIN user u ON u.userid = c.userid 
 	JOIN product p ON p.pid = c.pid
-	WHERE u.userid = 'do';		       
+	WHERE u.userid = #{userid};		       
 </insert>
 
 <!-- 구매페이지 띄우기 -->
 <select id="plistDao" resultType="com.springlec.base.model.T_productDto">
 		SELECT c.seq, p.pthumbnail, c.count, c.userid, c.pid, p.pname, p.pprice
         FROM user u, purchase c, product p
-        WHERE u.userid = c.userid AND p.pid = c.pid<!--  AND u.userid = #{userId} -->
+        WHERE u.userid = c.userid AND p.pid = c.pid AND u.userid = #{userId}
 </select>
 
+<!-- 배송정보 띄우기 -->
 <select id="ulistDao" resultType="com.springlec.base.model.T_userinfoDto">
-	SELECT * FROM user WHERE userid = 'do'
+	SELECT * FROM user WHERE userid = #{userid}
 </select>
 
 

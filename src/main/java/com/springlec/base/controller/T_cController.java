@@ -17,6 +17,7 @@ import com.springlec.base.model.T_userinfoDto;
 import com.springlec.base.service.T_cartDaoService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class T_cController {
@@ -26,8 +27,11 @@ public class T_cController {
 	
 	// 카트 띄우기
 	@RequestMapping("/T_cart")
-	public String clist(Model model) throws Exception{
-		List<T_ordersDto> clistDao = service.clistDao();
+	public String clist(HttpServletRequest request, Model model) throws Exception{
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
+		System.out.println("userid" + userid);
+		List<T_ordersDto> clistDao = service.clistDao(userid);
 		model.addAttribute("clist", clistDao);
 		return "T_cart";
 	}
@@ -35,6 +39,8 @@ public class T_cController {
 	// 카트 업데이트
 	@RequestMapping("/updateCart")
 	public String updateCart(HttpServletRequest request, Model model) throws Exception{
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
 		service.updateCartDao(request.getParameter("pid"), Integer.parseInt(request.getParameter("count")));
 		return "redirect:T_cart";
 	}
@@ -42,6 +48,8 @@ public class T_cController {
 	// 카트 선택삭제
 	@RequestMapping("/deleteCart")
 	public String deleteCart(@RequestParam("pid") String[] pidArray, HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
 	    for (String pid : pidArray) {
 	        service.deleteCartDao(pid);
 	        System.out.println("controller pid = " + pid);
@@ -51,8 +59,9 @@ public class T_cController {
 	
 	// 카트 전체삭제
 	@RequestMapping("/deleteAllcart")
-	public String deleteAllcart(/* @RequestParam("userid") String userid, */HttpServletRequest request, Model model) throws Exception{
-		String userid = "do";
+	public String deleteAllcart(/*@RequestParam("userid") String userid, */HttpServletRequest request, Model model) throws Exception{
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
 		service.deleteAllcartDao(userid);
 		return "redirect:T_cart";
 	}
@@ -61,20 +70,22 @@ public class T_cController {
 	@RequestMapping("/purchase")
 	public String purchase(@RequestParam("pid") String[] pidArray, 
 	        /* @RequestParam("userid") String userid, */HttpServletRequest request, Model model) throws Exception {
-	    String userid = "do";
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
 	    
 	    for (String pid : pidArray) {	        
 	        service.insertPurchaseDao(userid, pid);
 	    }
 	    
 	  //public String plist(Model model) throws Exception{
-	  		List<T_ordersDto> plistDao = service.plistDao();
+	  		List<T_ordersDto> plistDao = service.plistDao(userid);
 	  		model.addAttribute("plist", plistDao);
 	  		
-	  		List<T_userinfoDto> ulistDao = service.ulistDao();
+	  		List<T_userinfoDto> ulistDao = service.ulistDao(userid);
 		    
 		    if (!ulistDao.isEmpty()) {
 		        T_userinfoDto userinfo = ulistDao.get(0); // 첫 번째 객체 가져오기
+		        
 		        
 		        //model.addAllAttributes(ulistDao)
 		        // 서버에서 가져온 데이터를 serverData 객체에 할당
@@ -94,17 +105,20 @@ public class T_cController {
 	    
 	// 전체 구매  
 	@RequestMapping("/allPurchase")
-	public String allPurchase(@RequestParam("userid") String userid, HttpServletRequest request, Model model) throws Exception {
-	    userid = "do";
+	public String allPurchase(
+			/* @RequestParam("userid") String userid, */HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+	 	String userid = (String) session.getAttribute("USERID");
 
 	        service.insertAllpurchaseDao(userid);
 	    
-	    List<T_ordersDto> plistDao = service.plistDao();
+	    List<T_ordersDto> plistDao = service.plistDao(userid);
 	    model.addAttribute("plist", plistDao);
 	    
-	    List<T_userinfoDto> ulistDao = service.ulistDao();
+	    List<T_userinfoDto> ulistDao = service.ulistDao(userid);
 	    
 	    if (!ulistDao.isEmpty()) {
+	    	
 	        T_userinfoDto userinfo = ulistDao.get(0); // 첫 번째 객체 가져오기
 	        
 	        //model.addAllAttributes(ulistDao)

@@ -16,9 +16,9 @@ public class T_cartDaoServiceImpl implements T_cartDaoService {
 	
 	// 장바구니 띄우기
 	@Override
-	public List<T_ordersDto> clistDao() throws Exception {
+	public List<T_ordersDto> clistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.clistDao();
+		return dao.clistDao(userid);
 	}
 
 	// 장바구니 수량 업데이트
@@ -48,7 +48,7 @@ public class T_cartDaoServiceImpl implements T_cartDaoService {
 	public void insertPurchaseDao(String userid, String pid) throws Exception {
 		// TODO Auto-generated method stub
 //		System.out.println("service pid = " + pid);
-//		System.out.println("service userid = " + userid);
+		System.out.println("service userid = " + userid);
 //		System.out.println("service count = " + count);
 		dao.insertPurchaseDao(userid, pid);
 	}
@@ -65,15 +65,15 @@ public class T_cartDaoServiceImpl implements T_cartDaoService {
 
 	// 구매페이지 띄우기
 	@Override
-	public List<T_ordersDto> plistDao() throws Exception {
+	public List<T_ordersDto> plistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.plistDao();
+		return dao.plistDao(userid);
 	}
 
 	@Override
-	public List<T_userinfoDto> ulistDao() throws Exception {
+	public List<T_userinfoDto> ulistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.ulistDao();
+		return dao.ulistDao(userid);
 	}
 
 //	@Override
