@@ -204,9 +204,6 @@
 			<tbody>
 				<c:forEach items="${commentList}" var="dto">
 					<!-- isdelete가 1이면 삭제된 댓글이라고 보여주기 위한 작업 -->
-					<c:if test="${dto.isdelete == 1}">
-		 				<c:set var="dto.comments" value="삭제된 댓글입니다." />
-					</c:if>
 					<form name="comment${dto.c_seq }" method="post">
 						<input type="hidden" name="c_seq" value="${dto.c_seq }">
 						<input type="hidden" name="rootseq" value="${dto.rootseq }">
@@ -248,7 +245,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td style="text-align: left;" colspan="3"><c:choose>
+						<td style="text-align: left;" colspan="3">
+							<c:choose>
 								<c:when test="${dto.writer eq '관리자'}">
 									<input
 										style="font-size: 17px; font-weight: bold; border-top: none;"
@@ -260,8 +258,8 @@
 										readonly="readonly"
 										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
 								</c:otherwise>
-							</c:choose> <input type="button" class="comment-button" value="답글창"
-							onclick="showHiddenRow('row_${dto.c_seq}');">
+							</c:choose>
+							<input type="button" value="+" onclick="showHiddenRow('row_${dto.c_seq}');">
 						</td>
 					</tr>
 					<tr id="row_${dto.c_seq}" class="hidden_row">

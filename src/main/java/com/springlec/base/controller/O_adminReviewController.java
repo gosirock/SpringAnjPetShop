@@ -83,8 +83,11 @@ public class O_adminReviewController {
 			String c_writeDate = c_dto.getWritedate();
 			Timestamp t_c_writeDate = Timestamp.valueOf(c_writeDate);
 			c_writeDate = c_format.format(t_c_writeDate);
-			dto.setWritedate(c_writeDate);
+			c_dto.setWritedate(c_writeDate);
+			if(c_dto.getIsdelete() == 1) {
+				c_dto.setComments("삭제된 댓글입니다.");
 			}
+		}
 		
 		model.addAttribute("rDetail",dto);
 		model.addAttribute("seq", seq);
