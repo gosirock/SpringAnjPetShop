@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.W_SalesDailyDao">
+
+	<select id="W_SalesDaily" resultType="com.springlec.base.model.W_SalesDaily_Dto">
+		SELECT o.pid as pid, p.pname as pname, p.pprice as pprice,  SUM(o.count) AS count, SUM(o.orderprice) AS orderprice, SUM(o.usedmileage) AS usedmileage 
+		FROM orders o 
+		JOIN product p ON o.pid = p.pid 
+		WHERE DATE(o.orderdate) = #{day} 
+		GROUP BY pid, pname, pprice order by orderprice desc
+	</select>
+	
+	
+
+</mapper>

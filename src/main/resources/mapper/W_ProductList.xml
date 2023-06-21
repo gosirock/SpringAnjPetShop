@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.W_ProductListDao">
+
+	<select id="W_ProductList" resultType="com.springlec.base.model.W_ProductList_Dto">
+		select pid, pname, pcategory, pprice, pstock, available, pthumbnail, 
+		(select count(*) from product where ${selectType} like #{selectText}) as count 
+		from product 
+		WHERE ${selectType} like #{selectText} 
+		order by pid 
+		limit #{pagenum}, #{pageSize}
+	</select>
+
+	<insert id="W_ProductInsert">
+		INSERT INTO product(pid, pname, pcategory, pprice, pstock, available, pthumbnail, pth2, pth3)
+		 values(#{pid}, #{pname}, #{pcategory}, #{pprice}, #{pstock}, #{available}, #{pthumbnail}, #{pth2}, #{pth3})
+	</insert>
+	
+	<update id="W_ProductUpdate">
+		update product set pname = #{pname}, pcategory = #{pcategory}, pprice = #{pprice}, pstock = #{pstock}, available = #{available} where pid = #{pid}
+	</update>
+	
+	<select id="W_ProductUpdateView" resultType="com.springlec.base.model.W_ProductList_Dto">
+		select pid, pname, pcategory, pprice, pstock, available, pthumbnail, pth2, pth3 from product where pid = #{pid}
+	</select>
+</mapper>

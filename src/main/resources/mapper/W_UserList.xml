@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.W_UserListDao">
+
+	<select id="W_UserList" resultType="com.springlec.base.model.W_UserList_Dto">
+		select userid, username, usertel, useremail, useraddress, mileage, insertdate, deletedate,
+		(select count(*) from user where ${selectType} like #{selectText}) as count 
+		from user 
+		WHERE ${selectType} like #{selectText} 
+		order by userid 
+		limit #{pagenum}, #{pageSize}
+	</select>
+
+
+</mapper>

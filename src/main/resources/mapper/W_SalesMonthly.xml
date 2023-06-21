@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.W_SalesMonthlyDao">
+
+	<select id="W_SalesMonthly" resultType="com.springlec.base.model.W_SalesMonthly_Dto">
+		SELECT o.pid, p.pname, p.pprice, o.count, o.orderprice, o.usedmileage, DATE_FORMAT(o.orderdate, '%Y-%m-%d') AS orderdate
+		FROM orders o
+		JOIN product p ON o.pid = p.pid
+		WHERE <![CDATA[o.orderdate >= #{day} AND o.orderdate < DATE_ADD(DATE_FORMAT(#{day}, '%Y-%m-%d'), INTERVAL 1 MONTH)]]>
+		order by o.orderdate
+	</select>
+	
+	<select id="W_SalesMonthlyChart" resultType="com.springlec.base.model.W_SalesMonthlyChart_Dto">
+		SELECT 	sum(o.orderprice - o.usedmileage) as total, DATE_FORMAT(o.orderdate, '%Y-%m-%d') AS orderdate
+		FROM orders o
+		JOIN product p ON o.pid = p.pid
+		WHERE <![CDATA[o.orderdate >= #{day} AND o.orderdate < DATE_ADD(DATE_FORMAT(#{day}, '%Y-%m-%d'), INTERVAL 1 MONTH)]]>
+		group by o.orderdate
+		order by o.orderdate
+	</select>
+	
+	
+
+</mapper>

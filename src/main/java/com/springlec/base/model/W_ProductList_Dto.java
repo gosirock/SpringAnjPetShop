@@ -34,21 +34,6 @@ public class W_ProductList_Dto {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public W_ProductList_Dto(String pthumbnail, String pid, String pname, String pcategory, int pprice, int pstock,
 			String available, String pth2, String pth3) {
 		super();
