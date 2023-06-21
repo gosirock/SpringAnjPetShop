@@ -103,45 +103,45 @@ $(document).ready(function() {
 				<header>
 				<div class="head-wrap">
 					<div class="head-wrap-inner">
-						<a href="A_MainView.do?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
+						<a href="Main?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
 					</div>
 					<div class="head-wrap-sub">
 						<nav class="head-menu-main-nav">
 							<ul> 
 								<li class="main-nav02 dropdown">
-									<a href="#">ANJLIFE</a>
+									<a href="#">🐕 ANJLIFE</a>
 											<div class="dropdown-content">
-												<a href="A_introduction.jsp">introduction</a>
-												<a href="A_Part.jsp">Part</a>
+												<a href="A_introduction">introduction</a>
+												<a href="A_Part">Part</a>
 											</div>
 								</li>
-								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
+								<li class="main-nav01"><a href="Product">🦴 SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="#">COMMUNITY</a>
+										<a href="O_review">💬 COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="O_Review.do">review</a>
-												<a href="O_QNA.do">Q&A</a>
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
 								  </li>
 								<li class="main-nav02 dropdown">
-										<a href="#">NOTICE</a>
+										<a href="O_notice">📜 NOTICE</a>
 								      <div class="dropdown-content">
-								      <a href="O_FAQ.do">FAQ</a>
-									  <a href="O_Notice.do">Notice</a>
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
 									 </div>
 								        
-								<li class="main-nav04"><a href="cart.do">CART</a></li>        
+								<li class="main-nav04"><a href="T_cart">👜 CART</a></li>        
 								<li class="right-align" id="loginContainer">
 									<c:choose>
 										  <c:when test="${empty sessionScope.USERID}">
 										    <!-- 세션 값이 비어있을 때 -->
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_loginView.jsp'">Login</button></li>
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_JoinView.jsp'">New</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_loginView'">Login</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_JoinView'">New</button></li>
 										  </c:when>
 										  <c:otherwise>
 										    <!-- 세션 값이 있을 때 -->
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_logout.do'">Logout</button></li>
-										    <li><button class="btn-login btn-dog" onclick="location.href='j_userPage.do'">MyPage</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='Logout'">Logout</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='j_userPage'">MyPage</button></li>
 										  </c:otherwise>
 										</c:choose>
 									<li style="font-size: 11px; margin-top: 10px;">${sessionScope.USERID}님</li>
@@ -150,7 +150,7 @@ $(document).ready(function() {
 						</nav>
 					</div>
 				</div>
-			</header>
+			</header><br><br> <br> 
 
 
 
