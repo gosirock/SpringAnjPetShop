@@ -35,7 +35,7 @@
 </select>
 
 <select id="getMaxRef" resultType="java.lang.Integer">
-	SELECT MAX(ref) FROM comments
+	SELECT COALESCE(MAX(ref), 1) FROM comments <!-- comment가 하나도 없을 때는 null이 찍히므로 1로 바꿔줌  -->
 </select>
 
 <insert id="writeParentComment">

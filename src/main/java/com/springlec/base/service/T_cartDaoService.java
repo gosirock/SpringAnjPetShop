@@ -8,7 +8,7 @@ import com.springlec.base.model.T_userinfoDto;
 public interface T_cartDaoService {
 	
 	// 장바구니 띄우기
-	public List<T_ordersDto> clistDao() throws Exception;
+	public List<T_ordersDto> clistDao(String userid) throws Exception;
 	
 	// 장바구니 수량 업데이트
 	public void updateCartDao(String pid, int count) throws Exception;
@@ -26,10 +26,10 @@ public interface T_cartDaoService {
 	public void insertAllpurchaseDao(String userid) throws Exception;
 	
 	// 구매페이지 띄우기
-	public List<T_ordersDto> plistDao() throws Exception;
+	public List<T_ordersDto> plistDao(String userid) throws Exception;
 	
 	// 유저정보 띄우기
-	public List<T_userinfoDto> ulistDao() throws Exception;
+	public List<T_userinfoDto> ulistDao(String userid) throws Exception;
 
 	//public void insertAllpurchaseDao(List<T_ordersDto> plistDao);
 

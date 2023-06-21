@@ -59,7 +59,7 @@ $(document).ready(function() {
 								</li>
 								<li class="main-nav01"><a href="Product">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="O_review">COMMUNITY</a>
+										<a href="O_review">COMMUNITY
 											<div class="dropdown-content">
 												<a href="O_review">review</a>
 												<a href="O_qna">Q&A</a>

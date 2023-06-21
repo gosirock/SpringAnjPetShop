@@ -17,7 +17,7 @@
 </head>
 <script type="text/javascript">
 	function updateCheck(){
-		const form = document.qDetail
+		const form = document.QnaDetail
 		const qna_title = form.qna_title.value
 		const qna_content = form.qna_content.value
 		

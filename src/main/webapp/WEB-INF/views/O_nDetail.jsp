@@ -100,10 +100,10 @@ $(document).ready(function() {
 		<br><br><br>
 		<h3>COMMUNITY</h3>
 		<br><br>
-			<span class="selected"><a href="O_notice.do">NOTICE</a></span>
-			<a href="O_faq.do">FAQ</a> 
-			<a href="O_qna.do">Q&A</a> 
-			<a href="O_review.do">REVIEW</a> 
+			<span class="selected"><a href="O_notice">NOTICE</a></span>
+			<a href="O_faq">FAQ</a> 
+			<a href="O_qna">Q&A</a> 
+			<a href="O_review">REVIEW</a> 
 		<br><br>
 	</div>
 	<div class="page-title">

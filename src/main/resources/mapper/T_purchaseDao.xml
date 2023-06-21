@@ -6,8 +6,63 @@
 
 
 <select id="ulistDao" resultType="com.springlec.base.model.T_userinfoDto">
-	SELECT * FROM user WHERE userid = 'do'
+	SELECT * FROM user WHERE userid = #{userid}
 </select>
+
+
+ <insert id="orders" parameterType="java.util.Map">
+  <selectKey keyProperty="ordernum" order="BEFORE" resultType="java.lang.String">
+    SELECT CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), '-', LPAD(HOUR(NOW()), 2, '0'), LPAD(MINUTE(NOW()), 2, '0'), LPAD(SECOND(NOW()), 2, '0')) AS ordernum
+  </selectKey>
+
+  INSERT INTO orders (ordernum, count, pname, orderprice, username, userpostcode, shipaddress, usertel, orderdate, userid, pid, ordermessage, payment, usedmileage)
+  SELECT #{ordernum}, #{count}, #{pname}, p.pprice*#{count}, #{username}, #{userpostcode}, #{shipaddress}, #{usertel}, NOW(), #{userid}, #{pid}, #{ordermessage}, #{payment}, #{usedmileage}
+  FROM cart c
+  JOIN user u ON u.userid = c.userid
+  JOIN product p ON p.pid = c.pid
+  WHERE u.userid = #{userid} AND p.pid = #{pid}
+</insert>
+
+<select id="olistDao" resultType="com.springlec.base.model.T_ordersDto">
+   SELECT *
+  FROM orders
+  WHERE userid = 'horo'
+    AND orderdate = (
+      SELECT orderdate
+      FROM orders
+      ORDER BY orderdate DESC
+      LIMIT 0, 1)
+</select>
+<!-- ordernum = (SELECT CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), '-', LPAD(HOUR(NOW()), 2, '0'), LPAD(MINUTE(NOW()), 2, '0'), LPAD(SECOND(NOW()), 2, '0')) AS ordernum) -->
+
+
+<!-- 제품 가격 조회 쿼리 -->
+<select id="getProductPrice" resultType="java.lang.Integer">
+  SELECT pprice FROM product WHERE pid = #{pid}
+</select>
+
+<!-- 카트 삭제 쿼리 -->
+<delete id="deleteCart">
+  DELETE c
+FROM cart c
+INNER JOIN purchase p ON c.pid = p.pid
+WHERE p.pid = #{pid} AND c.userid = #{userid}
+</delete>
+
+
+<!-- 구매창 삭제 쿼리 -->
+<delete id="deletepurchase">
+  DELETE FROM purchase WHERE userid = #{userid}
+</delete>
+
+<!-- 마일리지 차감 쿼리 -->
+<update id="updateMileage">
+  UPDATE user
+  SET mileage = mileage - #{usedmileage} + #{enteredmileage}
+  WHERE userid = #{userid}
+</update>
+
+
 
 
 

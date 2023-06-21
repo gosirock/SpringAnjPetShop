@@ -26,6 +26,7 @@ public class O_reviewController {
 	@Autowired
 	O_pagination pagination;
 	
+	// 리뷰 정보 들고오는 메서드
 	@RequestMapping("/O_review")
 	public String getNoticeList(HttpServletRequest request, Model model) throws Exception {
 		String queryName = request.getParameter("query");
@@ -66,6 +67,7 @@ public class O_reviewController {
 		return "O_rBoard";
 	}
 	
+	// 리뷰 상세정보
 	@RequestMapping("/O_rDetail")
 	public String getNoticeDetail(HttpServletRequest request, Model model) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,6 +99,7 @@ public class O_reviewController {
 		return("O_rDetail");
 	}
 	
+	// 게시글의 댓글 작성
 	@RequestMapping("/O_writeParentComment")
 	public String writeComment(HttpServletRequest request) throws Exception{
 		int seq = Integer.parseInt(request.getParameter("seq"));

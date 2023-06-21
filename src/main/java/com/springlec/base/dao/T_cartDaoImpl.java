@@ -16,7 +16,7 @@ public class T_cartDaoImpl implements T_cartDao {
 	
 	// 장바구니 띄우기
 	@Override
-	public List<T_ordersDto> clistDao() throws Exception {
+	public List<T_ordersDto> clistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(nameSpace + ".clistDao");
 	}
@@ -60,14 +60,14 @@ public class T_cartDaoImpl implements T_cartDao {
 
 	// 구매페이지 띄우기
 	@Override
-	public List<T_ordersDto> plistDao() throws Exception {
+	public List<T_ordersDto> plistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(nameSpace + ".plistDao");
 	}
 
 	// 유저정보 띄우기
 	@Override
-	public List<T_userinfoDto> ulistDao() throws Exception {
+	public List<T_userinfoDto> ulistDao(String userid) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(nameSpace + ".ulistDao");
 	}

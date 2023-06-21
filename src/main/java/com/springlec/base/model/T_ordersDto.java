@@ -25,6 +25,7 @@ public class T_ordersDto {
 	String usertel;
 	int usedmileage;
 	String ordermessage;
+	String pthumbnail;
 	private List<String> pidList;
     private List<String> pnameList;
     private List<Integer> orderpriceList;
@@ -51,13 +52,14 @@ public class T_ordersDto {
 //	    this.ordermessage = "";
 	}
 	/* , HttpServletRequest request */
-	public T_ordersDto(String userid, String ordernum, String orderdate, int orderprice, String payment, String pid,
+	public T_ordersDto(String userid, String ordernum, String orderdate, String pthumbnail, int orderprice, String payment, String pid,
 			String pname, int pprice, int count, String username, String userpostcode, String shipaddress,
 			String usertel, int usedmileage, String ordermessage) {
 		super();
 		this.userid = userid;
 		this.ordernum = ordernum;
 		this.orderdate = orderdate;
+		this.pthumbnail = pthumbnail;
 		this.orderprice = orderprice;
 		this.payment = payment;
 		this.pid = pid;
@@ -79,6 +81,12 @@ public class T_ordersDto {
 		this.pid = pid;
 		this.count = count;
 		this.userid = userid;
+	}
+	public String getPthumbnail() {
+		return pthumbnail;
+	}
+	public void setPthumbnail(String pthumbnail) {
+		this.pthumbnail = pthumbnail;
 	}
 	public String getUserid() {
 		return userid;

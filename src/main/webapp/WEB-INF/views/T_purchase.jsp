@@ -59,12 +59,13 @@ $(document).ready(function() {
 
 	function submitForm() {
 		  var form = document.createElement("form");
-		  form.action = "order.do";
+		  form.action = "orders";
 		  form.method = "post";
 
 		  var pidInputs = document.getElementsByName("pid");
 		  var countInputs = document.getElementsByName("count");
 		  var pnameInputs = document.getElementsByName("pname");
+		  var ppriceInputs = document.getElementsByName("pprice");
 
 		  // 추가 정보 가져오기
 		  var usernameInput = document.getElementsByName("username")[0];
@@ -181,26 +182,17 @@ $(document).ready(function() {
 		    pnameInput.name = "pname";
 		    pnameInput.value = pnameInputs[i].value;
 		    form.appendChild(pnameInput);
+		    
+		    var ppriceInput = document.createElement("input");
+		    ppriceInput.type = "hidden";
+		    ppriceInput.name = "pprice";
+		    ppriceInput.value = ppriceInputs[i].value;
+		    form.appendChild(ppriceInput);
 		  }
 
 		  document.body.appendChild(form);
 		  form.submit();
 		}
-	
-	// 마일리지 넘기기
-	/* function usermileage() {
-		  var mileageInput = document.getElementById("mileageInput");
-		  var mileageValue = mileageInput.value;
-
-		  // mileageValue를 서버로 전송하고 사용할 수 있도록 폼 데이터로 추가합니다.
-		  var mileageHiddenInput = document.createElement("input");
-		  mileageHiddenInput.type = "hidden";
-		  mileageHiddenInput.name = "usedmileage";
-		  mileageHiddenInput.value = mileageValue;
-
-		  var form = document.getElementById("orderForm");
-		  form.appendChild(mileageHiddenInput);
-		} */
 
 
 	function confirmPurchase() {
@@ -354,7 +346,7 @@ fillUserInfo(document.getElementById("checkboxId"));
 	<header>
 				<div class="head-wrap">
 					<div class="head-wrap-inner">
-						<a href="A_MainView.do?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
+						<a href="Main?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
 					</div>
 					<div class="head-wrap-sub">
 						<nav class="head-menu-main-nav">
@@ -362,34 +354,46 @@ fillUserInfo(document.getElementById("checkboxId"));
 								<li class="main-nav02 dropdown">
 									<a href="#">ANJLIFE</a>
 											<div class="dropdown-content">
-												<a href="A_introduction.jsp">introduction</a>
-												<a href="#">BRAND</a>
-												<a href="#">Part</a>
+												<a href="A_introduction">introduction</a>
+												<a href="A_Part">Part</a>
 											</div>
 								</li>
-								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
+								<li class="main-nav01"><a href="Product">SHOP</a></li>
 									<li class="main-nav02 dropdown">
-										<a href="#">COMMUNITY</a>
+										<a href="O_review">COMMUNITY</a>
 											<div class="dropdown-content">
-												<a href="#">review</a>
-												<a href="#">Q&A</a>
-											<!-- <a href="#">Part</a> -->
+												<a href="O_review">review</a>
+												<a href="O_qna">Q&A</a>
 											</div>
-								</li>
-								
-								<li class="main-nav04"><a href="#">NOTICE</a></li>         
-								<li class="main-nav04"><a href="#">CART</a></li>        
+								  </li>
+								<li class="main-nav02 dropdown">
+										<a href="O_notice">NOTICE</a>
+								      <div class="dropdown-content">
+								      <a href="O_faq">FAQ</a>
+									  <a href="O_notice">Notice</a>
+									 </div>
+								        
+								<li class="main-nav04"><a href="T_cart">CART</a></li>        
 								<li class="right-align" id="loginContainer">
-									<li><button class="btn-login btn-dog" onclick="location.href='A_loginView.jsp'">Login</button></li>
-									<li><button class="btn-login btn-dog" onclick="location.href='A_JoinView.jsp'">New</button></li>
-									<li><button class="btn-login btn-dog" onclick="location.href='A_loginView.jsp'">Logout</button></li>
+									<c:choose>
+										  <c:when test="${empty sessionScope.USERID}">
+										    <!-- 세션 값이 비어있을 때 -->
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_loginView'">Login</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_JoinView'">New</button></li>
+										  </c:when>
+										  <c:otherwise>
+										    <!-- 세션 값이 있을 때 -->
+										    <li><button class="btn-login btn-dog" onclick="location.href='A_logout.do'">Logout</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='j_userPage'">MyPage</button></li>
+										  </c:otherwise>
+										</c:choose>
 									<li style="font-size: 11px; margin-top: 10px;">${sessionScope.USERID}님</li>
 								</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
-			</header><br><br> <br> <br><br><br>
+			</header><br><br> <br> 
 
 	<main class="main">
 
@@ -398,7 +402,7 @@ fillUserInfo(document.getElementById("checkboxId"));
 		<!-- <br> <br> <br> <br> <br> -->
 	</main>
 
-	<form id="orderForm" action="order.do" method="post">
+	<form id="orderForm" action="orders" method="post">
 		<div style="display: flex; justify-content: center;">
 		  <hr style="width: 80%; color: #477a7b; height: 2px;">
 		</div>
@@ -434,9 +438,14 @@ fillUserInfo(document.getElementById("checkboxId"));
 				</tr>
 			</table>
 
+			<%-- <input type="hidden" name="countList[${status.index}]" value="${dto.count}">
+			  <input type="hidden" name="pidList[${status.index}]" value="${dto.pid}">
+			  <input type="hidden" name="pnameList[${status.index}]" value="${dto.pname}">
+			  <input type="hidden" name="userid" value="${sessionScope.USERID}"> --%>
 			<input type="hidden" name="count" value="${dto.count}">
 			<input type="hidden" name="pid" value="${dto.pid}">
 			<input type="hidden" name="pname" value="${dto.pname}">
+			<input type="hidden" name="pprice${pid}" value="${dto.pprice}" />
 			<input type="hidden" name="userid" value="${sessionScope.USERID}">
 		</c:forEach>
 
