@@ -164,108 +164,97 @@ header .head-wrap-sub ul li a:hover {
   padding:100px;
 }
 
+#pageTitle {			/* 첫 화면 페이지 이름 */
+	text-align: center; 
+	color : #477A7B; 
+}
 
 #userInfo {
-	/* padding: 30px; */
+	margin-left: auto;
+	margin-right: auto;
 	border-collapse: collapse; /* 인접한 셀의 경계를 합치기 */
 } 
 
-#userIn tr{
+#userInfo tr{
 	padding: 30px; 
 	border-bottom: 1px solid lightgray;
 } 
 
 #userid, #username, #useraddress, #usertel, #useremail {
 	text-align: center;
-	font-size: 15px;
+	font-size: 20px;
 	padding: 30px;
 	background-color: #FFFFF0;
 }
 
-#pageTitle {			/* 첫 화면 페이지 이름 */
-	text-align: center; 
-	/* color : #477A7B; */
-}
-
-#requiredField {
-	text-align: right;
-}
 
 #tfUserid, #tfUserName, #tfUserTel, #tfUserEmail {
-	font-size: 15px;
+	font-size: 20px;
 	width: 200px;
 	height: 10px;
 	padding: 10px;
 }
 
 #sample6_postcode{
-	font-size: 15px;
+	font-size: 20px;
 	width: 150px;
-	height: 30px;
+	height: 10px;
+	padding: 10px;
 }
 
 #sample6_address, #sample6_detailAddress{
-	font-size: 15px;
-	width: 250px;
-	height: 30px;
+	font-size: 20px;
+	width: 300px;
+	height: 10px;
+	padding: 10px;
 }
 
-#tfUserPhone1 {
-	font-size: 15px;
-	width: 50px;
-	height: 25px;
-}
-#tfUserPhone2 {
-	font-size: 15px;
-	width: 50px;
-	height: 25px;
-}
-#tfUserPhone3 {
-	font-size: 15px;
-	width: 50px;
-	height: 25px;
-}
-
-#inputEmail, #domainSelect, #customDomain{
+#buttons{
+	margin-left: auto;
+	margin-right: auto;
 	text-align: center;
-	font-size: 15px;
-	width: 150px;
-	height: 25px;
 }
-
-
-
-#btnUpdateInfo{
-	display: flex;
+#btnUpdate, #btnBack, #btnHome{
+	display: inline-block;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	font-size: 25px;
 	width: 200px;
 	height: 50px;
+	background-color: #FFFFF0;
+	border-color: 1px solid lightgray;
 }
 
-#btnCancel {
+#checkPwModal {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	font-size: 25px;
-	width: 200px;
-	height: 50px;
 	
 }
 
-#btnDeleteInfo{
-	display: flex;
+#inputPw ::placeholder {
+	font-size: 20px
+}
+
+#message {
+	padding: 30px;
+	color: red;
+}
+
+#btnPwSubmit, #btnPwCancel {
+	display: inline-block;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	font-size: 15px;
+	font-size: 25px;
 	width: 100px;
-	height: 30px;
-	
+	height: 50px;
+	background-color: #FFFFF0;
+	border-color: 1px solid lightgray;
 }
+
 .dropdown {
 	position: relative;
 	display: inline-block;

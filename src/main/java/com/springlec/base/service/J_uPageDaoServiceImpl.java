@@ -27,10 +27,10 @@ public class J_uPageDaoServiceImpl implements J_uPageDaoService {
 	
 	// 회원 정보 수정 처리 
 	@Override
-	public void updateInfo(String userpasswd, String usertel, String useremail, int userpostcode,
+	public void updateInfo(String userid, String userpasswd, String usertel, String useremail, int userpostcode,
 			String useraddress, String userdetailaddress) throws Exception {
 		// TODO Auto-generated method stub
-		userDao.updateInfo(userpasswd, usertel, useremail, userpostcode, useraddress, userdetailaddress);
+		userDao.updateInfo(userid, userpasswd, usertel, useremail, userpostcode, useraddress, userdetailaddress);
 	}
 
 	// 회원 탈퇴 처리 

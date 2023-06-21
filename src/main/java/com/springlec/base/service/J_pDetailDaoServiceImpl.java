@@ -19,15 +19,15 @@ public class J_pDetailDaoServiceImpl implements J_pDetailDaoService {
 	}
 
 	@Override
-	public void insertCart(String pid, String uid, int count) throws Exception {
+	public void insertCart(String pid, String userid, int count) throws Exception {
 		// TODO Auto-generated method stub
-		pDetailDao.insertCart(pid, uid, count);
+		pDetailDao.insertCart(pid, userid, count);
 	}
 
 	@Override
-	public void insertPurchase(String pid, String uid, int count) throws Exception {
+	public void insertPurchase(String pid, String userid, int count) throws Exception {
 		// TODO Auto-generated method stub
-		pDetailDao.insertPurchase(pid, uid, count);
+		pDetailDao.insertPurchase(pid, userid, count);
 		
 	}
 

@@ -35,14 +35,14 @@ public class J_pDetailController {
 		String button = request.getParameter("button");
 		
 		HttpSession session = request.getSession();
-//		String uid = (String) session.getAttribute("userid");
-		String uid = "bono";
+		String userid = (String) session.getAttribute("USERID");
+//		String userid = "bono";
 		
 		if (button.equals("btnCart")) {
-			service.insertCart(pid, uid, count);
+			service.insertCart(pid, userid, count);
 			return "T_cart";
 		} else if (button.equals("btnPurchase")) {
-			service.insertPurchase(pid, uid, count);
+			service.insertPurchase(pid, userid, count);
 			return "T_purchase";
 		}
 		

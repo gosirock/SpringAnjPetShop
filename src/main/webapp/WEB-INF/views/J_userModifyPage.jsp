@@ -100,8 +100,8 @@ $(document).ready(function() {
 	
 	/* 이메일 입력받기 */
 	function selectedEmail(){
-		var emailDomain = document.getElementById("domainSelect");
 		var customDomain = document.getElementById("customDomain");
+		var emailDomain = document.getElementById("domainSelect");
 		
 		if(emailDomain.value === "custom") {
 			customDomain.value = null ;
@@ -112,6 +112,27 @@ $(document).ready(function() {
 			customDomain.readOnly = true ;
 			
 		} 
+	}
+	
+	// 비밀번호 유효성 검사
+	function checkValidatePw() {
+		var password = document.getElementById("pfUserpw").value;
+		var numbersOnly = /^\d+$/; // 숫자 패턴
+		var inputCharacters = /[!@#$%^&*(),.?":{}|<>]/; // 특수 기호 패턴
+		
+		var checkValidatePwLabel = document.getElementById("checkValidatePw"); // 유효성 검사 결과 보여줄 <span> 요소
+		if (password.length < 8 || password.length >16) {
+			checkValidatePwLabel.textContent="비밀번호는 영문 숫자 포함 8자 이상 16자 이하까지 입력할 수 있습니다.";
+			checkValidatePwLabel.style.color="red";
+		} else if (numbersOnly.test(password)) {
+			checkValidatePwLabel.textContent="비밀번호는 영문이 포함되어야 합니다.";
+			checkValidatePwLabel.style.color="red";
+		} else if (inputCharacters.test(password)) {
+			checkValidatePwLabel.textContent="비밀번호에 특수 문자를 사용할 수 없습니다.";
+			checkValidatePwLabel.style.color="red";
+		} else {
+			checkValidatePwLabel.textContent=" ";
+		}
 	}
 	
 	// 비밀번호 확인 칸에 입력할 때마다 일치 여부를 확인하는 함수
@@ -212,33 +233,33 @@ $(document).ready(function() {
 	
 		<h1 id="pageTitle">${userView.username }님의 정보</h1><br/>
 		<div id="requiredInfo">
-			<p style="font-size: 20px; text-align: left;">기본 정보</p>
-			<p style="font-size: 15px; text-align: right;">* 표시는 필수 입력 사항</p>
+			<p style="font-size: 20px; text-align: right;">* 표시는 필수 입력 사항</p>
 		</div>
 		
-		<form action="updateInfo" id="updateForm">
+		<form name="form1">
 		<hr>
-		<table id="userInfoUpdate">
+		<table id="userInfo">
 			<tr>
-				<td id="infoUpdate" style="background-color: #FFFFF0;"> 아이디 <sup>*</sup> &nbsp;&nbsp;</td>
+				<td id="userid" style="background-color: #FFFFF0;"> 아이디 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;<input type="text" name="userid" id="tfUserid" value="${userView.userid }" maxlength="15" readonly="readonly" disabled="disabled" >&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
-				<td id="infoUpdate" style="background-color: #FFFFF0;"> 비밀번호 변경 <sup>*</sup> &nbsp;&nbsp; </td>
-				<td>&nbsp;&nbsp;<input type="password" name="userpasswd" id="pfUserpw" maxlength="30" onkeyup="checkPasswordMatch();">&nbsp;&nbsp; (영문, 숫자 포함 8 ~ 16 글자)</td>
+				<td id="userpw" style="background-color: #FFFFF0;"> 비밀번호 변경 <sup>*</sup> &nbsp;&nbsp; </td>
+				<td>&nbsp;&nbsp;<input type="password" name="userpasswd" id="pfUserpw" maxlength="30" onkeyup="checkValidatePw(); checkPasswordMatch();">&nbsp;&nbsp; (영문, 숫자 포함 8 ~ 16 글자) <br>
+				&nbsp;&nbsp;<span id="checkValidatePw"></span> </td>
 			</tr>
 			<div id="pwCheck">
 				<tr>
-					<td id="infoUpdate"> 비밀번호 변경 확인 <sup>*</sup> &nbsp;&nbsp; </td>
+					<td id="userpwCheck"> 비밀번호 변경 확인 <sup>*</sup> &nbsp;&nbsp; </td>
 					<td>&nbsp;&nbsp;<input type="password" id="pfUserpwCheck" maxlength="30" onkeyup="checkPasswordMatch();">&nbsp;&nbsp;<span id="passwordMatch"></span> </td>
 				</tr>
 			</div>
 			<tr>
-				<td id="infoUpdate"> 이름 <sup>*</sup> &nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;<input type="text" id="pfUserpw" value="${userView.username }" maxlength="15" readonly="readonly" disabled="disabled">&nbsp;&nbsp;</td>
+				<td id="username"> 이름 <sup>*</sup> &nbsp;&nbsp;</td>
+				<td>&nbsp;&nbsp;<input type="text" id="tfUserName" value="${userView.username }" maxlength="15" readonly="readonly" disabled="disabled">&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
-				<td id="infoUpdate"> 배송지 주소  &nbsp;&nbsp;</td>
+				<td id="useraddress"> 배송지 주소  &nbsp;&nbsp;</td>
 				<td style="padding: 18px;">
 					<input type="text" id="sample6_postcode" value="${userView.userpostcode }" readonly="readonly" name="userpostcode">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -246,11 +267,11 @@ $(document).ready(function() {
 					 기본 주소<br> 
 					<input type="text"	id="sample6_detailAddress" value="${userView.userdetailaddress }" name="userdetailaddress">
 					 나머지 주소 (선택 입력 가능)<br>
-					<p style="font-size: 12px; text-align: left;"> ※ 상세주소(아파트 동, 호수) 꼭 기재 부탁드립니다.</p> 
+					<p style="font-size: 15px; text-align: left;"> ※ 상세주소(아파트 동, 호수) 꼭 기재 부탁드립니다.</p> 
 				</td>
 			</tr>
 			<tr>
-				<td id="infoUpdate"> 휴대전화 <sup>*</sup> &nbsp;&nbsp;</td>
+				<td id="usertel"> 휴대전화 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td> &nbsp;&nbsp;
 					<select name="phone1" id="tfUserPhone1" >
 						<option value="010">010</option>
@@ -264,7 +285,7 @@ $(document).ready(function() {
 				</td>
 			</tr>
 			<tr>
-				<td id="infoUpdate"> 이메일 <sup>*</sup> &nbsp;&nbsp;</td>
+				<td id="useremail"> 이메일 <sup>*</sup> &nbsp;&nbsp;</td>
 				<td> &nbsp;&nbsp;
 					<input type="text" name="useremail" id="inputEmail" onfocus="clearField('inputEmail')">
 					@<input type="text" name="userdomain" id="customDomain" onfocus="clearField('customDomain')" >
@@ -279,21 +300,52 @@ $(document).ready(function() {
 				</td>
 			</tr>
 		</table><br/>
-		<input type="submit" id="btnUpdate" value="회원정보 수정">&nbsp;&nbsp;
-		</form>
-		
-		<form action="j_uProfilePage"> 		<!-- 취소버튼 클릭시 메인페이지로 보내기 -->
-			<input type="submit" id="btnCancel" value="취소">  <br/>
-		</form>
-		
-		<form id="deleteForm" action="deleteInfo">
-			<input type="submit" id="btnDeleteInfo" value="회원 탈퇴">
+		<div id="buttons">
+			<input type="button" id="btnUpdate" value="회원정보 수정">&nbsp;&nbsp;
+			<input type="button" id="btnCancel" value="취소"> &nbsp;&nbsp; 
+			<input type="button" id="btnDelete" value="회원 탈퇴">
+		</div>
 		</form>
 	
-		
+	<script type="text/javascript">
+		var btnUpdate = document.getElementById("btnUpdate");
+		var btnCancel = document.getElementById("btnCancel");
+		var btnDelete = document.getElementById("btnDelete");
 	
+		btnUpdate.onclick = function() {
+			 var confirmation = confirm('회원 정보를 수정하시겠습니까?');
+			 if (confirmation === true) {
+			   // 확인 버튼 클릭 시
+			   alert('회원 정보 수정이 정상적으로 처리되었습니다.');
+			   document.form1.action = "/updateInfo";
+			   document.form1.submit();
+			 } else {
+			   // 취소 버튼 클릭 시
+			   alert('회원 정보 수정이 취소되었습니다.');
+			   return false;
+			 }
+		}
 	
+		btnCancel.onclick = function() {
+			document.form1.action = "/j_uProfilePage";
+			document.form1.submit();
+		}
 	
+		btnDelete.onclick = function() {
+			var confirmation = confirm('정말로 회원을 탈퇴하시겠습니까?');
+			if (confirmation === true) {
+			   // 확인 버튼 클릭 시
+			   alert('회원 탈퇴가 정상적으로 처리되었습니다.');
+				document.form1.action = "/deleteInfo";
+				document.form1.submit();
+			 } else {
+			   // 취소 버튼 클릭 시
+			   alert('회원 탈퇴가 취소되었습니다.');
+			   return false;
+			 }
+		}
+	
+	</script>
 	</main>
 	<footer>
             <ul>
@@ -364,7 +416,7 @@ document.getElementById('tfUserPhone3').value = phone3;
 
 
 /* 회원정보 수정시 확인창 띄우기 */
-document.getElementById('updateForm').addEventListener('submit', function(e) {
+document.getElementById('btnUpdate').addEventListener('submit', function(e) {
  e.preventDefault(); // 버튼의 기본 동작(폼 전송)을 막습니다.
  
 
@@ -381,7 +433,7 @@ document.getElementById('updateForm').addEventListener('submit', function(e) {
 });
 
 /* 회원 탈퇴 클릭시 경고창 띄우기 */
-document.getElementById('deleteForm').addEventListener('submit', function(e) {
+document.getElementById('btnDelete').addEventListener('submit', function(e) {
  e.preventDefault(); // 버튼의 기본 동작(폼 전송)을 막습니다.
  
 

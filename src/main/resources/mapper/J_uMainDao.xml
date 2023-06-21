@@ -8,8 +8,8 @@
 	<select id="userInfo" resultType="com.springlec.base.model.J_userDto">
 		SELECT * 
 		FROM user 
-		WHERE userid = 'do' 
-		<!-- WHERE userid = #{userid} -->		
+		<!-- WHERE userid = 'do'  -->
+		WHERE userid = #{userid}		
 	</select>
 	
 	<!-- 2. 해당 유저의 마일리지 관련 정보 불러오기  -->
@@ -17,8 +17,8 @@
 		SELECT userid, count(orderseq) as ordercount, cast(sum(orderprice)*0.01 as unsigned) as totalMileage, 
 				sum(orderprice) as totalPrice, sum(usedmileage) as totalUsedMileage 
 		FROM orders 
-		WHERE userid = 'do' 
-		<!-- WHERE userid = #{userid} -->
+		<!-- WHERE userid = 'do'  -->
+		WHERE userid = #{userid}
 		GROUP BY userid		
 	</select>
 	
@@ -27,16 +27,16 @@
 		UPDATE user 
 		SET userpasswd=#{userpasswd}, usertel=#{usertel}, useremail=#{useremail}, userpostcode=#{userpostcode}, 
 			useraddress=#{useraddress}, userdetailaddress=#{userdetailaddress} 
-		WHERE userid = 'do'
-		<!-- WHERE userid = #{userid} -->
+		<!-- WHERE userid = 'do' -->
+		WHERE userid = #{userid}
 	</update>
 	
 	<!-- 4. 회원 탈퇴 처리  -->
 	<update id="deleteInfo">
 		UPDATE user
 		SET deletedate=now()
-		WHERE userid = 'do'
-		<!-- WHERE userid = #{userid} -->
+		<!-- WHERE userid = 'do' -->
+		WHERE userid = #{userid}
 	</update>
 	
 

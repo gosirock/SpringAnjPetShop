@@ -169,64 +169,52 @@ header .head-wrap-sub ul li a:hover {
 	justify-content: space-between;
 }
 
-#userInfoUpdate {
-	/* padding: 30px; */
+
+#pageTitle {			/* 첫 화면 페이지 이름 */
+	text-align: center; 
+	color : #477A7B; 
+}
+
+#requiredInfo {
+	text-align: right;
+}
+
+#userInfo {
+	margin-left: auto;
+	margin-right: auto;
 	border-collapse: collapse; /* 인접한 셀의 경계를 합치기 */
 } 
 
-#userInfoUpdate tr{
+#userInfo tr{
 	padding: 30px; 
 	border-bottom: 1px solid lightgray;
 } 
 
-#infoUpdate {
+#userid, #userpw, #userpwCheck, #username, #useraddress, #usertel, #useremail {
 	text-align: center;
-	font-size: 15px;
+	font-size: 20px;
 	padding: 30px;
 	background-color: #FFFFF0;
 }
-
-#pageTitle {			/* 첫 화면 페이지 이름 */
-	text-align: center; 
-	/* color : #477A7B; */
-}
-
-#requiredField {
-	text-align: right;
-}
-
-#tfUserid {
-	font-size: 15px;
+#tfUserid, #pfUserpw, #pfUserpwCheck, #tfUserName {
+	font-size: 20px;
 	width: 200px;
 	height: 10px;
 	padding: 10px;
-}
-
-#pfUserpw, #pfUserpwCheck {
-	font-size: 15px;
-	width: 200px;
-	height: 10px;
-	padding: 10px;
-}
-
-#pfUserpw1 {
-	font-size: 15px;
-	width: 200px;
-	height: 10px;
-	padding: 10px;
-	
 }
 
 #sample6_postcode{
-	font-size: 15px;
+	font-size: 20px;
 	width: 150px;
-	height: 30px;
+	height: 10px;
+	padding: 10px;
 }
 
 #sample6_address, #sample6_detailAddress{
-	font-size: 15px;
-	width: 250px;
-	height: 30px;
+	font-size: 20px;
+	width: 300px;
+	height: 10px;
+	padding: 10px;
 }
 
 #tfUserPhone1 {
@@ -252,39 +240,24 @@ header .head-wrap-sub ul li a:hover {
 	height: 25px;
 }
 
+#buttons{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
 
-
-#btnUpdateInfo{
-	display: flex;
+#btnUpdate, #btnCancel, #btnDelete{
+	display: inline-block;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	font-size: 25px;
 	width: 200px;
 	height: 50px;
+	background-color: #FFFFF0;
+	border-color: 1px solid lightgray;
 }
 
-#btnCancel {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	font-size: 25px;
-	width: 200px;
-	height: 50px;
-	
-}
-
-#btnDeleteInfo{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	font-size: 15px;
-	width: 100px;
-	height: 30px;
-	
-}
 .dropdown {
 	position: relative;
 	display: inline-block;

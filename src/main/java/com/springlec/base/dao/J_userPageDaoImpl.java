@@ -26,7 +26,7 @@ public class J_userPageDaoImpl implements J_userPageDao {
 
 	// 회원 정보 수정 처리 
 	@Override
-	public void updateInfo(String userpasswd, String usertel, String useremail, int userpostcode,
+	public void updateInfo(String userid, String userpasswd, String usertel, String useremail, int userpostcode,
 			String useraddress, String userdetailaddress) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update(nameSpace + ".updateInfo");

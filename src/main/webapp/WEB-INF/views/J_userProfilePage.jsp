@@ -9,28 +9,6 @@
 <title>어제보다 더 나은, ANJ Shop</title>
 <link rel="stylesheet" href="CSS/J_userProfilePage.css">
 
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
-		$("#btnUpdate").click(function() {
-			// 확인 대화상자
-			if (confirm("회원님의 정보를 수정하시겠습니까?")) {
-				document.form1.action = "/modifyUser"
-				document.form1.submit();
-			}
-		});
-	});
-	
-	$(document).ready(function(){
-		$("#btnDelete").click(function() {
-			// 확인 대화상자
-			if (confirm("회원님의 정보를 삭제하시겠습니까?")) {
-				document.form1.action = "/deleteUser"
-				document.form1.submit();
-			}
-		});
-	});
-</script> -->
-
 	<!-- 주소api -->
 <script type="text/javascript">
 // 드롭다운 
@@ -198,8 +176,8 @@ $(document).ready(function() {
 			<tr>
 				<td id="useraddress"> 배송지 주소  &nbsp;&nbsp;</td>
 				<td style="padding: 18px;">
-					<input type="text" id="sample6_postcode" value="${userView.userpostcode }" readonly="readonly" name="userpostcode">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="sample6_postcode" value="${userView.userpostcode }" readonly="readonly" name="userpostcode" style="padding: 10px">
+					<input type="button" onclick="sample6_execDaumPostcode()" style="font-size: 20px" value="우편번호 찾기"><br>
 					<input type="text" id="sample6_address" value="${userView.useraddress }" readonly="readonly" name="useraddress">
 					 기본 주소<br> 
 					<input type="text"	id="sample6_detailAddress" value="${userView.userdetailaddress }" readonly="readonly" name="userdetailaddress">
@@ -218,7 +196,7 @@ $(document).ready(function() {
 					<input type="text" size="30" name="useremail" id="tfUserEmail" value="${userView.useremail }" readonly="readonly">
 				</td>
 			</tr>
-		</table><br/>
+		</table><br/><br/>
 		
 		<!-- <form action="modifyUser" id="updateForm">
 			<input type="submit" id="btnUpdate" value="회원정보 수정">&nbsp;&nbsp;
@@ -232,19 +210,19 @@ $(document).ready(function() {
 			<input type="submit" id="btnDelete" value="회원 탈퇴">
 		</form> -->
 		
-		
-			<input type="button" value="회원 정보 수정" id="btnUpdate" style="display: inline-block;">
-			<input type="button" value="뒤로 가기" id="btnBack" style="display: inline-block;"">
-			<input type="button" value="홈화면" id="btnHome" style="display: inline-block;"">
-			
+			<div id="buttons">
+				<input type="button" value="뒤로 가기" id="btnBack" style="display: inline-block;">&nbsp;&nbsp;
+				<input type="button" value="회원 정보 수정" id="btnUpdate" style="display: inline-block;">&nbsp;&nbsp;
+				<input type="button" value="홈화면" id="btnHome" style="display: inline-block;">
+			</div>
 		</form>
 		
 		<div id="checkPwModal" class="modal" style="display: none;">
 			<div class="modal-content">
-				<h3>비밀번호를 입력하신 후 이용 가능하신 서비스입니다.</h3><br>
-				<input type="password" id="inputPw" placeholder="비밀번호를 입력해 주세요"> <br>
-				<span id="message"></span> <br>
-				<button id="btnPwSubmit">확인</button>
+				<h3>고객님의 개인정보 보호를 위해 비밀번호를 입력해주세요.</h3><br>
+				<input type="password" id="inputPw" size="35" style="height: 40px; " placeholder=" 비밀번호를 입력해 주세요"> <br><br>
+				<span id="message"></span> <br><br>
+				<button id="btnPwSubmit">확인</button> &nbsp;&nbsp;
 				<button id="btnPwCancel">취소</button> <br>
 			</div>
 		</div>
@@ -344,53 +322,5 @@ $(document).ready(function() {
                 </p>   
             </div>
         </footer>
-	
-	
-	
-
-
-
-
-
-
 </body>
- <!-- <script type="text/javascript">
-
-
-/* 회원정보 수정시 확인창 띄우기 */
-document.getElementById('updateForm').addEventListener('submit', function(e) {
- e.preventDefault(); // 버튼의 기본 동작(폼 전송)을 막습니다.
- 
-
- var confirmation = confirm('회원 정보를 수정하시겠습니까?');
- if (confirmation === true) {
-   // 확인 버튼 클릭 시
-   alert('회원 정보 수정이 정상적으로 처리되었습니다.');
-	this.submit();
- } else {
-   // 취소 버튼 클릭 시
-   alert('회원 정보 수정이 취소되었습니다.');
-   return false;
- }
-});
-
-/* 회원 탈퇴 클릭시 경고창 띄우기 */
-document.getElementById('deleteForm').addEventListener('submit', function(e) {
- e.preventDefault(); // 버튼의 기본 동작(폼 전송)을 막습니다.
- 
-
- var confirmation = confirm('정말로 회원을 탈퇴하시겠습니까?');
- if (confirmation === true) {
-   // 확인 버튼 클릭 시
-   alert('회원 탈퇴가 정상적으로 처리되었습니다.');
-	this.submit();
- } else {
-   // 취소 버튼 클릭 시
-   alert('회원 탈퇴가 취소되었습니다.');
-   return false;
- }
-});
-
-
-</script> 
- --></html>
+</html>

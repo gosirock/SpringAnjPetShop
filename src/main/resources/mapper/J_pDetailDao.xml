@@ -6,17 +6,17 @@
 	
 	<!-- 1. 사용자가 선택한 제품 상세 정보 페이지 -->
 	<select id="viewPDetail" resultType="com.springlec.base.model.J_productDto">
-		SELECT * FROM product WHERE pid = 'C1001' 	<!-- #{pid}로 바꿔줘야돼  -->
+		SELECT * FROM product WHERE pid = #{pid} 	<!-- #{pid}로 바꿔줘야돼  -->
 	</select>
 	
 	<!-- 2. 카트 테이블에 수량, 제품아이디, 유저아이디 입력하기 -->
 	<insert id="insertCart">
-		INSERT INTO cart (count, pid, userid) VALUES (#{count}, #{pid}, 'bono') 	<!-- uid 값을 #{uid}로 쓸것  -->
+		INSERT INTO cart (count, pid, userid) VALUES (#{count}, #{pid}, #{userid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
 	</insert>
 
 	<!-- 3. 구매 테이블에 수량, 제품아이디, 유저아이디 입력하기 -->
 	<insert id="insertPurchase">
-		INSERT INTO purchase (count, pid, userid) VALUES (#{count}, #{pid}, 'bono') 	<!-- uid 값을 #{uid}로 쓸것  -->
+		INSERT INTO purchase (count, pid, userid) VALUES (#{count}, #{pid}, #{userid}) 	<!-- uid 값을 #{uid}로 쓸것  -->
 	</insert>
 
 
