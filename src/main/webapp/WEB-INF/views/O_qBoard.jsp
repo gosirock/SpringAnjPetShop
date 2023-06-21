@@ -64,7 +64,7 @@ function loginCheck(){
 												<a href="A_Part">Part</a>
 											</div>
 								</li>
-								<li class="main-nav01"><a href="A_ProductView.do">SHOP</a></li>
+								<li class="main-nav01"><a href="Product">SHOP</a></li>
 									<li class="main-nav02 dropdown">
 										<a href="O_review">COMMUNITY</a>
 											<div class="dropdown-content">
