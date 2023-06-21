@@ -123,7 +123,7 @@ $(document).ready(function() {
 										  </c:when>
 										  <c:otherwise>
 										    <!-- 세션 값이 있을 때 -->
-										    <li><button class="btn-login btn-dog" onclick="location.href='A_logout.do'">Logout</button></li>
+										    <li><button class="btn-login btn-dog" onclick="location.href='Logout'">Logout</button></li>
 										    <li><button class="btn-login btn-dog" onclick="location.href='j_userPage'">MyPage</button></li>
 										  </c:otherwise>
 										</c:choose>
