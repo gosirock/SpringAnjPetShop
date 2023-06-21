@@ -72,7 +72,7 @@
 </script>
 <body>
 
-						<header>
+			<header>
 				<div class="head-wrap">
 					<div class="head-wrap-inner">
 						<a href="Main?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
@@ -160,7 +160,7 @@
 							<div class="product-grid">
 							  <c:forEach items="${A_ProductView}" var="dto">
 							    <div class="product-item">
-							      <a href="j_productClicked.do?pid=${dto.pid}">
+							      <a href="j_pClicked?pid=${dto.pid}">
 							        <img class="thumbnail" src="images/thumbnail/${dto.pthumbnail}.png" alt="Product Thumbnail">
 							      </a>
 							      <h3>${dto.pname}</h3>

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>${productDetail.pname }</title> 					<!--  상품 페이지에서 선택한 제품의 상세 페이지입니다. -->
 <!-- <link rel="stylesheet" href="A_heardCss.css"> -->
-<link rel="stylesheet" href="J_productDetail.css">
+<link rel="stylesheet" href="CSS/J_productDetail.css">
 
 <script type="text/javascript">
 // 드롭다운 
