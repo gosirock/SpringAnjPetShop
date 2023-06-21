@@ -201,7 +201,7 @@ $(document).ready(function() {
 	
 
 </body>
-<script type="text/javascript" src="J_productDetail.js"></script>
+<script type="text/javascript" src="/JS/J_productDetail.js"></script>
 <script type="text/javascript">
 function clickPlus() {		/* 수량 파트 : (+) 클릭할 때 */
   	var tfQuantity = document.getElementById('quantity');		// 수량 텍스트 필드에 입력되어있는 값(문자).
