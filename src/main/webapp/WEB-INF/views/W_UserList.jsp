@@ -200,12 +200,12 @@
 				for (let i = 1; i <= Math.ceil(item.count/pagesize); i++) {
 					$("#pagenum").append('<li value="' + i + '" id="' + i + '">' + i + '</li>');
 				}
-				if(item.count>pagenum){
+				if(Math.ceil(item.count/pagesize)>pagenum){
 					$("#pagenum").append('<li id="next">다음</li>');
 					$("#pagenum").append('<li id="last">마지막</li>');
 				}
 				
-				pageend=item.count;
+				pageend=Math.ceil(item.count/pagesize);
 				$('#'+pagenum).css({'color':'red', 'text-decoration':'underline'});
 			}
 		});
@@ -262,12 +262,12 @@
 						for (let i = 1; i <= Math.ceil(item.count/pagesize); i++) {
 							$("#pagenum").append('<li value="' + i + '" id="'+i+'">' + i + '</li>');
 						}
-						if(item.count>pagenum){
+						if(Math.ceil(item.count/pagesize)>pagenum){
 							$("#pagenum").append('<li id="next">다음</li>');
 							$("#pagenum").append('<li id="last">마지막</li>');
 						}
 						
-						pageend=item.count;
+						pageend=Math.ceil(item.count/pagesize);
 						$('#'+pagenum).css({'color':'red', 'text-decoration':'underline'});
 					}
 				});
@@ -312,11 +312,11 @@
 						for (let i = 1; i <= Math.ceil(item.count/pagesize); i++) {
 							$("#pagenum").append('<li value="' + i + '" id="'+i+'">' + i + '</li>');
 						}
-						if(item.count>1){
+						if(Math.ceil(item.count/pagesize)>1){
 							$("#pagenum").append('<li id="next">다음</li>');
 							$("#pagenum").append('<li id="last">마지막</li>');
 						}
-						pageend=item.count;
+						pageend=Math.ceil(item.count/pagesize);
 						$('#'+pagenum).css({'color':'red', 'text-decoration':'underline'});
 					}
 				});
@@ -363,11 +363,11 @@
 							
 						}
 						
-						if(item.count>1){
+						if(Math.ceil(item.count/pagesize)>1){
 							$("#pagenum").append('<li id="next">다음</li>');
 							$("#pagenum").append('<li id="last">마지막</li>');
 						}
-						pageend=item.count;
+						pageend=Math.ceil(item.count/pagesize);
 						$('#'+pagenum).css({'color':'red', 'text-decoration':'underline'});
 					}
 				});

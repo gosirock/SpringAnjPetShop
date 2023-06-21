@@ -40,7 +40,7 @@ function loginCheck() {
 		data:{"id":id,"pw":passwd},
 		success:function(data){
 		if(data=="admin"){ 
-			location.href = 'W_Home.do?adminid='+id;
+			location.href = 'W_Home?adminid='+id;
 		}else if(data=="user"){
 			location.href = 'Main?userid='+id;
 			form.submit()

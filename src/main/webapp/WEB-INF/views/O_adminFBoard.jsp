@@ -63,21 +63,21 @@
 <header>
 					  <nav>
 					    <ul>
-					      <li><a href="W_Home.do">HOME</a></li>
-					      <li><a href="W_ProductList.jsp">상품 관리</a>
+					      <li><a href="W_Home">HOME</a></li>
+					      <li><a href="W_ProductList">상품 관리</a>
 					      	<ul>
-					      		<li><a href="W_ProductList.jsp">상품 목록</a></li>
-					      		<li><a href="W_ProductInsert.jsp">상품 등록</a></li>
+					      		<li><a href="W_ProductList">상품 목록</a></li>
+					      		<li><a href="W_ProductInsert">상품 등록</a></li>
 					      	</ul>
 					      </li>
-					      <li><a href="W_UserList.jsp">회원 관리</a></li>
+					      <li><a href="W_UserList">회원 관리</a></li>
 					      <li><a href="O_adminNotice">게시판 관리</a>
 					      	
 					      	</li>
-					      <li><a href="W_SalesDaily.jsp">매출현황</a>
+					      <li><a href="W_SalesDaily">매출현황</a>
 					      <ul>
-					      		<li><a href="W_SalesDaily.jsp">일별 매출</a></li>
-					      		<li><a href="W_SalesMonthly.jsp">월별 매출</a></li>
+					      		<li><a href="W_SalesDaily">일별 매출</a></li>
+					      		<li><a href="W_SalesMonthly">월별 매출</a></li>
 					      	</ul>
 					      </li>
 					    </ul>
