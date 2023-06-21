@@ -156,15 +156,16 @@
 							<h1 style="text-align: center; color: #477A7B;">ANJ's Pick</h1><br>
 						
 							<div class="product-grid">
-								<c:forEach items="${A_ProductView}" var="dto">
-									<div class="product-item">
-										<a href="j_productClicked.do?pid=${dto.pid }"
-										><img src="images/thumbnail/${dto.pthumbnail}.png" alt="Product Thumbnail"></a>
-										<h3>${dto.pname}</h3>
-										<p>Price: ${dto.pprice} JPY</p>
-									</div>
-								</c:forEach>
-							</div><br/><br/><br/>
+								 <c:forEach items="${A_ProductView}" var="dto">
+								    <div class="product-item">
+								      <a href="j_productClicked.do?pid=${dto.pid}">
+								        <img class="thumbnail" src="images/thumbnail/${dto.pthumbnail}.png" alt="Product Thumbnail">
+								      </a>
+								      <h3>${dto.pname}</h3>
+								      <p>Price: ${dto.pprice} JPY</p>
+								    </div>
+								  </c:forEach>
+								</div><br/><br/><br/>
 				
 				
 			  

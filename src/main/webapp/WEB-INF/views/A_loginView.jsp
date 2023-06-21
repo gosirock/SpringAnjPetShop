@@ -50,7 +50,7 @@ function loginCheck() {
 		}
 		},
 		error:function(){
-			alert("실패");
+			alert("아이디 비밀번호를 확인하세");
 		}
 	});	
 	

@@ -639,3 +639,10 @@ hr {
     cursor: pointer;
 }
 
+.thumbnail {
+    width: 100px;
+    transition: transform 0.3s;
+  }
+  .thumbnail:hover {
+    transform: scale(1.2);
+  }
