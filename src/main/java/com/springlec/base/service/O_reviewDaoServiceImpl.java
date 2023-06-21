@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springlec.base.dao.O_reviewDao;
 import com.springlec.base.model.O_commentsDto;
 import com.springlec.base.model.O_reviewDto;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class O_reviewDaoServiceImpl implements O_reviewDaoService {
 
 	@Autowired

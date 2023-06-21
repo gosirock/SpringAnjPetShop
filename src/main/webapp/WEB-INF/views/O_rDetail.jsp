@@ -212,7 +212,7 @@
 		<!-- 댓글 뷰 -->
 		<div>
 			<c:if test="${not empty sessionScope.USERID}">
-				<form name="writeParentComment" method="post">
+				<form action="O_writeParentComment" method="post">
 				<input type="hidden" name="userid" value="${sessionScope.USERID}">
 				<input type="hidden" name="seq" value="${seq }">
 					<table class="board-table">
@@ -223,7 +223,7 @@
 									<span class="comment"><input type="text" name="comment" placeholder="댓글을 입력하세요." ></span>
 								</th>
 								<th><input class="comment-cancel-button" type="reset" value="취소"></th>
-								<th><input class="comment-write-button" type="button" value="댓글" onclick="writeAction()"></th>
+								<th><input class="comment-write-button" type="submit" value="댓글"></th>
 							</tr>
 						</thead>
 					</table>
@@ -298,7 +298,7 @@
 								</c:otherwise>
 							</c:choose>
 							<c:if test="${not empty sessionScope.USERID}">
-							<input type="button" class="comment-button" value="답글창" onclick="showHiddenRow('row_${dto.c_seq}');">
+							<input type="button" class="comment-button" value="💬" onclick="showHiddenRow('row_${dto.c_seq}');">
 							</c:if>
 						</td>
 					</tr>

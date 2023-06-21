@@ -263,7 +263,7 @@
 										value=" ${indentation1}&nbsp;&nbsp;${dto.comments}&nbsp;&nbsp;&nbsp;&nbsp;">
 								</c:otherwise>
 							</c:choose>
-							<input type="button" value="+" onclick="showHiddenRow('row_${dto.c_seq}');">
+							<input type="button" value="💬" onclick="showHiddenRow('row_${dto.c_seq}');">
 						</td>
 					</tr>
 					<tr id="row_${dto.c_seq}" class="hidden_row">
