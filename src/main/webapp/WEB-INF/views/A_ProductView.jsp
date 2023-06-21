@@ -174,6 +174,7 @@
   							<button onclick="goToPreviousPage()">Back</button>
   						<div id="pageNumbers">
 						     <span id="currentPage" class="page-number"></span>
+						     <span id="currentPage"></span><span id="totalPages"></span>
 						  </div>
 						  <button onclick="goToNextPage()">Next</button>
 						</div>
@@ -182,62 +183,74 @@
 			
 			
 						<script>
-						 // 한 페이지에 보여줄 상품의 개수
-						  var itemsPerPage = 8;
+						// 한 페이지에 보여줄 상품의 개수
+						var itemsPerPage = 8;
 
-						  // 상품 목록 컨테이너 요소
-						  var productGrid = document.querySelector('.product-grid');
+						// 상품 목록 컨테이너 요소
+						var productGrid = document.querySelector('.product-grid');
 
-						  // 상품 아이템 요소들
-						  var productItems = productGrid.querySelectorAll('.product-item');
+						// 상품 아이템 요소들
+						var productItems = productGrid.querySelectorAll('.product-item');
 
-						  // 상품 아이템 개수
-						  var itemCount = productItems.length;
+						// 상품 아이템 개수
+						var itemCount = productItems.length;
 
-						  // 현재 페이지 번호
-						  var currentPage = 1;
+						// 현재 페이지 번호
+						var currentPage = 1;
 
-						  // 전체 페이지 개수
-						  var totalPages = Math.ceil(itemCount / itemsPerPage);
+						// 전체 페이지 개수
+						var totalPages = Math.ceil(itemCount / itemsPerPage);
 
-						  // 페이지를 업데이트하는 함수
-						  function updatePage() {
-						    // 모든 상품 아이템을 숨김
-						    productItems.forEach(function (item) {
-						      item.style.display = 'none';
-						    });
+						// 페이지를 업데이트하는 함수
+						function updatePage() {
+						  // 모든 상품 아이템을 숨김
+						  productItems.forEach(function (item) {
+						    item.style.display = 'none';
+						  });
 
-						    // 현재 페이지에 해당하는 상품 아이템만 보여줌
-						    var startIndex = (currentPage - 1) * itemsPerPage;
-						    var endIndex = startIndex + itemsPerPage;
-						    for (var i = startIndex; i < endIndex && i < itemCount; i++) {
-						      productItems[i].style.display = 'block';
-						    }
-
-						    // 현재 페이지 번호를 표시하는 요소 업데이트
-						    var currentPageElement = document.getElementById('currentPage');
-						    currentPageElement.textContent = currentPage;
+						  // 현재 페이지에 해당하는 상품 아이템만 보여줌
+						  var startIndex = (currentPage - 1) * itemsPerPage;
+						  var endIndex = startIndex + itemsPerPage;
+						  for (var i = startIndex; i < endIndex && i < itemCount; i++) {
+						    productItems[i].style.display = 'block';
 						  }
 
-						  // 초기 페이지 업데이트
-						  updatePage();
+						  // 현재 페이지 번호를 표시하는 요소 업데이트
+						  var currentPageElement = document.getElementById('currentPage');
+						  currentPageElement.textContent = currentPage;
+						}
 
-						  // 페이지 번호를 클릭했을 때 해당 페이지로 이동
-						  function goToPage(page) {
-						    if (page < 1 || page > totalPages) {
-						      return;
-						    }
-						    currentPage = page;
+						// 전체 페이지 개수를 표시하는 요소 생성
+						var totalPagesElement = document.createElement('span');
+						totalPagesElement.id = 'totalPages';
+						totalPagesElement.textContent = totalPages;
+
+						// 현재 페이지 번호와 전체 페이지 개수를 표시하는 요소 찾기
+						var currentPageElement = document.getElementById('currentPage');
+						var paginationElement = currentPageElement.parentNode;
+
+						// 전체 페이지 개수를 표시하는 요소를 현재 페이지 번호 다음에 삽입
+						paginationElement.insertBefore(totalPagesElement, currentPageElement.nextSibling);
+
+						// 초기 페이지 업데이트
+						updatePage();
+
+						// 페이지 번호를 클릭했을 때 해당 페이지로 이동
+						function goToPage(page) {
+						  if (page < 1 || page > totalPages) {
+						    return;
+						  }
+						  currentPage = page;
+						  updatePage();
+						}
+
+						// 이전 페이지로 이동하는 함수
+						function goToPreviousPage() {
+						  if (currentPage > 1) {
+						    currentPage--;
 						    updatePage();
 						  }
-
-						  // 이전 페이지로 이동하는 함수
-						  function goToPreviousPage() {
-						    if (currentPage > 1) {
-						      currentPage--;
-						      updatePage();
-						    }
-						  }
+						}
 
 						  // 다음 페이지로 이동하는 함수
 						  function goToNextPage() {
@@ -246,6 +259,8 @@
 						      updatePage();
 						    }
 						  }
+						  
+						  
 						  
 						  
 						</script>
