@@ -43,7 +43,7 @@ $(document).ready(function() {
 				<header>
 				<div class="head-wrap">
 					<div class="head-wrap-inner">
-						<a href="A_MainView.do?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
+						<a href="Main?id=${sessionScope.USERID}"><img class="head-logo" src="LOGO.png"></a>  
 					</div>
 					<div class="head-wrap-sub">
 						<nav class="head-menu-main-nav">
