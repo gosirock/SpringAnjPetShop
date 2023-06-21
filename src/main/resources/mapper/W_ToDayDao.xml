@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.W_TodayDao">
+
+	<select id="W_TodayTable" resultType="com.springlec.base.model.W_SalesToday_Dto">
+		select count(orderseq) as count, sum(orderprice) as orderprice, sum(usedmileage) as usedmileage, (sum(orderprice)-sum(usedmileage)) as total, sum(count) as productcount from orders where DATE(orderdate) = CURDATE()
+	</select>
+
+	<select id="W_Yesterday" resultType="int">
+		select (sum(orderprice)-sum(usedmileage)) as total from orders where DATE(orderdate) = subdate(CURDATE(),1)
+	</select>
+	
+	<select id="W_avg" resultType="int">
+		SELECT AVG(orderprice - usedmileage) AS average FROM orders WHERE orderdate >= DATE_SUB(CURDATE(), INTERVAL 7 WEEK) AND <![CDATA[orderdate <= CURDATE()]]>
+	</select>
+</mapper>

@@ -1,13 +1,13 @@
 package com.springlec.base.model;
 
-public class W_SalesMothlyChart_Dto {
+public class W_SalesMonthlyChart_Dto {
 
 	
 	String date;
 	int total;
 	
 	
-	public W_SalesMothlyChart_Dto() {
+	public W_SalesMonthlyChart_Dto() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -15,7 +15,7 @@ public class W_SalesMothlyChart_Dto {
 	
 	
 
-	public W_SalesMothlyChart_Dto(int total, String date) {
+	public W_SalesMonthlyChart_Dto(int total, String date) {
 		super();
 		this.total = total;
 		this.date = date;
